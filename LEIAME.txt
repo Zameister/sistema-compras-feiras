@@ -1,0 +1,156 @@
+==============================================================================
+SISTEMA DE COMPRAS EM FEIRAS
+Técnicas de Programação 2 - 2/2025
+==============================================================================
+
+INTEGRANTES DO GRUPO:
+- Luidgi Varela Carneiro - 231011669
+- Arthur Souza Chagas - 221037385
+
+==============================================================================
+REQUISITOS DO SISTEMA
+==============================================================================
+
+Para compilar e executar o projeto, você precisa ter instalado:
+
+1. Compilador C++ (g++ com suporte a C++17)
+2. Make
+3. Google Test (GTest) - para testes unitários
+4. cppcheck - para análise estática
+5. cpplint - para verificação de estilo
+6. gcov - para cobertura de testes
+7. Doxygen - para geração de documentação
+8. Valgrind (opcional) - para verificação de memória
+
+Instalação no Ubuntu/Debian:
+$ sudo apt-get update
+$ sudo apt-get install build-essential g++ make
+$ sudo apt-get install libgtest-dev cppcheck
+$ sudo apt-get install doxygen valgrind
+$ pip install cpplint
+
+==============================================================================
+COMO COMPILAR
+==============================================================================
+
+Para compilar o projeto completo:
+$ make
+
+Para compilar apenas os testes:
+$ make test
+
+Para compilar com símbolos de debug:
+$ make debug
+
+==============================================================================
+COMO EXECUTAR
+==============================================================================
+
+Executar o programa principal:
+$ make run
+ou
+$ ./bin/sistema_feiras
+
+Executar os testes:
+$ make test
+ou
+$ ./bin/run_tests
+
+==============================================================================
+VERIFICAÇÕES DE QUALIDADE
+==============================================================================
+
+1. Análise Estática (cppcheck):
+$ make static-analysis
+
+2. Verificação de Estilo (cpplint):
+$ make style-check
+
+3. Cobertura de Testes (gcov):
+$ make coverage
+
+4. Verificação de Memória (Valgrind):
+$ make valgrind
+
+5. Gerar Documentação (Doxygen):
+$ make docs
+   # A documentação estará em docs/html/index.html
+
+==============================================================================
+ESTRUTURA DE ARQUIVOS
+==============================================================================
+
+sistema-compras-feiras/
+├── src/                  # Código fonte (.cpp)
+│   ├── main.cpp         # Programa principal
+│   └── produto.cpp      # Implementação do Produto
+├── include/             # Headers (.h)
+│   └── produto.h        # Definição do Produto
+├── tests/               # Testes unitários
+│   └── test_produto.cpp # Testes do Produto
+├── obj/                 # Objetos compilados (gerado)
+├── bin/                 # Executáveis (gerado)
+├── docs/                # Documentação (gerado)
+├── data/                # Arquivos de dados JSON
+├── Makefile             # Sistema de build
+├── Doxyfile             # Configuração do Doxygen
+├── README.md            # Documentação principal
+├── LEIAME.txt           # Este arquivo
+└── RELATORIO-*.txt      # Relatórios individuais
+
+==============================================================================
+COMANDOS MAKE DISPONÍVEIS
+==============================================================================
+
+make                  - Compila o projeto
+make test             - Compila e executa os testes
+make coverage         - Gera relatório de cobertura de testes
+make static-analysis  - Executa análise estática (cppcheck)
+make style-check      - Verifica estilo de código (cpplint)
+make docs             - Gera documentação (Doxygen)
+make debug            - Compila com símbolos de debug
+make valgrind         - Executa com Valgrind
+make run              - Executa o programa
+make clean            - Remove arquivos de build
+make clean-all        - Remove tudo incluindo documentação
+make help             - Mostra todos os comandos
+
+==============================================================================
+HISTÓRIAS DE USUÁRIO IMPLEMENTADAS
+==============================================================================
+
+Nesta versão inicial:
+- EU001: Procurar produtos pelo nome
+- EU004: Cadastrar produtos (feirante)
+
+Em desenvolvimento:
+- EU002: Ordenar produtos
+- EU003: Filtrar resultados
+- EU005: Mensagens para feirantes
+- EU006: Cadastrar categorias (admin)
+- EU007: Gerar relatórios (admin)
+
+==============================================================================
+PADRÕES E FERRAMENTAS
+==============================================================================
+
+Linguagem: C++ (C++17)
+Padrão de Código: Google C++ Style Guide
+Framework de Testes: Google Test (GTest)
+Controle de Versão: Git + GitHub
+Gerenciamento: Trello (Scrum/Kanban)
+
+==============================================================================
+LICENÇA
+==============================================================================
+
+MIT License
+Copyright (c) 2025 Luidgi Varela Carneiro, Arthur Souza Chagas
+
+==============================================================================
+CONTATO
+==============================================================================
+
+Para dúvidas ou problemas, entre em contato com os integrantes do grupo.
+
+Data de Entrega Final: 04/11/2025
