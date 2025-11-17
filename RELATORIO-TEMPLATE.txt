@@ -1,0 +1,47 @@
+RELATÓRIO INDIVIDUAL DE TRABALHO
+Sistema de Compras em Feiras
+Técnicas de Programação 2 - 2/2025
+
+Nome: [SEU NOME AQUI]
+Matrícula: [SUA MATRÍCULA AQUI]
+
+==============================================================================
+TABELA DE REGISTRO DE TRABALHO
+==============================================================================
+
+Data       | Horas | Tipo de Tarefa              | Descrição da Tarefa
+-----------|-------|-----------------------------|--------------------------
+17/11/2025 | 2.0   | estudar aulas e laboratórios| Revisão de C++ e Git
+17/11/2025 | 1.5   | especificar os módulos      | Definição da estrutura inicial
+17/11/2025 | 1.0   | codificar módulo            | Implementação classe Produto
+17/11/2025 | 1.0   | redigir casos de teste      | Testes unitários Produto
+17/11/2025 | 0.5   | realizar os testes          | Execução dos testes com GTest
+
+==============================================================================
+OBSERVAÇÕES
+==============================================================================
+
+Preencher esta tabela DIARIAMENTE conforme o trabalho é realizado.
+NÃO deixar para preencher no final!
+
+Tipos de Tarefa disponíveis:
+- estudar aulas e laboratórios relacionados
+- especificar os módulos
+- especificar as funções
+- revisar especificações
+- projetar
+- fazer diagramas
+- revisar projetos
+- codificar módulo
+- Rodar o verificador estático e retirar warnings
+- revisar código do módulo
+- redigir casos de teste
+- revisar casos de teste
+- realizar os testes
+- instrumentar verificando a cobertura
+- documentar com Doxygen
+- gerenciar a construção do software
+
+==============================================================================
+TOTAL DE HORAS TRABALHADAS: [ATUALIZAR CONFORME AVANÇA]
+==============================================================================
