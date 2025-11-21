@@ -1,0 +1,65 @@
+RELATÓRIO INDIVIDUAL DE TRABALHO Sistema de Compras em Feiras Técnicas
+de Programação 2 – 2/2025
+
+Nome: Luidgi Varela Carneiro Matrícula: 231011669
+
+==============================================================================
+TABELA DE REGISTRO DE TRABALHO
+==============================================================================
+
+  ----------------------------------------------------------------------------
+  Data         Horas   Tipo de Tarefa                  Descrição da Tarefa
+  ------------ ------- ------------------------------- -----------------------
+  20/11/2025   0.7     estudar aulas e laboratórios    Revisão de Git,
+                                                       branches e fluxo de
+                                                       trabalho
+
+  20/11/2025   0.4     gerenciar a construção do       Ajuste do Makefile e
+                       software                        testes de build
+
+  20/11/2025   0.5     especificar os módulos          Planejamento das
+                                                       classes essenciais
+                                                       (Produto, Feira,
+                                                       Feirante)
+
+  20/11/2025   1.2     codificar módulo                Implementação completa
+                                                       da classe Produto
+
+  20/11/2025   1.0     codificar módulo                Implementação inicial e
+                                                       revisão da classe Feira
+
+  20/11/2025   0.5     revisar código do módulo        Correção de métodos,
+                                                       nomes e inconsistências
+
+  20/11/2025   0.6     gerenciar a construção do       Correção de erros de
+                       software                        linking, includes e
+                                                       IntelliSense
+
+  20/11/2025   0.4     gerenciar a construção do       Configuração do
+                       software                        ambiente MSYS2 +
+                                                       integração VS Code
+
+  20/11/2025   0.6     gerenciar a construção do       Criação e sincronização
+                       software                        das branches no GitHub
+
+  20/11/2025   0.3     documentar com Doxygen          Adição de comentários
+                                                       padrão nas classes
+  ----------------------------------------------------------------------------
+
+==============================================================================
+OBSERVAÇÕES
+==============================================================================
+
+-   Neste dia foram realizadas configurações importantes do ambiente,
+    ajustes do Git, criação de branches, commits e sincronização com o
+    repositório remoto.
+-   As classes principais foram iniciadas (Produto e Feira), incluindo
+    construtores, getters, setters e tratamento de exceções.
+-   Vários problemas de compilação foram identificados e corrigidos com
+    sucesso.
+-   Foi estabelecida a estrutura inicial do projeto no padrão exigido
+    pela disciplina.
+
+==============================================================================
+TOTAL DE HORAS TRABALHADAS NO DIA: 6.2 horas
+==============================================================================

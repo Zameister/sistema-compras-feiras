@@ -7,18 +7,18 @@ SPRINT 1 (17/11 - 24/11/2025) - Setup e Estruturas Básicas
 ==============================================================================
 
 ALTA PRIORIDADE:
-[ ] EU004 - Como feirante, quero cadastrar meus produtos (nome, preço, localização)
+[x] EU004 - Como feirante, quero cadastrar meus produtos (nome, preço, localização)
     Estimativa: 8 horas
-    Status: EM DESENVOLVIMENTO
-    Responsável: [A DEFINIR]
+    Status: CONCLUIDO
+    Responsável: [Luidgi Varela]
 
 [ ] EU001 - Como usuário, quero procurar produtos pelo nome
     Estimativa: 5 horas
     Status: PENDENTE
-    Responsável: [A DEFINIR]
+    Responsável: [Arthur Souza]
 
 MÉDIA PRIORIDADE:
-[ ] Setup inicial do projeto (Git, estrutura, Makefile)
+[X] Setup inicial do projeto (Git, estrutura, Makefile)
     Estimativa: 3 horas
     Status: CONCLUÍDO
     Responsável: Equipe
@@ -26,7 +26,7 @@ MÉDIA PRIORIDADE:
 [ ] Configuração de testes com GTest
     Estimativa: 2 horas
     Status: EM DESENVOLVIMENTO
-    Responsável: [A DEFINIR]
+    Responsável: [Arthur Souza]
 
 ==============================================================================
 SPRINT 2 (25/11 - 01/12/2025) - Funcionalidades de Busca
@@ -36,23 +36,23 @@ ALTA PRIORIDADE:
 [ ] EU002 - Como usuário, quero ordenar produtos por preço/distância/nota
     Estimativa: 8 horas
     Status: PENDENTE
-    Responsável: [A DEFINIR]
+    Responsável: [Arthur Souza]
 
 [ ] EU003 - Como usuário, quero filtrar por feira ou distância máxima
     Estimativa: 6 horas
     Status: PENDENTE
-    Responsável: [A DEFINIR]
+    Responsável: [Arthur Souza]
 
 MÉDIA PRIORIDADE:
 [ ] Implementar sistema de localização GPS
     Estimativa: 10 horas
     Status: PENDENTE
-    Responsável: [A DEFINIR]
+    Responsável: [Luidgi Varela]
 
 [ ] Calcular distância entre usuário e feiras
     Estimativa: 4 horas
     Status: PENDENTE
-    Responsável: [A DEFINIR]
+    Responsável: [Luidgi Varela]
 
 ==============================================================================
 SPRINT 3 (02/12 - 09/12/2025) - Sistema de Mensagens
@@ -181,10 +181,10 @@ Horas Trabalhadas: [ATUALIZAR SEMANALMENTE]
 PRÓXIMAS AÇÕES
 ==============================================================================
 
-1. [ ] Definir quem fica responsável por cada história na Sprint 1
+1. [x]  Definir quem fica responsável por cada história na Sprint 1
 2. [ ] Criar board no Trello com as histórias
-3. [ ] Configurar repositório GitHub
-4. [ ] Fazer primeiro commit
+3. [x] Configurar repositório GitHub
+4. [x] Fazer primeiro commit
 5. [ ] Implementar EU004 completamente
 6. [ ] Escrever testes para EU004
 7. [ ] Reunião de planejamento da Sprint 2
