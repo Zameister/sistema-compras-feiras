@@ -44,9 +44,9 @@ ALTA PRIORIDADE:
     Responsável: [Arthur Souza]
 
 MÉDIA PRIORIDADE:
-[ ] Implementar sistema de localização GPS
+[x] Implementar sistema de localização GPS
     Estimativa: 10 horas
-    Status: PENDENTE
+    Status: CONCLUIDO
     Responsável: [Luidgi Varela]
 
 [ ] Calcular distância entre usuário e feiras

@@ -1,7 +1,9 @@
-RELATÓRIO INDIVIDUAL DE TRABALHO Sistema de Compras em Feiras Técnicas
-de Programação 2 – 2/2025
+RELATÓRIO INDIVIDUAL DE TRABALHO
+Sistema de Compras em Feiras
+Técnicas de Programação 2 – 2/2025
 
-Nome: Luidgi Varela Carneiro Matrícula: 231011669
+Nome: Luidgi Varela Carneiro
+Matrícula: 231011669
 
 ==============================================================================
 TABELA DE REGISTRO DE TRABALHO
@@ -47,19 +49,82 @@ TABELA DE REGISTRO DE TRABALHO
   ----------------------------------------------------------------------------
 
 ==============================================================================
-OBSERVAÇÕES
+OBSERVAÇÕES – DIA 20/11
 ==============================================================================
 
--   Neste dia foram realizadas configurações importantes do ambiente,
-    ajustes do Git, criação de branches, commits e sincronização com o
-    repositório remoto.
--   As classes principais foram iniciadas (Produto e Feira), incluindo
-    construtores, getters, setters e tratamento de exceções.
--   Vários problemas de compilação foram identificados e corrigidos com
-    sucesso.
--   Foi estabelecida a estrutura inicial do projeto no padrão exigido
-    pela disciplina.
+- Foram realizadas configurações importantes do ambiente, ajustes do Git,
+  criação de branches, commits e sincronização com o repositório remoto.
+- As classes principais foram iniciadas (Produto e Feira), incluindo
+  construtores, getters, setters e tratamento de exceções.
+- Vários problemas de compilação foram identificados e corrigidos.
+- Estrutura inicial do projeto definida conforme o padrão da disciplina.
 
 ==============================================================================
 TOTAL DE HORAS TRABALHADAS NO DIA: 6.2 horas
 ==============================================================================
+
+
+==============================================================================
+REGISTRO DE TRABALHO – 21/11/2025
+==============================================================================
+
+  ----------------------------------------------------------------------------
+  Data         Horas   Tipo de Tarefa                  Descrição da Tarefa
+  ------------ ------- ------------------------------- -----------------------
+  21/11/2025   1.0     especificar módulos             Definição e modelagem
+                                                       do sistema de localização
+                                                       (classe Location)
+
+  21/11/2025   1.2     codificar módulo                Implementação completa
+                                                       do módulo Location
+                                                       (location.h/cpp) com
+                                                       latitude, longitude e
+                                                       cálculo de distância
+                                                       (fórmula de Haversine)
+
+  21/11/2025   1.0     codificar módulo                Atualização completa da
+                                                       classe Feira para integrar
+                                                       localização GPS e novos
+                                                       métodos
+
+  21/11/2025   0.4     revisar código do módulo        Revisão de métodos,
+                                                       correção de construtores,
+                                                       interfaces e ajustes
+                                                       estruturais
+
+  21/11/2025   1.0     gerenciar a construção do       Criação da branch
+                       software                        feature/feira-location,
+                                                       abertura de Pull Request,
+                                                       merge para feature/feira
+
+  21/11/2025   0.7     gerenciar a construção do       Resolução de divergências
+                       software                        entre branches, merge manual
+                                                       via editor, configuração
+                                                       de upstream e sincronização
+                                                       com o remoto
+
+  21/11/2025   0.5     gerenciar a construção do       Ajustes no IntelliSense,
+                       software                        correção de includePath e
+                                                       validação de includes
+
+  21/11/2025   0.4     planejamento / documentação     Atualização do backlog da
+                                                       Sprint 2, definição de
+                                                       prioridades e marcação da
+                                                       história de GPS como concluída
+  ----------------------------------------------------------------------------
+
+==============================================================================
+OBSERVAÇÕES – DIA 21/11
+==============================================================================
+
+- Implementado o módulo de localização (Location), com cálculos geográficos completos.
+- Classe Feira atualizada para suportar latitude/longitude e distância.
+- Pull Request criado e mergeado com sucesso utilizando fluxo profissional.
+- Resolução de conflitos, configuração de upstream e sincronização final das branches.
+- Backlog da Sprint 2 atualizado com as entregas concluídas.
+- Ajustes no VS Code para reconhecimento correto dos headers.
+
+==============================================================================
+TOTAL DE HORAS TRABALHADAS NO DIA: 6.2 horas
+==============================================================================
+
