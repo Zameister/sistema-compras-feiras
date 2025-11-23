@@ -128,3 +128,57 @@ OBSERVAÇÕES – DIA 21/11
 TOTAL DE HORAS TRABALHADAS NO DIA: 6.2 horas
 ==============================================================================
 
+
+==============================================================================
+REGISTRO DE TRABALHO – 22/11/2025
+==============================================================================
+
+  ----------------------------------------------------------------------------
+  Data         Horas   Tipo de Tarefa                  Descrição da Tarefa
+  ------------ ------- ------------------------------- -----------------------
+  22/11/2025   0.9     codificar módulo                Implementação completa da
+                                                       classe Usuario (usuario.h/cpp)
+                                                       com integração ao sistema
+                                                       de localização
+
+  22/11/2025   1.0     codificar módulo                Criação do módulo de cálculo
+                                                       de distâncias (distancias.h/cpp),
+                                                       incluindo função para cálculo
+                                                       de distâncias entre usuário
+                                                       e feiras
+
+  22/11/2025   0.8     gerenciar a construção do       Criação e execução do arquivo
+                       software                        de testes main_test.cpp;
+                                                       ajustes no Makefile para
+                                                       comportamento isolado de teste
+                                                       (target test-local)
+
+  22/11/2025   0.7     testar / validar sistema        Testes completos do sistema
+                                                       de localização e distâncias;
+                                                       validação usando coordenadas
+                                                       reais e cálculos de Haversine
+
+  22/11/2025   0.3     planejamento / documentação     Atualização do backlog da Sprint
+                                                       2 (marcação da história
+                                                       “Calcular distância entre
+                                                       usuário e feiras” como concluída)
+  ----------------------------------------------------------------------------
+
+==============================================================================
+OBSERVAÇÕES – DIA 22/11
+==============================================================================
+
+- Módulo Usuario 100% implementado, com integração plena com Location.
+- Criado módulo distancias com função utilitária para cálculo de distâncias
+  entre usuário e todas as feiras cadastradas.
+- Criado arquivo de teste main_test.cpp para validação isolada da
+  funcionalidade de localização.
+- Ajustado o Makefile para incluir target próprio de testes (test-local).
+- Testes executados com sucesso utilizando coordenadas reais; distâncias
+  compatíveis com valores geográficos esperados.
+- Backlog atualizado com a entrega de mais uma história da Sprint 2.
+
+==============================================================================
+TOTAL DE HORAS TRABALHADAS NO DIA: 3.7 horas
+==============================================================================
+
