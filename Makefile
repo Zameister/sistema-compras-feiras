@@ -119,3 +119,16 @@ help:
 	@echo "  make run          - Executa o programa"
 
 .PHONY: all directories test coverage static-analysis style-check docs debug valgrind clean clean-all run help
+
+# -----------------------------
+# Compilar main_test.cpp sozinho
+# -----------------------------
+
+TEST_LOCAL_TARGET = $(BIN_DIR)/main_test
+
+test-local: directories
+	$(CXX) $(CXXFLAGS) \
+		src/main_test.cpp src/location.cpp src/feira.cpp src/usuario.cpp src/produto.cpp src/distancias.cpp \
+		-o $(TEST_LOCAL_TARGET)
+	@echo "🚀 Executando main_test..."
+	./$(TEST_LOCAL_TARGET)

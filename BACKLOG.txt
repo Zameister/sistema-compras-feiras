@@ -49,7 +49,7 @@ MÉDIA PRIORIDADE:
     Status: CONCLUIDO
     Responsável: [Luidgi Varela]
 
-[ ] Calcular distância entre usuário e feiras
+[x] Calcular distância entre usuário e feiras
     Estimativa: 4 horas
     Status: PENDENTE
     Responsável: [Luidgi Varela]
