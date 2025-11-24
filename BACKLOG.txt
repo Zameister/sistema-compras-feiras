@@ -51,7 +51,17 @@ MÉDIA PRIORIDADE:
 
 [x] Calcular distância entre usuário e feiras
     Estimativa: 4 horas
-    Status: PENDENTE
+    Status: CONCLUIDO
+    Responsável: [Luidgi Varela]
+
+[x] Criar classe Sistema para modularizar o projeto
+    Estimativa: 6 horas
+    Status: CONCLUÍDO
+    Responsável: [Luidgi Varela]
+
+[x] Implementar cadastro real de usuário com Regiões Administrativas do DF
+    Estimativa: 4 horas
+    Status: CONCLUÍDO
     Responsável: [Luidgi Varela]
 
 ==============================================================================
@@ -63,6 +73,12 @@ ALTA PRIORIDADE:
     Estimativa: 6 horas
     Status: PENDENTE
     Responsável: [A DEFINIR]
+
+MÉDIA PRIORIDADE:
+[x] Refatoração completa da main para usar classe Sistema e menu modular
+    Estimativa: 3 horas
+    Status: CONCLUÍDO
+    Responsável: [Luidgi Varela]
 
 [ ] EU005 - Como feirante, quero responder mensagens
     Estimativa: 6 horas

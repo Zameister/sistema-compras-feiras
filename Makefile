@@ -16,7 +16,7 @@ BIN_DIR = bin
 DOC_DIR = docs
 
 # Arquivos
-SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+SOURCES = $(filter-out $(SRC_DIR)/main_test.cpp, $(wildcard $(SRC_DIR)/*.cpp))
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 TEST_SOURCES = $(wildcard $(TEST_DIR)/*.cpp)
 TEST_OBJECTS = $(TEST_SOURCES:$(TEST_DIR)/%.cpp=$(OBJ_DIR)/%.o)

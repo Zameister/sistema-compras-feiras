@@ -182,3 +182,55 @@ OBSERVAÇÕES – DIA 22/11
 TOTAL DE HORAS TRABALHADAS NO DIA: 3.7 horas
 ==============================================================================
 
+
+==============================================================================
+REGISTRO DE TRABALHO – 23/11/2025
+==============================================================================
+
+  ----------------------------------------------------------------------------
+  Data         Horas   Tipo de Tarefa                  Descrição da Tarefa
+  ------------ ------- ------------------------------- -----------------------
+  23/11/2025   1.4     codificar módulo                Criação completa da classe
+                                                       Sistema (sistema.h/cpp),
+                                                       incluindo menu principal,
+                                                       fluxo de navegação e
+                                                       integração das funcionalidades
+
+  23/11/2025   1.0     codificar módulo                Integração total do cadastro
+                                                       de usuário com Regiões
+                                                       Administrativas do DF,
+                                                       incluindo normalização de
+                                                       entrada e validação
+
+  23/11/2025   0.7     codificar módulo                Reestruturação completa da
+                                                       main.cpp para utilizar
+                                                       Sistema::Menu(), deixando o
+                                                       código principal limpo
+
+  23/11/2025   0.8     testar / validar sistema        Testes completos do novo
+                                                       sistema integrado (menu,
+                                                       RA, cadastro, feiras,
+                                                       distâncias, produtos)
+
+  23/11/2025   0.5     planejamento / documentação     Atualização do backlog da
+                                                       Sprint 2 com as histórias
+                                                       concluídas e organização
+                                                       das próximas etapas
+  ----------------------------------------------------------------------------
+
+==============================================================================
+OBSERVAÇÕES – DIA 23/11
+==============================================================================
+
+- Criada a classe Sistema, responsável pelo fluxo completo do programa
+  (menu, usuário, feiras, distâncias, validação).
+- Integrado o cadastro por Regiões Administrativas do DF com mapa interno
+  e normalização da entrada.
+- Main.cpp refatorada para formato minimalista e profissional.
+- Sistema finalizado para Sprint 2, restando apenas funcionalidades do colega.
+- Testes manuais confirmaram funcionamento completo.
+
+==============================================================================
+TOTAL DE HORAS TRABALHADAS NO DIA: 4.4 horas
+==============================================================================
+
