@@ -1,47 +1,154 @@
-RELATÓRIO INDIVIDUAL DE TRABALHO
+========================================
+RELATÓRIO DE TRABALHO - TP2
 Sistema de Compras em Feiras
-Técnicas de Programação 2 - 2/2025
+========================================
 
-Nome: [SEU NOME AQUI]
-Matrícula: [SUA MATRÍCULA AQUI]
+ALUNO: [Seu Nome Completo]
+MATRÍCULA: [Sua Matrícula]
+DATA: 2025-11-30
 
-==============================================================================
-TABELA DE REGISTRO DE TRABALHO
-==============================================================================
+========================================
+RESUMO DO TRABALHO
+========================================
 
-Data       | Horas | Tipo de Tarefa              | Descrição da Tarefa
------------|-------|-----------------------------|--------------------------
-17/11/2025 | 2.0   | estudar aulas e laboratórios| Revisão de C++ e Git
-17/11/2025 | 1.5   | especificar os módulos      | Definição da estrutura inicial
-17/11/2025 | 1.0   | codificar módulo            | Implementação classe Produto
-17/11/2025 | 1.0   | redigir casos de teste      | Testes unitários Produto
-17/11/2025 | 0.5   | realizar os testes          | Execução dos testes com GTest
+Total de horas trabalhadas: [X] horas
+Período: [Data início] a [Data fim]
 
-==============================================================================
-OBSERVAÇÕES
-==============================================================================
+========================================
+REGISTRO DE ATIVIDADES
+========================================
 
-Preencher esta tabela DIARIAMENTE conforme o trabalho é realizado.
-NÃO deixar para preencher no final!
+Data: YYYY-MM-DD
+Horário: HH:MM - HH:MM (X horas)
+Atividade: [Descrição detalhada da atividade]
+Arquivos modificados: [lista de arquivos]
+Commits relacionados: [hash dos commits]
+Dificuldades encontradas: [descrição]
+Soluções aplicadas: [descrição]
 
-Tipos de Tarefa disponíveis:
-- estudar aulas e laboratórios relacionados
-- especificar os módulos
-- especificar as funções
-- revisar especificações
-- projetar
-- fazer diagramas
-- revisar projetos
-- codificar módulo
-- Rodar o verificador estático e retirar warnings
-- revisar código do módulo
-- redigir casos de teste
-- revisar casos de teste
-- realizar os testes
-- instrumentar verificando a cobertura
-- documentar com Doxygen
-- gerenciar a construção do software
+---
 
-==============================================================================
-TOTAL DE HORAS TRABALHADAS: [ATUALIZAR CONFORME AVANÇA]
-==============================================================================
+Data: YYYY-MM-DD
+Horário: HH:MM - HH:MM (X horas)
+Atividade: [Descrição detalhada da atividade]
+Arquivos modificados: [lista de arquivos]
+Commits relacionados: [hash dos commits]
+Dificuldades encontradas: [descrição]
+Soluções aplicadas: [descrição]
+
+---
+
+[Continue o padrão para cada sessão de trabalho...]
+
+========================================
+CONTRIBUIÇÕES ESPECÍFICAS
+========================================
+
+1. CÓDIGO IMPLEMENTADO:
+   - [Classe/Módulo]: [Descrição do que foi implementado]
+   - [Classe/Módulo]: [Descrição do que foi implementado]
+   - ...
+
+2. TESTES CRIADOS:
+   - [Nome do teste]: [O que testa]
+   - [Nome do teste]: [O que testa]
+   - ...
+
+3. DOCUMENTAÇÃO:
+   - [Arquivo documentado]: [Tipo de documentação]
+   - ...
+
+4. CORREÇÕES DE BUGS:
+   - [Bug corrigido]: [Descrição da correção]
+   - ...
+
+========================================
+HISTÓRIAS DE USUÁRIO IMPLEMENTADAS
+========================================
+
+EU001 - Buscar Produtos:
+   Responsável: [Nome]
+   Arquivos: [lista]
+   Commits: [lista]
+   Testes: [lista]
+   Status: [Completo/Parcial]
+
+EU002 - Filtrar Feiras:
+   Responsável: [Nome]
+   Arquivos: [lista]
+   Commits: [lista]
+   Testes: [lista]
+   Status: [Completo/Parcial]
+
+EU003 - Calcular Distâncias:
+   Responsável: [Nome]
+   Arquivos: [lista]
+   Commits: [lista]
+   Testes: [lista]
+   Status: [Completo/Parcial]
+
+EU004 - Adicionar Produtos:
+   Responsável: [Nome]
+   Arquivos: [lista]
+   Commits: [lista]
+   Testes: [lista]
+   Status: [Completo/Parcial]
+
+EU005 - Cadastrar Usuário:
+   Responsável: [Nome]
+   Arquivos: [lista]
+   Commits: [lista]
+   Testes: [lista]
+   Status: [Completo/Parcial]
+
+========================================
+APRENDIZADOS E REFLEXÕES
+========================================
+
+1. PRINCIPAIS DESAFIOS:
+   - [Desafio 1]: [Como foi superado]
+   - [Desafio 2]: [Como foi superado]
+   - ...
+
+2. CONCEITOS APRENDIDOS:
+   - [Conceito 1]: [Aplicação no projeto]
+   - [Conceito 2]: [Aplicação no projeto]
+   - ...
+
+3. FERRAMENTAS UTILIZADAS:
+   - Git/GitHub: [Experiência]
+   - Google Test: [Experiência]
+   - Doxygen: [Experiência]
+   - Makefile: [Experiência]
+   - ...
+
+4. TRABALHO EM EQUIPE:
+   - Divisão de tarefas: [Como foi feita]
+   - Comunicação: [Ferramentas e frequência]
+   - Resolução de conflitos: [Se houver]
+   - ...
+
+========================================
+MÉTRICAS DO CÓDIGO
+========================================
+
+Linhas de código escritas: ~[X] linhas
+Arquivos criados/modificados: [X] arquivos
+Commits realizados: [X] commits
+Testes criados: [X] testes
+Cobertura de testes: [X]%
+
+========================================
+CONCLUSÃO
+========================================
+
+[Suas reflexões finais sobre o projeto, o que funcionou bem,
+o que poderia ser melhorado, e como este trabalho contribuiu
+para seu aprendizado em Técnicas de Programação]
+
+========================================
+ASSINATURA
+========================================
+
+[Seu Nome]
+[Data]
