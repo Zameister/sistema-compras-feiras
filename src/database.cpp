@@ -8,7 +8,20 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <vector>
+#include <string>
+#include <ctime>
 #include "../include/sistema.h"
+
+// Estrutura para armazenar usuários cadastrados
+struct UsuarioCadastrado {
+    std::string nome;
+    std::string ra;
+    std::string dataCadastro;
+};
+
+// Lista global de usuários cadastrados
+static std::vector<UsuarioCadastrado> usuariosCadastrados;
 
 /**
  * @brief Inicializa banco de dados com dados padrão
@@ -122,4 +135,85 @@ std::string SistemaParaJSON(Sistema* sistema) {
     json << "}\n";
 
     return json.str();
+}
+
+/**
+ * @brief Adiciona usuário cadastrado ao sistema
+ */
+void AdicionarUsuarioCadastrado(const std::string& nome, const std::string& ra) {
+    // Obter data/hora atual
+    time_t now = time(0);
+    char buffer[80];
+    struct tm* timeinfo = localtime(&now);
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", timeinfo);
+
+    UsuarioCadastrado usuario;
+    usuario.nome = nome;
+    usuario.ra = ra;
+    usuario.dataCadastro = std::string(buffer);
+
+    usuariosCadastrados.push_back(usuario);
+    std::cout << "✅ Usuário cadastrado: " << nome << " (" << ra << ")\n";
+}
+
+/**
+ * @brief Retorna lista de usuários cadastrados em JSON
+ */
+std::string ListarUsuariosJSON() {
+    std::ostringstream json;
+    json << "{\n";
+    json << "  \"usuarios\": [\n";
+
+    for (size_t i = 0; i < usuariosCadastrados.size(); ++i) {
+        const auto& user = usuariosCadastrados[i];
+        json << "    {\n";
+        json << "      \"nome\": \"" << EscapeJSON(user.nome) << "\",\n";
+        json << "      \"ra\": \"" << EscapeJSON(user.ra) << "\",\n";
+        json << "      \"dataCadastro\": \"" << user.dataCadastro << "\"\n";
+        json << "    }";
+        if (i < usuariosCadastrados.size() - 1) json << ",";
+        json << "\n";
+    }
+
+    json << "  ],\n";
+    json << "  \"total\": " << usuariosCadastrados.size() << "\n";
+    json << "}\n";
+
+    return json.str();
+}
+
+/**
+ * @brief Adiciona produto a uma feira
+ */
+bool AdicionarProdutoFeira(Sistema* sistema, const std::string& nomeFeira,
+                           const std::string& nomeProduto, double preco,
+                           const std::string& categoria) {
+    auto& feiras = const_cast<std::vector<Feira>&>(sistema->GetFeiras());
+
+    for (auto& feira : feiras) {
+        if (feira.GetNome() == nomeFeira) {
+            Produto novoProduto(nomeProduto, preco, categoria, nomeFeira);
+            feira.AdicionarProduto(novoProduto);
+            std::cout << "✅ Produto adicionado: " << nomeProduto << " na " << nomeFeira << "\n";
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * @brief Remove produto de uma feira
+ */
+bool RemoverProdutoFeira(Sistema* sistema, const std::string& nomeFeira,
+                         const std::string& nomeProduto) {
+    auto& feiras = const_cast<std::vector<Feira>&>(sistema->GetFeiras());
+
+    for (auto& feira : feiras) {
+        if (feira.GetNome() == nomeFeira) {
+            return feira.RemoverProduto(nomeProduto);
+        }
+    }
+
+    return false;
 }

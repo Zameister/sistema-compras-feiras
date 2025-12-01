@@ -21,6 +21,13 @@
 void InicializarBancoDeDados(Sistema* sistema);
 std::string SistemaParaJSON(Sistema* sistema);
 std::string EscapeJSON(const std::string& s);
+void AdicionarUsuarioCadastrado(const std::string& nome, const std::string& ra);
+std::string ListarUsuariosJSON();
+bool AdicionarProdutoFeira(Sistema* sistema, const std::string& nomeFeira,
+                           const std::string& nomeProduto, double preco,
+                           const std::string& categoria);
+bool RemoverProdutoFeira(Sistema* sistema, const std::string& nomeFeira,
+                         const std::string& nomeProduto);
 
 // Códigos de resposta HTTP
 const std::string HTTP_200 = "HTTP/1.1 200 OK\r\n";
@@ -205,6 +212,18 @@ public:
             std::string js = ReadFile("web/app.js");
             SendResponse(client, HTTP_200, CONTENT_TYPE_JS, js);
         }
+        else if (path == "/admin.html") {
+            std::string html = ReadFile("web/admin.html");
+            if (!html.empty()) {
+                SendResponse(client, HTTP_200, CONTENT_TYPE_HTML, html);
+            } else {
+                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Admin não encontrado</h1>");
+            }
+        }
+        else if (path == "/admin.js") {
+            std::string js = ReadFile("web/admin.js");
+            SendResponse(client, HTTP_200, CONTENT_TYPE_JS, js);
+        }
         else if (path.find("/api/") == 0) {
             HandleAPI(client, path, query);
         }
@@ -324,6 +343,69 @@ public:
 
             json << "\n  ]\n}\n";
             SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json.str());
+        }
+        // ========== ENDPOINTS DE ADMINISTRADOR ==========
+        // GET /api/admin/usuarios - Lista usuários cadastrados
+        else if (path == "/api/admin/usuarios") {
+            std::string json = ListarUsuariosJSON();
+            SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+        }
+        // POST /api/admin/usuario - Cadastra usuário
+        else if (path == "/api/admin/usuario") {
+            auto params = ParseQuery(query);
+            std::string nome = params["nome"];
+            std::string ra = params["ra"];
+
+            if (!nome.empty() && !ra.empty()) {
+                AdicionarUsuarioCadastrado(nome, ra);
+                std::string json = "{\"success\": true, \"message\": \"Usuário cadastrado com sucesso\"}";
+                SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+            } else {
+                std::string json = "{\"success\": false, \"error\": \"Nome e RA são obrigatórios\"}";
+                SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+            }
+        }
+        // POST /api/admin/produto/adicionar - Adiciona produto
+        else if (path == "/api/admin/produto/adicionar") {
+            auto params = ParseQuery(query);
+            std::string nomeFeira = params["feira"];
+            std::string nomeProduto = params["nome"];
+            double preco = params["preco"].empty() ? 0.0 : std::stod(params["preco"]);
+            std::string categoria = params["categoria"];
+
+            if (!nomeFeira.empty() && !nomeProduto.empty() && preco > 0 && !categoria.empty()) {
+                bool success = AdicionarProdutoFeira(sistema, nomeFeira, nomeProduto, preco, categoria);
+                if (success) {
+                    std::string json = "{\"success\": true, \"message\": \"Produto adicionado com sucesso\"}";
+                    SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+                } else {
+                    std::string json = "{\"success\": false, \"error\": \"Feira não encontrada\"}";
+                    SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+                }
+            } else {
+                std::string json = "{\"success\": false, \"error\": \"Todos os campos são obrigatórios\"}";
+                SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+            }
+        }
+        // POST /api/admin/produto/remover - Remove produto
+        else if (path == "/api/admin/produto/remover") {
+            auto params = ParseQuery(query);
+            std::string nomeFeira = params["feira"];
+            std::string nomeProduto = params["nome"];
+
+            if (!nomeFeira.empty() && !nomeProduto.empty()) {
+                bool success = RemoverProdutoFeira(sistema, nomeFeira, nomeProduto);
+                if (success) {
+                    std::string json = "{\"success\": true, \"message\": \"Produto removido com sucesso\"}";
+                    SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+                } else {
+                    std::string json = "{\"success\": false, \"error\": \"Produto ou feira não encontrado\"}";
+                    SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+                }
+            } else {
+                std::string json = "{\"success\": false, \"error\": \"Nome da feira e produto são obrigatórios\"}";
+                SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+            }
         }
         else {
             SendResponse(client, HTTP_404, CONTENT_TYPE_JSON, "{\"error\": \"Endpoint não encontrado\"}");
