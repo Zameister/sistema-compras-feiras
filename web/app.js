@@ -217,7 +217,7 @@ function verProdutosFeira(nomeFeira) {
 // ========== CADASTRO DE USUÁRIO ==========
 
 // Cadastrar usuário
-function cadastrarUsuario(event) {
+async function cadastrarUsuario(event) {
     event.preventDefault();
 
     const nome = document.getElementById('userName').value;
@@ -245,6 +245,15 @@ function cadastrarUsuario(event) {
 
     // Salvar no localStorage
     localStorage.setItem('usuario', JSON.stringify(usuarioAtual));
+
+    // Registrar no backend (para admin ver)
+    try {
+        const url = `http://localhost:8080/api/admin/usuario?nome=${encodeURIComponent(nome)}&ra=${encodeURIComponent(ra)}`;
+        await fetch(url);
+        console.log('✅ Usuário registrado no backend');
+    } catch (error) {
+        console.warn('⚠️ Não foi possível registrar no backend:', error);
+    }
 
     // Mostrar informações
     document.getElementById('displayName').textContent = nome;
