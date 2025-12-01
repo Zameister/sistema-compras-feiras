@@ -1,84 +1,89 @@
 // Sistema de Compras em Feiras - JavaScript
+// INTEGRADO COM BACKEND C++ via API REST
 
-// Dados simulados (vamos conectar ao backend depois)
-let feirasData = [
-    {
-        nome: "Feira da Ceilândia",
-        endereco: "QNM 11, Ceilândia Norte",
-        ra: "Ceilândia",
-        latitude: -15.817,
-        longitude: -48.112,
-        produtos: [
-            { nome: "Tomate", preco: 3.50, categoria: "Hortifruti" },
-            { nome: "Alface", preco: 2.00, categoria: "Hortifruti" },
-            { nome: "Banana", preco: 4.50, categoria: "Hortifruti" },
-            { nome: "Arroz (kg)", preco: 5.00, categoria: "Grãos" }
-        ]
-    },
-    {
-        nome: "Feira de Taguatinga",
-        endereco: "Pistão Sul, Taguatinga",
-        ra: "Taguatinga",
-        latitude: -15.839,
-        longitude: -48.052,
-        produtos: [
-            { nome: "Tomate", preco: 3.80, categoria: "Hortifruti" },
-            { nome: "Batata (kg)", preco: 4.20, categoria: "Hortifruti" },
-            { nome: "Feijão (kg)", preco: 7.00, categoria: "Grãos" },
-            { nome: "Queijo (kg)", preco: 35.00, categoria: "Laticínios" }
-        ]
-    },
-    {
-        nome: "Feira do Plano Piloto",
-        endereco: "CLN 209, Asa Norte",
-        ra: "Plano Piloto",
-        latitude: -15.794,
-        longitude: -47.883,
-        produtos: [
-            { nome: "Tomate", preco: 4.50, categoria: "Hortifruti" },
-            { nome: "Alface", preco: 2.50, categoria: "Hortifruti" },
-            { nome: "Pão francês (kg)", preco: 12.00, categoria: "Padaria" },
-            { nome: "Leite (L)", preco: 5.50, categoria: "Laticínios" }
-        ]
-    },
-    {
-        nome: "Feira de Samambaia",
-        endereco: "QN 318, Samambaia Norte",
-        ra: "Samambaia",
-        latitude: -15.878,
-        longitude: -48.085,
-        produtos: [
-            { nome: "Banana", preco: 4.00, categoria: "Hortifruti" },
-            { nome: "Maçã (kg)", preco: 6.50, categoria: "Hortifruti" },
-            { nome: "Arroz (kg)", preco: 4.80, categoria: "Grãos" },
-            { nome: "Frango (kg)", preco: 15.00, categoria: "Carnes" }
-        ]
-    },
-    {
-        nome: "Feira de Águas Claras",
-        endereco: "Avenida das Araucárias",
-        ra: "Águas Claras",
-        latitude: -15.834,
-        longitude: -48.026,
-        produtos: [
-            { nome: "Tomate", preco: 4.20, categoria: "Hortifruti" },
-            { nome: "Alface", preco: 2.30, categoria: "Hortifruti" },
-            { nome: "Cenoura (kg)", preco: 3.50, categoria: "Hortifruti" },
-            { nome: "Pão integral (kg)", preco: 18.00, categoria: "Padaria" }
-        ]
-    }
-];
+// Dados carregados do backend
+let feirasData = [];
 
 // Estado da aplicação
 let usuarioAtual = null;
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
-    carregarFeiras();
+    carregarFeirasDoBackend();
     carregarUsuario();
 });
 
-// Carregar feiras
+// ========== INTEGRAÇÃO COM BACKEND C++ ==========
+
+/**
+ * Carregar feiras do backend C++
+ */
+async function carregarFeirasDoBackend() {
+    try {
+        const response = await fetch('http://localhost:8080/api/feiras');
+        const data = await response.json();
+        feirasData = data.feiras || [];
+
+        console.log('✅ Feiras carregadas do backend C++:', feirasData.length);
+        carregarFeiras();
+    } catch (error) {
+        console.error('❌ Erro ao carregar feiras do backend:', error);
+        alert('Erro ao conectar com o backend. Verifique se o servidor está rodando.');
+    }
+}
+
+/**
+ * Buscar produtos via API
+ */
+async function buscarProdutos() {
+    const termo = document.getElementById('searchInput').value.trim();
+
+    if (!termo) {
+        alert('Digite algo para buscar!');
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/buscar?termo=${encodeURIComponent(termo)}`);
+        const data = await response.json();
+
+        mostrarResultados(data.resultados, `Resultados para "${termo}"`);
+        console.log('✅ Busca realizada no backend C++');
+    } catch (error) {
+        console.error('❌ Erro ao buscar produtos:', error);
+        alert('Erro ao buscar produtos. Verifique a conexão com o backend.');
+    }
+}
+
+/**
+ * Aplicar filtros via API
+ */
+async function aplicarFiltros() {
+    const categoria = document.getElementById('filterCategoria').value;
+    const precoMax = document.getElementById('filterPreco').value;
+    const ra = document.getElementById('filterRA').value;
+
+    try {
+        let url = 'http://localhost:8080/api/filtrar?';
+        if (categoria) url += `categoria=${encodeURIComponent(categoria)}&`;
+        if (precoMax) url += `precoMax=${precoMax}&`;
+        if (ra) url += `ra=${encodeURIComponent(ra)}&`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        const titulo = `Filtros: ${categoria || 'Todas'} - Max R$ ${precoMax || '∞'} - ${ra || 'Todas RAs'}`;
+        mostrarResultados(data.resultados, titulo);
+        console.log('✅ Filtros aplicados no backend C++');
+    } catch (error) {
+        console.error('❌ Erro ao filtrar:', error);
+        alert('Erro ao filtrar. Verifique a conexão com o backend.');
+    }
+}
+
+// ========== FUNÇÕES DE INTERFACE ==========
+
+// Carregar feiras na interface
 function carregarFeiras() {
     const container = document.getElementById('listaFeiras');
     container.innerHTML = '';
@@ -92,7 +97,7 @@ function carregarFeiras() {
 // Criar card de feira
 function criarCardFeira(feira) {
     const numProdutos = feira.produtos.length;
-    const distancia = usuarioAtual ?calcularDistancia(feira) : '...';
+    const distancia = usuarioAtual ? calcularDistancia(feira) : '...';
 
     return `
         <div class="col fade-in">
@@ -103,7 +108,6 @@ function criarCardFeira(feira) {
                     </h5>
                     <p class="card-text">
                         <i class="bi bi-geo-alt"></i> ${feira.endereco}<br>
-                        <i class="bi bi-signpost"></i> ${feira.ra}
                     </p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="badge bg-success">${numProdutos} produtos</span>
@@ -116,63 +120,6 @@ function criarCardFeira(feira) {
             </div>
         </div>
     `;
-}
-
-// Buscar produtos
-function buscarProdutos() {
-    const termo = document.getElementById('searchInput').value.toLowerCase().trim();
-
-    if (!termo) {
-        alert('Digite algo para buscar!');
-        return;
-    }
-
-    const resultados = [];
-
-    feirasData.forEach(feira => {
-        feira.produtos.forEach(produto => {
-            if (produto.nome.toLowerCase().includes(termo)) {
-                resultados.push({
-                    ...produto,
-                    feira: feira.nome,
-                    feiraRA: feira.ra
-                });
-            }
-        });
-    });
-
-    mostrarResultados(resultados, `Resultados para "${termo}"`);
-}
-
-// Aplicar filtros
-function aplicarFiltros() {
-    const categoria = document.getElementById('filterCategoria').value;
-    const precoMax = parseFloat(document.getElementById('filterPreco').value) || Infinity;
-    const ra = document.getElementById('filterRA').value;
-
-    let resultados = [];
-
-    feirasData.forEach(feira => {
-        if (ra && feira.ra !== ra) return;
-
-        feira.produtos.forEach(produto => {
-            let match = true;
-
-            if (categoria && produto.categoria !== categoria) match = false;
-            if (produto.preco > precoMax) match = false;
-
-            if (match) {
-                resultados.push({
-                    ...produto,
-                    feira: feira.nome,
-                    feiraRA: feira.ra
-                });
-            }
-        });
-    });
-
-    const titulo = `Filtros: ${categoria || 'Todas'} - Max R$ ${precoMax === Infinity ? '∞' : precoMax.toFixed(2)} - ${ra || 'Todas RAs'}`;
-    mostrarResultados(resultados, titulo);
 }
 
 // Limpar filtros
@@ -205,6 +152,7 @@ function mostrarResultados(produtos, titulo) {
         <div class="col-12 mb-3">
             <h4><i class="bi bi-search"></i> ${titulo}</h4>
             <p class="text-muted">Encontrados ${produtos.length} produto(s) - ordenados por menor preço</p>
+            <p class="badge bg-success">Dados do Backend C++</p>
         </div>
     `;
 
@@ -260,11 +208,13 @@ function verProdutosFeira(nomeFeira) {
     const produtos = feira.produtos.map(p => ({
         ...p,
         feira: feira.nome,
-        feiraRA: feira.ra
+        feiraRA: feira.endereco
     }));
 
     mostrarResultados(produtos, `Produtos da ${nomeFeira}`);
 }
+
+// ========== CADASTRO DE USUÁRIO ==========
 
 // Cadastrar usuário
 function cadastrarUsuario(event) {
@@ -322,6 +272,8 @@ function carregarUsuario() {
     }
 }
 
+// ========== CÁLCULO DE DISTÂNCIA GPS ==========
+
 // Calcular distância entre usuário e feira (Haversine)
 function calcularDistancia(feira) {
     if (!usuarioAtual) return '?';
@@ -341,6 +293,8 @@ function calcularDistancia(feira) {
 
     return distancia.toFixed(1);
 }
+
+// ========== SMOOTH SCROLL ==========
 
 // Smooth scroll para âncoras
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

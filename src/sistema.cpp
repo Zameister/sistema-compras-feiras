@@ -411,3 +411,13 @@ void Sistema::FiltrarFeiras() {  // EU002
             break;
     }
 }
+
+// ========== Métodos para API REST ==========
+
+const std::vector<Feira>& Sistema::GetFeiras() const {
+    return feiras;
+}
+
+void Sistema::AdicionarFeira(const Feira& feira) {
+    feiras.push_back(feira);
+}
