@@ -129,7 +129,11 @@ void Sistema::MostrarProdutosDaFeira() const {
     }
 }
 
-void Sistema::CalcularDistancia() const {
+// ==============================================================================
+// EU003: Como usuário, quero calcular a distância até uma feira
+//        para planejar meu deslocamento
+// ==============================================================================
+void Sistema::CalcularDistancia() const {  // EU003
     if (!usuarioCadastrado) {
         cout << "\n⚠ Cadastre um usuário primeiro!\n";
         return;
@@ -157,7 +161,11 @@ void Sistema::CalcularDistancia() const {
          << dist << " km\n";
 }
 
-void Sistema::CadastrarUsuario() {
+// ==============================================================================
+// EU005: Como usuário, quero me cadastrar informando minha região
+//        para receber informações personalizadas sobre feiras próximas
+// ==============================================================================
+void Sistema::CadastrarUsuario() {  // EU005
     string nome, regiao;
     cout << "\n=== CADASTRAR USUÁRIO ===\n";
 
@@ -226,9 +234,10 @@ void Sistema::Menu() {
 }
 
 // ==============================================================================
-// EU001: Como usuário, quero procurar produtos pelo nome
+// EU001: Como usuário, quero procurar produtos pelo nome para encontrar
+//        os melhores preços nas feiras próximas
 // ==============================================================================
-void Sistema::BuscarProdutos() {
+void Sistema::BuscarProdutos() {  // EU001
     std::string termo;
     std::cout << "\n=== BUSCAR PRODUTOS ===\n";
     std::cout << "Digite o nome do produto (ou parte dele): ";
@@ -279,7 +288,11 @@ void Sistema::BuscarProdutos() {
     }
 }
 
-void Sistema::FiltrarFeiras() {
+// ==============================================================================
+// EU002: Como usuário, quero filtrar feiras por categoria, produto ou preço
+//        para encontrar opções que atendam minhas necessidades
+// ==============================================================================
+void Sistema::FiltrarFeiras() {  // EU002
     std::cout << "\n=== FILTRAR FEIRAS ===\n";
     std::cout << "1. Filtrar por categoria de produto\n";
     std::cout << "2. Filtrar por produto específico\n";
