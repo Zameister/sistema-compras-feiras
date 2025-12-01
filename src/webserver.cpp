@@ -1,6 +1,6 @@
 /**
  * @file webserver.cpp
- * @brief Servidor HTTP simples para interface web
+ * @brief Servidor HTTP com API REST integrada ao backend C++
  * @author Arthur Souza Chagas
  * @date 2025
  */
@@ -10,11 +10,17 @@
 #include <sstream>
 #include <fstream>
 #include <map>
+#include <algorithm>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include "../include/sistema.h"
 
 #pragma comment(lib, "ws2_32.lib")
+
+// Protótipos das funções do database.cpp
+void InicializarBancoDeDados(Sistema* sistema);
+std::string SistemaParaJSON(Sistema* sistema);
+std::string EscapeJSON(const std::string& s);
 
 // Códigos de resposta HTTP
 const std::string HTTP_200 = "HTTP/1.1 200 OK\r\n";
@@ -59,6 +65,28 @@ void SendResponse(SOCKET client, const std::string& status,
 }
 
 /**
+ * @brief Decodifica URL encoding
+ */
+std::string URLDecode(const std::string& str) {
+    std::string result;
+    for (size_t i = 0; i < str.length(); ++i) {
+        if (str[i] == '+') {
+            result += ' ';
+        } else if (str[i] == '%' && i + 2 < str.length()) {
+            int value;
+            std::istringstream is(str.substr(i + 1, 2));
+            if (is >> std::hex >> value) {
+                result += static_cast<char>(value);
+                i += 2;
+            }
+        } else {
+            result += str[i];
+        }
+    }
+    return result;
+}
+
+/**
  * @brief Parse URL parameters
  */
 std::map<std::string, std::string> ParseQuery(const std::string& query) {
@@ -70,12 +98,21 @@ std::map<std::string, std::string> ParseQuery(const std::string& query) {
         size_t pos = item.find('=');
         if (pos != std::string::npos) {
             std::string key = item.substr(0, pos);
-            std::string value = item.substr(pos + 1);
+            std::string value = URLDecode(item.substr(pos + 1));
             params[key] = value;
         }
     }
 
     return params;
+}
+
+/**
+ * @brief Converte string para minúscula
+ */
+std::string ToLower(const std::string& str) {
+    std::string result = str;
+    std::transform(result.begin(), result.end(), result.begin(), ::tolower);
+    return result;
 }
 
 /**
@@ -91,6 +128,9 @@ public:
     WebServer(int p) : port(p), sistema(new Sistema()) {
         WSADATA wsaData;
         WSAStartup(MAKEWORD(2, 2), &wsaData);
+
+        // Inicializar banco de dados
+        InicializarBancoDeDados(sistema);
     }
 
     ~WebServer() {
@@ -122,6 +162,7 @@ public:
         }
 
         std::cout << "🌐 Servidor iniciado em http://localhost:" << port << "\n";
+        std::cout << "📊 Backend C++ integrado com " << sistema->GetFeiras().size() << " feiras\n";
         std::cout << "📱 Abra seu navegador e acesse a URL acima\n";
         std::cout << "🛑 Pressione Ctrl+C para parar\n\n";
 
@@ -138,6 +179,14 @@ public:
         iss >> method >> path >> version;
 
         std::cout << method << " " << path << "\n";
+
+        // Extrair query string
+        std::string query = "";
+        size_t qpos = path.find('?');
+        if (qpos != std::string::npos) {
+            query = path.substr(qpos + 1);
+            path = path.substr(0, qpos);
+        }
 
         // Roteamento
         if (path == "/" || path == "/index.html") {
@@ -157,7 +206,7 @@ public:
             SendResponse(client, HTTP_200, CONTENT_TYPE_JS, js);
         }
         else if (path.find("/api/") == 0) {
-            HandleAPI(client, path);
+            HandleAPI(client, path, query);
         }
         else {
             SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404</h1>");
@@ -166,14 +215,118 @@ public:
         closesocket(client);
     }
 
-    void HandleAPI(SOCKET client, const std::string& path) {
-        // API endpoints básicos
+    void HandleAPI(SOCKET client, const std::string& path, const std::string& query) {
+        // GET /api/feiras - Lista todas as feiras
         if (path == "/api/feiras") {
-            std::string json = "{\"feiras\": []}";  // TODO: implementar
+            std::string json = SistemaParaJSON(sistema);
             SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
         }
+        // GET /api/produtos - Lista todos os produtos
+        else if (path == "/api/produtos") {
+            std::ostringstream json;
+            json << "{\n  \"produtos\": [\n";
+
+            const auto& feiras = sistema->GetFeiras();
+            bool first_product = true;
+
+            for (const auto& feira : feiras) {
+                for (const auto& produto : feira.GetProdutos()) {
+                    if (!first_product) json << ",\n";
+                    first_product = false;
+
+                    json << "    {\n";
+                    json << "      \"nome\": \"" << EscapeJSON(produto.GetNome()) << "\",\n";
+                    json << "      \"preco\": " << produto.GetPreco() << ",\n";
+                    json << "      \"categoria\": \"" << EscapeJSON(produto.GetCategoria()) << "\",\n";
+                    json << "      \"feira\": \"" << EscapeJSON(feira.GetNome()) << "\",\n";
+                    json << "      \"feiraRA\": \"" << EscapeJSON(feira.GetEndereco()) << "\"\n";
+                    json << "    }";
+                }
+            }
+
+            json << "\n  ]\n}\n";
+            SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json.str());
+        }
+        // GET /api/buscar?termo=tomate - Busca produtos
+        else if (path == "/api/buscar") {
+            auto params = ParseQuery(query);
+            std::string termo = ToLower(params["termo"]);
+
+            std::ostringstream json;
+            json << "{\n  \"resultados\": [\n";
+
+            const auto& feiras = sistema->GetFeiras();
+            bool first = true;
+
+            for (const auto& feira : feiras) {
+                for (const auto& produto : feira.GetProdutos()) {
+                    std::string nome_lower = ToLower(produto.GetNome());
+                    if (nome_lower.find(termo) != std::string::npos) {
+                        if (!first) json << ",\n";
+                        first = false;
+
+                        json << "    {\n";
+                        json << "      \"nome\": \"" << EscapeJSON(produto.GetNome()) << "\",\n";
+                        json << "      \"preco\": " << produto.GetPreco() << ",\n";
+                        json << "      \"categoria\": \"" << EscapeJSON(produto.GetCategoria()) << "\",\n";
+                        json << "      \"feira\": \"" << EscapeJSON(feira.GetNome()) << "\",\n";
+                        json << "      \"feiraRA\": \"" << EscapeJSON(feira.GetEndereco()) << "\"\n";
+                        json << "    }";
+                    }
+                }
+            }
+
+            json << "\n  ]\n}\n";
+            SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json.str());
+        }
+        // GET /api/filtrar?categoria=Hortifruti&precoMax=5.00&ra=Ceilandia
+        else if (path == "/api/filtrar") {
+            auto params = ParseQuery(query);
+            std::string categoria = params["categoria"];
+            double precoMax = params["precoMax"].empty() ? 999999.0 : std::stod(params["precoMax"]);
+            std::string ra = params["ra"];
+
+            std::ostringstream json;
+            json << "{\n  \"resultados\": [\n";
+
+            const auto& feiras = sistema->GetFeiras();
+            bool first = true;
+
+            for (const auto& feira : feiras) {
+                // Filtrar por RA (se especificado)
+                if (!ra.empty() && feira.GetEndereco().find(ra) == std::string::npos) {
+                    continue;
+                }
+
+                for (const auto& produto : feira.GetProdutos()) {
+                    // Filtrar por categoria
+                    if (!categoria.empty() && produto.GetCategoria() != categoria) {
+                        continue;
+                    }
+
+                    // Filtrar por preço
+                    if (produto.GetPreco() > precoMax) {
+                        continue;
+                    }
+
+                    if (!first) json << ",\n";
+                    first = false;
+
+                    json << "    {\n";
+                    json << "      \"nome\": \"" << EscapeJSON(produto.GetNome()) << "\",\n";
+                    json << "      \"preco\": " << produto.GetPreco() << ",\n";
+                    json << "      \"categoria\": \"" << EscapeJSON(produto.GetCategoria()) << "\",\n";
+                    json << "      \"feira\": \"" << EscapeJSON(feira.GetNome()) << "\",\n";
+                    json << "      \"feiraRA\": \"" << EscapeJSON(feira.GetEndereco()) << "\"\n";
+                    json << "    }";
+                }
+            }
+
+            json << "\n  ]\n}\n";
+            SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json.str());
+        }
         else {
-            SendResponse(client, HTTP_404, CONTENT_TYPE_JSON, "{\"error\": \"API não encontrada\"}");
+            SendResponse(client, HTTP_404, CONTENT_TYPE_JSON, "{\"error\": \"Endpoint não encontrado\"}");
         }
     }
 

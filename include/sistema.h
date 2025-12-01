@@ -117,6 +117,26 @@ public:
      * @post Exibe feiras que atendem o critério sem modificar o estado
      */
     void FiltrarFeiras();     // EU002
+
+    /**
+     * @brief Retorna lista de feiras cadastradas (para API REST)
+     *
+     * @return Referência constante para o vetor de feiras
+     *
+     * @pre Nenhuma
+     * @post Retorna referência para feiras sem modificar o estado
+     */
+    const std::vector<Feira>& GetFeiras() const;
+
+    /**
+     * @brief Adiciona uma feira ao sistema (para inicialização do backend)
+     *
+     * @param feira Feira a ser adicionada
+     *
+     * @pre Nenhuma
+     * @post Nova feira adicionada ao vetor feiras
+     */
+    void AdicionarFeira(const Feira& feira);
 };
 
 #endif
