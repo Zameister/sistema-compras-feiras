@@ -29,11 +29,15 @@ static std::vector<UsuarioCadastrado> usuariosCadastrados;
 void InicializarBancoDeDados(Sistema* sistema) {
     // Feira 1: Ceilândia
     Location loc1(-15.817, -48.112);
-    Feira feira1("Feira da Ceilândia", "QNM 11, Ceilândia Norte", loc1);
+    Feira feira1("Feira da Ceilândia", "Quadra 12, Ceilândia Sul", loc1);
     feira1.AdicionarProduto(Produto("Tomate", 3.50, "Hortifruti", "Feira da Ceilândia"));
     feira1.AdicionarProduto(Produto("Alface", 2.00, "Hortifruti", "Feira da Ceilândia"));
-    feira1.AdicionarProduto(Produto("Banana", 4.50, "Hortifruti", "Feira da Ceilândia"));
+    feira1.AdicionarProduto(Produto("Banana", 4.20, "Frutas", "Feira da Ceilândia"));
     feira1.AdicionarProduto(Produto("Arroz (kg)", 5.00, "Grãos", "Feira da Ceilândia"));
+    feira1.AdicionarProduto(Produto("Cebola (kg)", 3.80, "Hortifruti", "Feira da Ceilândia"));
+    feira1.AdicionarProduto(Produto("Manga", 5.50, "Frutas", "Feira da Ceilândia"));
+    feira1.AdicionarProduto(Produto("Feijão (kg)", 6.90, "Grãos", "Feira da Ceilândia"));
+    feira1.AdicionarProduto(Produto("Pão francês (kg)", 11.50, "Padaria", "Feira da Ceilândia"));
     sistema->AdicionarFeira(feira1);
 
     // Feira 2: Taguatinga
@@ -43,6 +47,10 @@ void InicializarBancoDeDados(Sistema* sistema) {
     feira2.AdicionarProduto(Produto("Batata (kg)", 4.20, "Hortifruti", "Feira de Taguatinga"));
     feira2.AdicionarProduto(Produto("Feijão (kg)", 7.00, "Grãos", "Feira de Taguatinga"));
     feira2.AdicionarProduto(Produto("Queijo (kg)", 35.00, "Laticínios", "Feira de Taguatinga"));
+    feira2.AdicionarProduto(Produto("Laranja (kg)", 4.50, "Frutas", "Feira de Taguatinga"));
+    feira2.AdicionarProduto(Produto("Cenoura (kg)", 3.20, "Hortifruti", "Feira de Taguatinga"));
+    feira2.AdicionarProduto(Produto("Frango (kg)", 16.50, "Carnes", "Feira de Taguatinga"));
+    feira2.AdicionarProduto(Produto("Pão de forma", 8.90, "Padaria", "Feira de Taguatinga"));
     sistema->AdicionarFeira(feira2);
 
     // Feira 3: Plano Piloto
@@ -52,15 +60,23 @@ void InicializarBancoDeDados(Sistema* sistema) {
     feira3.AdicionarProduto(Produto("Alface", 2.50, "Hortifruti", "Feira do Plano Piloto"));
     feira3.AdicionarProduto(Produto("Pão francês (kg)", 12.00, "Padaria", "Feira do Plano Piloto"));
     feira3.AdicionarProduto(Produto("Leite (L)", 5.50, "Laticínios", "Feira do Plano Piloto"));
+    feira3.AdicionarProduto(Produto("Maçã (kg)", 7.50, "Frutas", "Feira do Plano Piloto"));
+    feira3.AdicionarProduto(Produto("Carne bovina (kg)", 38.00, "Carnes", "Feira do Plano Piloto"));
+    feira3.AdicionarProduto(Produto("Abóbora (kg)", 3.90, "Hortifruti", "Feira do Plano Piloto"));
+    feira3.AdicionarProduto(Produto("Iogurte", 6.50, "Laticínios", "Feira do Plano Piloto"));
     sistema->AdicionarFeira(feira3);
 
     // Feira 4: Samambaia
     Location loc4(-15.878, -48.085);
     Feira feira4("Feira de Samambaia", "QN 318, Samambaia Norte", loc4);
-    feira4.AdicionarProduto(Produto("Banana", 4.00, "Hortifruti", "Feira de Samambaia"));
-    feira4.AdicionarProduto(Produto("Maçã (kg)", 6.50, "Hortifruti", "Feira de Samambaia"));
+    feira4.AdicionarProduto(Produto("Banana", 4.00, "Frutas", "Feira de Samambaia"));
+    feira4.AdicionarProduto(Produto("Maçã (kg)", 6.50, "Frutas", "Feira de Samambaia"));
     feira4.AdicionarProduto(Produto("Arroz (kg)", 4.80, "Grãos", "Feira de Samambaia"));
     feira4.AdicionarProduto(Produto("Frango (kg)", 15.00, "Carnes", "Feira de Samambaia"));
+    feira4.AdicionarProduto(Produto("Pimentão (kg)", 5.20, "Hortifruti", "Feira de Samambaia"));
+    feira4.AdicionarProduto(Produto("Mamão", 4.80, "Frutas", "Feira de Samambaia"));
+    feira4.AdicionarProduto(Produto("Carne suína (kg)", 22.00, "Carnes", "Feira de Samambaia"));
+    feira4.AdicionarProduto(Produto("Leite (L)", 5.20, "Laticínios", "Feira de Samambaia"));
     sistema->AdicionarFeira(feira4);
 
     // Feira 5: Águas Claras
@@ -70,9 +86,13 @@ void InicializarBancoDeDados(Sistema* sistema) {
     feira5.AdicionarProduto(Produto("Alface", 2.30, "Hortifruti", "Feira de Águas Claras"));
     feira5.AdicionarProduto(Produto("Cenoura (kg)", 3.50, "Hortifruti", "Feira de Águas Claras"));
     feira5.AdicionarProduto(Produto("Pão integral (kg)", 18.00, "Padaria", "Feira de Águas Claras"));
+    feira5.AdicionarProduto(Produto("Uva (kg)", 12.00, "Frutas", "Feira de Águas Claras"));
+    feira5.AdicionarProduto(Produto("Brócolis", 4.50, "Hortifruti", "Feira de Águas Claras"));
+    feira5.AdicionarProduto(Produto("Queijo minas (kg)", 32.00, "Laticínios", "Feira de Águas Claras"));
+    feira5.AdicionarProduto(Produto("Melancia", 8.50, "Frutas", "Feira de Águas Claras"));
     sistema->AdicionarFeira(feira5);
 
-    std::cout << "✅ Banco de dados inicializado com 5 feiras e 20 produtos\n";
+    std::cout << "✅ Banco de dados inicializado com 5 feiras e 40 produtos\n";
 }
 
 /**
