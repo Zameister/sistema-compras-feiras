@@ -224,6 +224,18 @@ public:
             std::string js = ReadFile("web/admin.js");
             SendResponse(client, HTTP_200, CONTENT_TYPE_JS, js);
         }
+        else if (path == "/login.html") {
+            std::string html = ReadFile("web/login.html");
+            if (!html.empty()) {
+                SendResponse(client, HTTP_200, CONTENT_TYPE_HTML, html);
+            } else {
+                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Login não encontrado</h1>");
+            }
+        }
+        else if (path == "/login.js") {
+            std::string js = ReadFile("web/login.js");
+            SendResponse(client, HTTP_200, CONTENT_TYPE_JS, js);
+        }
         else if (path.find("/api/") == 0) {
             HandleAPI(client, path, query);
         }
@@ -345,6 +357,21 @@ public:
             SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json.str());
         }
         // ========== ENDPOINTS DE ADMINISTRADOR ==========
+        // GET /api/admin/login - Login de administrador
+        else if (path == "/api/admin/login") {
+            auto params = ParseQuery(query);
+            std::string usuario = params["usuario"];
+            std::string senha = params["senha"];
+
+            // Autenticação simples (em produção, use hash e banco de dados)
+            if (usuario == "admin" && senha == "admin123") {
+                std::string json = "{\"success\": true, \"message\": \"Login realizado com sucesso\"}";
+                SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+            } else {
+                std::string json = "{\"success\": false, \"error\": \"Usuário ou senha inválidos\"}";
+                SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
+            }
+        }
         // GET /api/admin/usuarios - Lista usuários cadastrados
         else if (path == "/api/admin/usuarios") {
             std::string json = ListarUsuariosJSON();

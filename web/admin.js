@@ -5,9 +5,40 @@ let feirasData = [];
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
+    verificarLoginAdmin();
     carregarFeiras();
     carregarUsuarios();
 });
+
+// ========== CONTROLE DE SESSÃO ==========
+
+/**
+ * Verificar se administrador está logado
+ */
+function verificarLoginAdmin() {
+    const sessao = localStorage.getItem('sessao');
+
+    if (!sessao) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const usuario = JSON.parse(sessao);
+
+    if (usuario.tipo !== 'admin') {
+        alert('Acesso restrito a administradores!');
+        window.location.href = 'login.html';
+        return;
+    }
+}
+
+/**
+ * Logout do sistema
+ */
+function logoutAdmin() {
+    localStorage.removeItem('sessao');
+    window.location.href = 'login.html';
+}
 
 // ========== CARREGAR DADOS ==========
 

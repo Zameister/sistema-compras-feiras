@@ -9,9 +9,41 @@ let usuarioAtual = null;
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
+    verificarLogin();
     carregarFeirasDoBackend();
     carregarUsuario();
 });
+
+// ========== CONTROLE DE SESSÃO ==========
+
+/**
+ * Verificar se usuário está logado
+ */
+function verificarLogin() {
+    const sessao = localStorage.getItem('sessao');
+
+    if (!sessao) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const usuario = JSON.parse(sessao);
+
+    if (usuario.tipo !== 'usuario') {
+        alert('Acesso restrito a usuários!');
+        window.location.href = 'login.html';
+        return;
+    }
+}
+
+/**
+ * Logout do sistema
+ */
+function logout() {
+    localStorage.removeItem('sessao');
+    localStorage.removeItem('usuario');
+    window.location.href = 'login.html';
+}
 
 // ========== INTEGRAÇÃO COM BACKEND C++ ==========
 
@@ -88,23 +120,63 @@ function carregarFeiras() {
     const container = document.getElementById('listaFeiras');
     container.innerHTML = '';
 
+    // Encontrar feira mais próxima
+    let feiraMaisProxima = null;
+    let menorDistancia = Infinity;
+
+    if (usuarioAtual) {
+        feirasData.forEach(feira => {
+            const dist = parseFloat(calcularDistancia(feira));
+            if (dist < menorDistancia) {
+                menorDistancia = dist;
+                feiraMaisProxima = feira;
+            }
+        });
+    }
+
     feirasData.forEach(feira => {
-        const card = criarCardFeira(feira);
+        const isMaisProxima = feiraMaisProxima && feira.nome === feiraMaisProxima.nome;
+        const card = criarCardFeira(feira, isMaisProxima);
         container.innerHTML += card;
     });
+
+    // Mostrar alerta da feira mais próxima
+    if (feiraMaisProxima) {
+        mostrarFeiraMaisProxima(feiraMaisProxima, menorDistancia);
+    }
+}
+
+/**
+ * Mostrar destaque da feira mais próxima
+ */
+function mostrarFeiraMaisProxima(feira, distancia) {
+    const container = document.getElementById('feiraMaisProxima');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show">
+            <h5 class="alert-heading"><i class="bi bi-geo-alt-fill"></i> Feira Mais Próxima de Você!</h5>
+            <p class="mb-1"><strong>${feira.nome}</strong> - ${feira.endereco}</p>
+            <p class="mb-0"><i class="bi bi-compass"></i> Apenas <strong>${distancia.toFixed(1)} km</strong> de distância</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
 }
 
 // Criar card de feira
-function criarCardFeira(feira) {
+function criarCardFeira(feira, isMaisProxima = false) {
     const numProdutos = feira.produtos.length;
     const distancia = usuarioAtual ? calcularDistancia(feira) : '...';
+    const destaque = isMaisProxima ? 'border-success border-3' : '';
+    const badge = isMaisProxima ? '<span class="badge bg-warning text-dark"><i class="bi bi-star-fill"></i> Mais Próxima!</span>' : '';
 
     return `
         <div class="col fade-in">
-            <div class="card feira-card shadow-sm h-100">
+            <div class="card feira-card shadow-sm h-100 ${destaque}">
                 <div class="card-body">
                     <h5 class="card-title">
                         <i class="bi bi-shop text-success"></i> ${feira.nome}
+                        ${badge}
                     </h5>
                     <p class="card-text">
                         <i class="bi bi-geo-alt"></i> ${feira.endereco}<br>
