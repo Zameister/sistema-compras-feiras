@@ -86,13 +86,13 @@ Sistema::Sistema() :
     feiras.emplace_back("Feira do Guará", "QE 25",
                         Location(-15.842200, -47.980300));
 
-    feiras[0].AdicionarProduto(Produto("Tomate", 3.50, "Hortifruti"));
-    feiras[0].AdicionarProduto(Produto("Banana", 4.20, "Frutas"));
+    feiras[0].AdicionarProduto(Produto("Tomate", 3.50, "Hortifruti", "Feira da Ceilândia"));
+    feiras[0].AdicionarProduto(Produto("Banana", 4.20, "Frutas", "Feira da Ceilândia"));
 
-    feiras[1].AdicionarProduto(Produto("Maçã", 5.00, "Frutas"));
-    feiras[1].AdicionarProduto(Produto("Cenoura", 2.50, "Hortifruti"));
+    feiras[1].AdicionarProduto(Produto("Maçã", 5.00, "Frutas", "Feira da Asa Sul"));
+    feiras[1].AdicionarProduto(Produto("Cenoura", 2.50, "Hortifruti", "Feira da Asa Sul"));
 
-    feiras[2].AdicionarProduto(Produto("Alface", 2.00, "Verduras"));
+    feiras[2].AdicionarProduto(Produto("Alface", 2.00, "Verduras", "Feira do Guará"));
 }
 
 // ======================= FUNÇÕES DO SISTEMA =============================
@@ -125,7 +125,7 @@ void Sistema::MostrarProdutosDaFeira() const {
 
     cout << "\n=== PRODUTOS EM " << f.GetNome() << " ===\n";
     for (const auto& p : f.GetProdutos()) {
-        cout << "- " << p.getNome() << " (R$ " << p.getPreco() << ")\n";
+        cout << "- " << p.GetNome() << " (R$ " << p.GetPreco() << ")\n";
     }
 }
 
@@ -247,15 +247,15 @@ void Sistema::BuscarProdutos() {
     // Buscar em todas as feiras
     for (const auto& feira : feiras) {
         for (const auto& produto : feira.GetProdutos()) {
-            std::string nomeProduto = produto.getNome();
+            std::string nomeProduto = produto.GetNome();
             std::transform(nomeProduto.begin(), nomeProduto.end(),
                           nomeProduto.begin(), ::tolower);
 
             if (nomeProduto.find(termo) != std::string::npos) {
                 resultados.push_back(std::make_tuple(
-                    produto.getNome(),
-                    produto.getPreco(),
-                    produto.getCategoria(),
+                    produto.GetNome(),
+                    produto.GetPreco(),
+                    produto.GetCategoria(),
                     feira.GetNome()
                 ));
             }
@@ -302,7 +302,7 @@ void Sistema::FiltrarFeiras() {
             for (const auto& feira : feiras) {
                 bool temCategoria = false;
                 for (const auto& produto : feira.GetProdutos()) {
-                    if (produto.getCategoria() == categoria) {
+                    if (produto.GetCategoria() == categoria) {
                         temCategoria = true;
                         break;
                     }
@@ -336,7 +336,7 @@ void Sistema::FiltrarFeiras() {
             for (const auto& feira : feiras) {
                 bool temProduto = false;
                 for (const auto& produto : feira.GetProdutos()) {
-                    std::string nomeTemp = produto.getNome();
+                    std::string nomeTemp = produto.GetNome();
                     std::transform(nomeTemp.begin(), nomeTemp.end(),
                                   nomeTemp.begin(), ::tolower);
 
@@ -373,7 +373,7 @@ void Sistema::FiltrarFeiras() {
             for (const auto& feira : feiras) {
                 bool temProdutoBarato = false;
                 for (const auto& produto : feira.GetProdutos()) {
-                    if (produto.getPreco() <= precoMax) {
+                    if (produto.GetPreco() <= precoMax) {
                         temProdutoBarato = true;
                         break;
                     }
