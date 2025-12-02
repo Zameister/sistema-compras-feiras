@@ -63,6 +63,29 @@ class Feirante {
 - Facilita mudanças (os testes protegem contra bugs)
 - Documentação viva (os testes mostram como usar)
 
+### Assertivas (@pre e @post)
+
+Além dos testes, usamos assertivas para documentar o que cada função espera e garante.
+
+**@pre (Pré-condição):** O que deve ser verdade ANTES de chamar a função
+**@post (Pós-condição):** O que será verdade DEPOIS de executar a função
+
+**Exemplo:**
+```cpp
+/**
+ * @brief Adiciona um produto
+ * @param produto Produto a ser adicionado
+ *
+ * @pre produto não pode ser nulo
+ * @pre produto deve ter nome válido
+ * @post Lista de produtos terá +1 item
+ * @post Produto estará na lista
+ */
+void AdicionarProduto(const Produto& produto);
+```
+
+Isso ajuda quem vai usar a função a saber exatamente o que pode e não pode fazer.
+
 ---
 
 ## Linguagem e Padrão de Código
@@ -180,13 +203,15 @@ Repositório: https://github.com/Zameister/sistema-compras-feiras
 
 **Branches:**
 - `main` - Código estável (produção)
-- `feature/arthur` - Features em desenvolvimento
+- `feature/arthur` - Features do Arthur
+- `feature/luidgi` - Features do Luidgi
 
 **Workflow:**
 1. Criar branch para cada funcionalidade
 2. Fazer commits pequenos e frequentes
 3. Push para GitHub
-4. Mesclar na `main` quando estiver pronto
+4. Revisar código (se possível)
+5. Mesclar na `main` quando estiver pronto
 
 **Padrão de Commits:**
 ```bash
@@ -453,17 +478,3 @@ git commit -m "test/feat: adicionar nova feature (TDD)"
 git push origin feature/arthur
 ```
 
----
-
-## Conclusão
-
-Desenvolvemos um sistema completo seguindo boas práticas:
-- ✅ TDD (testes antes do código)
-- ✅ Padrão Google C++ Style Guide
-- ✅ Verificadores automatizados (cpplint, cppcheck)
-- ✅ Cobertura de testes > 80%
-- ✅ Documentação completa (Doxygen)
-- ✅ Controle de versão (Git/GitHub)
-- ✅ Arquitetura limpa (backend C++ + frontend web)
-
-O resultado é um código confiável, bem testado e fácil de manter.
