@@ -214,3 +214,103 @@ async function loginAdmin(event) {
         window.location.href = 'admin.html';
     }, 1000);
 }
+
+/**
+ * Cadastro de novo feirante
+ */
+async function cadastrarFeirante(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById('cadastroFeiranteNome').value;
+    const banca = document.getElementById('cadastroFeiranteBanca').value;
+    const feira = document.getElementById('cadastroFeiranteFeira').value;
+    const senha = document.getElementById('cadastroFeiranteSenha').value;
+
+    const resultDiv = document.getElementById('resultadoCadastroFeirante');
+    resultDiv.innerHTML = '<div class="alert alert-info"><i class="bi bi-hourglass-split"></i> Criando conta...</div>';
+
+    // Verificar se feirante já existe
+    const feirantes = JSON.parse(localStorage.getItem('feirantes') || '[]');
+    const feiranteExistente = feirantes.find(f => f.nome.toLowerCase() === nome.toLowerCase());
+
+    if (feiranteExistente) {
+        resultDiv.innerHTML = `
+            <div class="alert alert-danger">
+                <i class="bi bi-x-circle"></i> Feirante já cadastrado! Use o formulário de login.
+            </div>
+        `;
+        return;
+    }
+
+    // Criar novo feirante
+    const novoFeirante = {
+        nome: nome,
+        banca: banca,
+        feira: feira,
+        senha: senha,
+        dataCadastro: new Date().toISOString()
+    };
+
+    feirantes.push(novoFeirante);
+    localStorage.setItem('feirantes', JSON.stringify(feirantes));
+
+    resultDiv.innerHTML = `
+        <div class="alert alert-success">
+            <i class="bi bi-check-circle"></i> Conta de feirante criada! Faça login para continuar.
+        </div>
+    `;
+
+    // Limpar formulário
+    document.getElementById('formCadastroFeirante').reset();
+
+    // Mudar para aba de login após 1.5 segundos
+    setTimeout(() => {
+        const loginTab = document.getElementById('feirante-login-tab');
+        loginTab.click();
+    }, 1500);
+}
+
+/**
+ * Login de feirante existente
+ */
+async function loginFeirante(event) {
+    event.preventDefault();
+
+    const nome = document.getElementById('loginFeiranteNome').value;
+    const senha = document.getElementById('loginFeiranteSenha').value;
+
+    const resultDiv = document.getElementById('resultadoLoginFeirante');
+    resultDiv.innerHTML = '<div class="alert alert-info"><i class="bi bi-hourglass-split"></i> Autenticando...</div>';
+
+    // Verificar credenciais
+    const feirantes = JSON.parse(localStorage.getItem('feirantes') || '[]');
+    const feirante = feirantes.find(f =>
+        f.nome.toLowerCase() === nome.toLowerCase() && f.senha === senha
+    );
+
+    if (!feirante) {
+        resultDiv.innerHTML = `
+            <div class="alert alert-danger">
+                <i class="bi bi-x-circle"></i> Nome ou senha incorretos!
+            </div>
+        `;
+        return;
+    }
+
+    // Criar sessão de feirante
+    const sessao = {
+        tipo: 'feirante',
+        nome: feirante.nome,
+        banca: feirante.banca,
+        feira: feirante.feira
+    };
+
+    localStorage.setItem('sessao', JSON.stringify(sessao));
+
+    resultDiv.innerHTML = '<div class="alert alert-success"><i class="bi bi-check-circle"></i> Login realizado!</div>';
+
+    // Redirecionar para o painel do feirante
+    setTimeout(() => {
+        window.location.href = 'feirante.html';
+    }, 1000);
+}
