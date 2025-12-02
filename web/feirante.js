@@ -203,55 +203,120 @@ async function removerProduto(nomeProduto) {
 
 // ========== MENSAGENS ==========
 
+/**
+ * Carregar mensagens recebidas da feira
+ */
 function carregarMensagens() {
     if (!feiranteLogado) return;
 
     // Carregar mensagens do localStorage
     const mensagens = JSON.parse(localStorage.getItem('mensagens') || '[]');
-    const minhasMensagens = mensagens.filter(m =>
-        m.feirante === feiranteLogado.nome || m.feira === feiranteLogado.feira
-    );
+
+    // Filtrar mensagens destinadas à feira do feirante
+    const minhasMensagens = mensagens.filter(m => m.feira === feiranteLogado.feira);
+
+    // Contar mensagens não lidas
+    const naoLidas = minhasMensagens.filter(m => !m.lida).length;
 
     const badge = document.getElementById('badgeMensagens');
-    badge.textContent = minhasMensagens.length;
+    badge.textContent = naoLidas;
+    badge.classList.toggle('bg-danger', naoLidas > 0);
+    badge.classList.toggle('bg-secondary', naoLidas === 0);
+
+    const listaMensagens = document.getElementById('listaMensagens');
 
     if (minhasMensagens.length === 0) {
-        document.getElementById('listaMensagens').innerHTML = `
+        listaMensagens.innerHTML = `
             <div class="alert alert-info">
-                <i class="bi bi-info-circle"></i> Nenhuma mensagem recebida ainda.
+                <i class="bi bi-inbox"></i> Nenhuma mensagem recebida ainda.
+                <p class="mb-0 mt-2 small">
+                    Quando clientes enviarem dúvidas sobre seus produtos, elas aparecerão aqui.
+                </p>
             </div>
         `;
         return;
     }
 
-    let html = '';
+    // Ordenar mensagens por data (mais recente primeiro)
+    minhasMensagens.sort((a, b) => new Date(b.data) - new Date(a.data));
+
+    let html = '<div class="list-group">';
     minhasMensagens.forEach((msg, index) => {
+        const dataFormatada = new Date(msg.data).toLocaleString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        const classeCard = msg.lida ? 'list-group-item' : 'list-group-item list-group-item-action border-primary';
+
         html += `
-            <div class="card mb-3">
-                <div class="card-header">
-                    <strong><i class="bi bi-person"></i> ${msg.cliente || 'Cliente'}</strong>
-                    <small class="text-muted float-end">${new Date(msg.data).toLocaleString('pt-BR')}</small>
+            <div class="${classeCard} mb-2">
+                <div class="d-flex w-100 justify-content-between align-items-start">
+                    <h6 class="mb-1">
+                        <i class="bi bi-person-circle"></i> ${msg.de}
+                        ${!msg.lida ? '<span class="badge bg-danger ms-2">Nova</span>' : ''}
+                    </h6>
+                    <small class="text-muted">${dataFormatada}</small>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">${msg.mensagem}</p>
-                    <button class="btn btn-sm btn-primary" onclick="responderMensagem(${index})">
+                <p class="mb-1">
+                    <strong>Produto:</strong> ${msg.produto}
+                </p>
+                <p class="mb-2 mt-2 p-3 bg-light rounded">
+                    <i class="bi bi-chat-quote"></i> ${msg.texto}
+                </p>
+                <div class="btn-group btn-group-sm">
+                    ${!msg.lida ? `
+                        <button class="btn btn-outline-success" onclick="marcarComoLida(${msg.id})">
+                            <i class="bi bi-check2"></i> Marcar como lida
+                        </button>
+                    ` : ''}
+                    <button class="btn btn-outline-primary" onclick="responderMensagem(${msg.id})">
                         <i class="bi bi-reply"></i> Responder
                     </button>
                 </div>
             </div>
         `;
     });
+    html += '</div>';
 
-    document.getElementById('listaMensagens').innerHTML = html;
+    listaMensagens.innerHTML = html;
 }
 
-function responderMensagem(index) {
-    const mensagens = JSON.parse(localStorage.getItem('mensagens') || '[]');
-    const msg = mensagens[index];
+/**
+ * Marcar mensagem como lida
+ */
+function marcarComoLida(mensagemId) {
+    let mensagens = JSON.parse(localStorage.getItem('mensagens') || '[]');
+    const index = mensagens.findIndex(m => m.id === mensagemId);
 
-    const resposta = prompt('Digite sua resposta:');
-    if (resposta) {
-        alert('Resposta enviada! (Funcionalidade em desenvolvimento)');
-        // Aqui você implementaria o envio real da resposta
+    if (index !== -1) {
+        mensagens[index].lida = true;
+        localStorage.setItem('mensagens', JSON.stringify(mensagens));
+        carregarMensagens();
+        console.log('✅ Mensagem marcada como lida');
+    }
+}
+
+/**
+ * Responder mensagem
+ */
+function responderMensagem(mensagemId) {
+    const mensagens = JSON.parse(localStorage.getItem('mensagens') || '[]');
+    const msg = mensagens.find(m => m.id === mensagemId);
+
+    if (!msg) return;
+
+    const resposta = prompt(`Responder para ${msg.de} sobre "${msg.produto}":\n\nMensagem original: ${msg.texto}\n\nDigite sua resposta:`);
+
+    if (resposta && resposta.trim()) {
+        alert('✅ Resposta enviada com sucesso!\n\n(Em uma versão completa, a resposta seria enviada por email ou notificação ao cliente)');
+
+        // Marcar como lida
+        marcarComoLida(mensagemId);
+
+        console.log('✅ Resposta:', resposta);
     }
 }

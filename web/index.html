@@ -224,6 +224,48 @@
         </section>
     </div>
 
+    <!-- Modal de Mensagem -->
+    <div class="modal fade" id="modalMensagem" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-chat-dots"></i> Enviar Mensagem ao Feirante
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formMensagem" onsubmit="enviarMensagem(event)">
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Produto:</strong></label>
+                            <p id="mensagemProduto" class="text-muted"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Feira:</strong></label>
+                            <p id="mensagemFeira" class="text-muted"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="textoMensagem" class="form-label">
+                                <i class="bi bi-pencil"></i> Sua Mensagem *
+                            </label>
+                            <textarea class="form-control" id="textoMensagem" rows="4"
+                                      placeholder="Digite sua mensagem para o feirante..." required></textarea>
+                            <div class="form-text">
+                                Envie dúvidas sobre o produto, preços, disponibilidade, etc.
+                            </div>
+                        </div>
+                        <div id="resultadoMensagem"></div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-send"></i> Enviar Mensagem
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-4">
         <div class="container">

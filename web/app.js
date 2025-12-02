@@ -339,9 +339,11 @@ function criarCardProduto(produto) {
                         <i class="bi bi-shop"></i> ${produto.feira}<br>
                         <small><i class="bi bi-geo-alt"></i> ${produto.feiraRA}</small>
                     </p>
-                    <button class="btn btn-success btn-sm w-100">
-                        <i class="bi bi-cart-plus"></i> Ver Detalhes
-                    </button>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success btn-sm" onclick="abrirModalMensagem('${produto.nome}', '${produto.feira}')">
+                            <i class="bi bi-chat-dots"></i> Enviar Mensagem
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -464,3 +466,98 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// ========== SISTEMA DE MENSAGENS ==========
+
+let mensagemAtual = { produto: '', feira: '' };
+
+/**
+ * Abrir modal de mensagem
+ */
+function abrirModalMensagem(produto, feira) {
+    // Verificar se usuário está logado
+    const sessao = localStorage.getItem('sessao');
+
+    if (!sessao) {
+        alert('Por favor, faça login para enviar mensagens aos feirantes.');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const usuario = JSON.parse(sessao);
+
+    if (usuario.tipo !== 'usuario') {
+        alert('Apenas usuários podem enviar mensagens aos feirantes.');
+        return;
+    }
+
+    // Definir informações da mensagem
+    mensagemAtual = { produto, feira };
+
+    document.getElementById('mensagemProduto').textContent = produto;
+    document.getElementById('mensagemFeira').textContent = feira;
+    document.getElementById('textoMensagem').value = '';
+    document.getElementById('resultadoMensagem').innerHTML = '';
+
+    // Abrir modal
+    const modal = new bootstrap.Modal(document.getElementById('modalMensagem'));
+    modal.show();
+}
+
+/**
+ * Enviar mensagem ao feirante
+ */
+async function enviarMensagem(event) {
+    event.preventDefault();
+
+    const sessao = JSON.parse(localStorage.getItem('sessao') || '{}');
+    const texto = document.getElementById('textoMensagem').value.trim();
+    const resultDiv = document.getElementById('resultadoMensagem');
+
+    if (!texto) {
+        resultDiv.innerHTML = `
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle"></i> Por favor, digite uma mensagem.
+            </div>
+        `;
+        return;
+    }
+
+    resultDiv.innerHTML = '<div class="alert alert-info"><i class="bi bi-hourglass-split"></i> Enviando mensagem...</div>';
+
+    // Criar objeto de mensagem
+    const novaMensagem = {
+        id: Date.now(),
+        de: sessao.nome || 'Usuário',
+        produto: mensagemAtual.produto,
+        feira: mensagemAtual.feira,
+        texto: texto,
+        data: new Date().toISOString(),
+        lida: false
+    };
+
+    // Obter mensagens existentes do localStorage
+    let mensagens = JSON.parse(localStorage.getItem('mensagens') || '[]');
+    mensagens.push(novaMensagem);
+    localStorage.setItem('mensagens', JSON.stringify(mensagens));
+
+    resultDiv.innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show">
+            <i class="bi bi-check-circle"></i> Mensagem enviada com sucesso!
+            O feirante receberá sua mensagem em breve.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+
+    // Limpar formulário
+    document.getElementById('formMensagem').reset();
+
+    // Fechar modal após 2 segundos
+    setTimeout(() => {
+        const modalElement = document.getElementById('modalMensagem');
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) modal.hide();
+    }, 2000);
+
+    console.log('✅ Mensagem enviada:', novaMensagem);
+}
