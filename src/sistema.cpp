@@ -2,6 +2,8 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
+#include <iomanip>
+#include <tuple>
 
 using namespace std;
 
@@ -84,13 +86,13 @@ Sistema::Sistema() :
     feiras.emplace_back("Feira do Guará", "QE 25",
                         Location(-15.842200, -47.980300));
 
-    feiras[0].AdicionarProduto(Produto("Tomate", 3.50, "Hortifruti"));
-    feiras[0].AdicionarProduto(Produto("Banana", 4.20, "Frutas"));
+    feiras[0].AdicionarProduto(Produto("Tomate", 3.50, "Hortifruti", "Feira da Ceilândia"));
+    feiras[0].AdicionarProduto(Produto("Banana", 4.20, "Frutas", "Feira da Ceilândia"));
 
-    feiras[1].AdicionarProduto(Produto("Maçã", 5.00, "Frutas"));
-    feiras[1].AdicionarProduto(Produto("Cenoura", 2.50, "Hortifruti"));
+    feiras[1].AdicionarProduto(Produto("Maçã", 5.00, "Frutas", "Feira da Asa Sul"));
+    feiras[1].AdicionarProduto(Produto("Cenoura", 2.50, "Hortifruti", "Feira da Asa Sul"));
 
-    feiras[2].AdicionarProduto(Produto("Alface", 2.00, "Verduras"));
+    feiras[2].AdicionarProduto(Produto("Alface", 2.00, "Verduras", "Feira do Guará"));
 }
 
 // ======================= FUNÇÕES DO SISTEMA =============================
@@ -123,11 +125,15 @@ void Sistema::MostrarProdutosDaFeira() const {
 
     cout << "\n=== PRODUTOS EM " << f.GetNome() << " ===\n";
     for (const auto& p : f.GetProdutos()) {
-        cout << "- " << p.getNome() << " (R$ " << p.getPreco() << ")\n";
+        cout << "- " << p.GetNome() << " (R$ " << p.GetPreco() << ")\n";
     }
 }
 
-void Sistema::CalcularDistancia() const {
+// ==============================================================================
+// EU003: Como usuário, quero calcular a distância até uma feira
+//        para planejar meu deslocamento
+// ==============================================================================
+void Sistema::CalcularDistancia() const {  // EU003
     if (!usuarioCadastrado) {
         cout << "\n⚠ Cadastre um usuário primeiro!\n";
         return;
@@ -155,7 +161,11 @@ void Sistema::CalcularDistancia() const {
          << dist << " km\n";
 }
 
-void Sistema::CadastrarUsuario() {
+// ==============================================================================
+// EU005: Como usuário, quero me cadastrar informando minha região
+//        para receber informações personalizadas sobre feiras próximas
+// ==============================================================================
+void Sistema::CadastrarUsuario() {  // EU005
     string nome, regiao;
     cout << "\n=== CADASTRAR USUÁRIO ===\n";
 
@@ -191,8 +201,8 @@ void Sistema::Menu() {
         cout << "2. Listar feiras\n";
         cout << "3. Ver produtos de uma feira\n";
         cout << "4. Calcular distância até uma feira\n";
-        cout << "5. (Arthur) Buscar produtos\n";
-        cout << "6. (Arthur) Filtrar feiras\n";
+        cout << "5. Buscar produtos\n";
+        cout << "6. Filtrar feiras\n";
         cout << "0. Sair\n";
         cout << "Opção: ";
 
@@ -204,21 +214,210 @@ void Sistema::Menu() {
             case 2: ListarFeiras(); Pausar(); break;
             case 3: MostrarProdutosDaFeira(); Pausar(); break;
             case 4: CalcularDistancia(); Pausar(); break;
-
             case 5:
-            case 6:
-                cout << "\nFunção em desenvolvimento pelo Arthur.\n";
+                BuscarProdutos();
                 Pausar();
                 break;
-
+            case 6:
+                FiltrarFeiras();
+                Pausar();
+                break;
             case 0:
                 cout << "\nEncerrando...\n";
                 break;
-
             default:
                 cout << "Opção inválida.\n";
                 Pausar();
                 break;
         }
     }
+}
+
+// ==============================================================================
+// EU001: Como usuário, quero procurar produtos pelo nome para encontrar
+//        os melhores preços nas feiras próximas
+// ==============================================================================
+void Sistema::BuscarProdutos() {  // EU001
+    std::string termo;
+    std::cout << "\n=== BUSCAR PRODUTOS ===\n";
+    std::cout << "Digite o nome do produto (ou parte dele): ";
+    std::getline(std::cin, termo);
+    
+    // Normalizar busca (minúsculas)
+    std::transform(termo.begin(), termo.end(), termo.begin(), ::tolower);
+    
+    if (termo.empty()) {
+        std::cout << "Termo de busca não pode ser vazio!\n";
+        return;
+    }
+    
+    std::vector<std::tuple<std::string, double, std::string, std::string>> resultados;
+    
+    // Buscar em todas as feiras
+    for (const auto& feira : feiras) {
+        for (const auto& produto : feira.GetProdutos()) {
+            std::string nomeProduto = produto.GetNome();
+            std::transform(nomeProduto.begin(), nomeProduto.end(),
+                          nomeProduto.begin(), ::tolower);
+
+            if (nomeProduto.find(termo) != std::string::npos) {
+                resultados.push_back(std::make_tuple(
+                    produto.GetNome(),
+                    produto.GetPreco(),
+                    produto.GetCategoria(),
+                    feira.GetNome()
+                ));
+            }
+        }
+    }
+    
+    if (resultados.empty()) {
+        std::cout << "\nNenhum produto encontrado com o termo: " << termo << "\n";
+    } else {
+        std::cout << "\n=== RESULTADOS DA BUSCA ===\n";
+        std::cout << "Encontrados " << resultados.size() << " produto(s):\n\n";
+        
+        for (const auto& resultado : resultados) {
+            std::cout << "Produto: " << std::get<0>(resultado) << "\n";
+            std::cout << "Preço: R$ " << std::fixed << std::setprecision(2) 
+                     << std::get<1>(resultado) << "\n";
+            std::cout << "Categoria: " << std::get<2>(resultado) << "\n";
+            std::cout << "Feira: " << std::get<3>(resultado) << "\n";
+            std::cout << "----------------------------\n";
+        }
+    }
+}
+
+// ==============================================================================
+// EU002: Como usuário, quero filtrar feiras por categoria, produto ou preço
+//        para encontrar opções que atendam minhas necessidades
+// ==============================================================================
+void Sistema::FiltrarFeiras() {  // EU002
+    std::cout << "\n=== FILTRAR FEIRAS ===\n";
+    std::cout << "1. Filtrar por categoria de produto\n";
+    std::cout << "2. Filtrar por produto específico\n";
+    std::cout << "3. Filtrar por preço máximo\n";
+    std::cout << "Escolha uma opção: ";
+    
+    int opcao;
+    std::cin >> opcao;
+    LimparBuffer();
+    
+    switch (opcao) {
+        case 1: {
+            std::string categoria;
+            std::cout << "Digite a categoria: ";
+            std::getline(std::cin, categoria);
+            
+            std::cout << "\n=== FEIRAS COM PRODUTOS DA CATEGORIA: " << categoria << " ===\n";
+            bool encontrou = false;
+            
+            for (const auto& feira : feiras) {
+                bool temCategoria = false;
+                for (const auto& produto : feira.GetProdutos()) {
+                    if (produto.GetCategoria() == categoria) {
+                        temCategoria = true;
+                        break;
+                    }
+                }
+                
+                if (temCategoria) {
+                    std::cout << "Feira: " << feira.GetNome() << "\n";
+                    std::cout << "Endereço: " << feira.GetEndereco() << "\n";
+                    std::cout << "----------------------------\n";
+                    encontrou = true;
+                }
+            }
+            
+            if (!encontrou) {
+                std::cout << "Nenhuma feira encontrada com essa categoria.\n";
+            }
+            break;
+        }
+        
+        case 2: {
+            std::string nomeProduto;
+            std::cout << "Digite o nome do produto: ";
+            std::getline(std::cin, nomeProduto);
+            
+            std::transform(nomeProduto.begin(), nomeProduto.end(), 
+                          nomeProduto.begin(), ::tolower);
+            
+            std::cout << "\n=== FEIRAS QUE VENDEM: " << nomeProduto << " ===\n";
+            bool encontrou = false;
+            
+            for (const auto& feira : feiras) {
+                bool temProduto = false;
+                for (const auto& produto : feira.GetProdutos()) {
+                    std::string nomeTemp = produto.GetNome();
+                    std::transform(nomeTemp.begin(), nomeTemp.end(),
+                                  nomeTemp.begin(), ::tolower);
+
+                    if (nomeTemp.find(nomeProduto) != std::string::npos) {
+                        temProduto = true;
+                        break;
+                    }
+                }
+
+                if (temProduto) {
+                    std::cout << "Feira: " << feira.GetNome() << "\n";
+                    std::cout << "Endereço: " << feira.GetEndereco() << "\n";
+                    std::cout << "----------------------------\n";
+                    encontrou = true;
+                }
+            }
+            
+            if (!encontrou) {
+                std::cout << "Nenhuma feira encontrada com esse produto.\n";
+            }
+            break;
+        }
+        
+        case 3: {
+            double precoMax;
+            std::cout << "Digite o preço máximo: R$ ";
+            std::cin >> precoMax;
+            LimparBuffer();
+            
+            std::cout << "\n=== FEIRAS COM PRODUTOS ATÉ R$ " << std::fixed 
+                     << std::setprecision(2) << precoMax << " ===\n";
+            bool encontrou = false;
+            
+            for (const auto& feira : feiras) {
+                bool temProdutoBarato = false;
+                for (const auto& produto : feira.GetProdutos()) {
+                    if (produto.GetPreco() <= precoMax) {
+                        temProdutoBarato = true;
+                        break;
+                    }
+                }
+                
+                if (temProdutoBarato) {
+                    std::cout << "Feira: " << feira.GetNome() << "\n";
+                    std::cout << "Endereço: " << feira.GetEndereco() << "\n";
+                    std::cout << "----------------------------\n";
+                    encontrou = true;
+                }
+            }
+            
+            if (!encontrou) {
+                std::cout << "Nenhuma feira encontrada nessa faixa de preço.\n";
+            }
+            break;
+        }
+        
+        default:
+            std::cout << "Opção inválida!\n";
+            break;
+    }
+}
+
+// ========== Métodos para API REST ==========
+
+const std::vector<Feira>& Sistema::GetFeiras() const {
+    return feiras;
+}
+
+void Sistema::AdicionarFeira(const Feira& feira) {
+    feiras.push_back(feira);
 }

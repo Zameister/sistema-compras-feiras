@@ -67,7 +67,7 @@ void Feira::AdicionarProduto(const Produto& produto) {
 bool Feira::RemoverProduto(const std::string& nomeProduto) {
     auto it = std::find_if(produtos.begin(), produtos.end(),
         [&](const Produto& p) {
-            return p.getNome() == nomeProduto;
+            return p.GetNome() == nomeProduto;
         });
 
     if (it != produtos.end()) {
@@ -79,7 +79,7 @@ bool Feira::RemoverProduto(const std::string& nomeProduto) {
 
 Produto* Feira::BuscarProduto(const std::string& nomeProduto) {
     for (auto& p : produtos) {
-        if (p.getNome() == nomeProduto) {
+        if (p.GetNome() == nomeProduto) {
             return &p;
         }
     }
