@@ -1,28 +1,63 @@
-#ifndef PRODUTO_H
-#define PRODUTO_H
+/**
+ * @file produto.h
+ * @brief Definição da classe Produto
+ * @author Luidgi Varela Carneiro, Arthur Souza Chagas
+ * @date 2025
+ * 
+ * Histórias de Usuário relacionadas: EU001, EU002, EU004
+ */
+
+#ifndef PRODUTO_H_
+#define PRODUTO_H_
 
 #include <string>
 
+/**
+ * @class Produto
+ * @brief Representa um produto disponível em uma feira
+ * 
+ * Esta classe armazena informações sobre produtos cadastrados
+ * por feirantes, incluindo nome, preço, categoria e localização.
+ */
 class Produto {
-private:
-    std::string nome;
-    double preco;
-    std::string categoria;
+ public:
+  /**
+   * @brief Construtor padrão
+   * 
+   * @pre Nenhuma
+   * @post Cria um produto com valores padrão
+   */
+  Produto();
 
-public:
-    // Construtores
-    Produto();
-    Produto(const std::string& nome,
-            double preco,
-            const std::string& categoria);
+  /**
+   * @brief Construtor com parâmetros
+   * 
+   * @param nome Nome do produto
+   * @param preco Preço do produto
+   * @param categoria Categoria do produto
+   * @param feira Nome da feira onde está disponível
+   * 
+   * @pre preco >= 0.0
+   * @pre nome não vazio
+   * @post Cria um produto com os valores especificados
+   */
+  Produto(const std::string& nome, double preco, 
+          const std::string& categoria, const std::string& feira);
 
-    // Destrutor
-    ~Produto() = default;
+  /**
+   * @brief Destrutor
+   */
+  ~Produto();
 
-    // Getters
-    std::string getNome() const;
-    double getPreco() const;
-    std::string getCategoria() const;
+  // Getters
+  /**
+   * @brief Obtém o nome do produto
+   * @return Nome do produto
+   * 
+   * @pre Nenhuma
+   * @post Retorna o nome do produto sem modificá-lo
+   */
+  std::string GetNome() const;
 
   /**
    * @brief Obtém o preço do produto
@@ -124,4 +159,4 @@ public:
   int numAvaliacoes_;       ///< Número de avaliações recebidas
 };
 
-#endif
+#endif  // PRODUTO_H_

@@ -21,17 +21,27 @@ Um sistema completo onde:
 
 ### 1. Compilar
 ```bash
-# Windows
-g++ -std=c++17 -Wall -I./include src/database.cpp src/distancias.cpp src/feira.cpp src/feirante.cpp src/location.cpp src/produto.cpp src/sistema.cpp src/usuario.cpp src/webserver.cpp -o bin/webserver.exe -lws2_32
+# Com Make (recomendado)
+make
 
-# Mac/Linux
-g++ -std=c++17 -Wall -I./include src/database.cpp src/distancias.cpp src/feira.cpp src/feirante.cpp src/location.cpp src/produto.cpp src/sistema.cpp src/usuario.cpp src/webserver.cpp -o bin/webserver
+# Ou compilar manualmente no Windows:
+mkdir obj bin
+g++ -std=c++17 -Wall -Wextra -Iinclude -c src/*.cpp
+g++ -std=c++17 obj/produto.o obj/feirante.o obj/feira.o obj/sistema.o obj/usuario.o obj/location.o obj/distancias.o obj/database.o obj/main.o -o bin/sistema_feiras.exe
+g++ -std=c++17 obj/produto.o obj/feirante.o obj/feira.o obj/sistema.o obj/usuario.o obj/location.o obj/distancias.o obj/database.o obj/webserver.o -o bin/webserver.exe -lws2_32
 ```
 
 ### 2. Executar
 ```bash
+# Servidor Web
+make run-web          # Com Make
 ./bin/webserver.exe   # Windows
 ./bin/webserver       # Mac/Linux
+
+# Ou programa console
+make run              # Com Make
+./bin/sistema_feiras.exe   # Windows
+./bin/sistema_feiras       # Mac/Linux
 ```
 
 ### 3. Acessar
