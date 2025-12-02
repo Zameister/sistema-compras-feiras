@@ -1,12 +1,12 @@
 /**
  * @file feirante.h
- * @brief Declaração da classe Feirante
+ * @brief DeclaraÃ§Ã£o da classe Feirante
  * @author Luidgi Varela Carneiro, Arthur Souza Chagas
  *
  * Define a classe Feirante para representar vendedores em feiras.
- * Suporta cadastro, autenticação segura com hash de senha, e gestão de dados.
+ * Suporta cadastro, autenticaÃ§Ã£o segura com hash de senha, e gestÃ£o de dados.
  *
- * Histórias de Usuário: EU004, EU005
+ * HistÃ³rias de UsuÃ¡rio: EU004, EU005
  * Desenvolvido seguindo TDD (Test-Driven Development)
  */
 
@@ -20,36 +20,36 @@
  * @class Feirante
  * @brief Representa um feirante (vendedor) em uma feira
  *
- * Esta classe gerencia informações de feirantes, incluindo:
+ * Esta classe gerencia informaÃ§Ãµes de feirantes, incluindo:
  * - Dados pessoais (nome, banca, feira)
- * - Autenticação segura com hash de senha
- * - Serialização para JSON
+ * - AutenticaÃ§Ã£o segura com hash de senha
+ * - SerializaÃ§Ã£o para JSON
  *
- * @invariant Nome não pode ser vazio
- * @invariant Banca não pode ser vazia
- * @invariant Feira não pode ser vazia
- * @invariant Senha deve ter no mínimo 4 caracteres
+ * @invariant Nome nÃ£o pode ser vazio
+ * @invariant Banca nÃ£o pode ser vazia
+ * @invariant Feira nÃ£o pode ser vazia
+ * @invariant Senha deve ter no mÃ­nimo 4 caracteres
  */
 class Feirante {
  public:
   /**
-   * @brief Construtor padrão
+   * @brief Construtor padrÃ£o
    *
    * @post Cria feirante com todos os campos vazios
    */
   Feirante();
 
   /**
-   * @brief Construtor com parâmetros
+   * @brief Construtor com parÃ¢metros
    * @param nome Nome completo do feirante
    * @param banca Nome da banca/barraca
    * @param feira Nome da feira onde trabalha
-   * @param senha Senha em texto puro (será hasheada)
+   * @param senha Senha em texto puro (serÃ¡ hasheada)
    *
-   * @pre nome, banca, feira não podem ser vazios
-   * @pre senha deve ter no mínimo 4 caracteres
+   * @pre nome, banca, feira nÃ£o podem ser vazios
+   * @pre senha deve ter no mÃ­nimo 4 caracteres
    * @post Feirante criado com senha hasheada
-   * @throws std::invalid_argument se algum parâmetro for inválido
+   * @throws std::invalid_argument se algum parÃ¢metro for invÃ¡lido
    */
   Feirante(const std::string& nome,
            const std::string& banca,
@@ -66,25 +66,25 @@ class Feirante {
   // ---------------------------------------------------------
 
   /**
-   * @brief Obtém o nome do feirante
+   * @brief ObtÃ©m o nome do feirante
    * @return Nome do feirante
    */
   std::string GetNome() const;
 
   /**
-   * @brief Obtém o nome da banca
+   * @brief ObtÃ©m o nome da banca
    * @return Nome da banca
    */
   std::string GetBanca() const;
 
   /**
-   * @brief Obtém o nome da feira
+   * @brief ObtÃ©m o nome da feira
    * @return Nome da feira
    */
   std::string GetFeira() const;
 
   /**
-   * @brief Obtém o hash da senha (para persistência)
+   * @brief ObtÃ©m o hash da senha (para persistÃªncia)
    * @return Hash SHA256 da senha
    *
    * @warning Nunca exponha a senha em texto puro
@@ -99,7 +99,7 @@ class Feirante {
    * @brief Define o nome do feirante
    * @param nome Novo nome
    *
-   * @pre nome não pode ser vazio
+   * @pre nome nÃ£o pode ser vazio
    * @post Nome atualizado
    * @throws std::invalid_argument se nome for vazio
    */
@@ -109,7 +109,7 @@ class Feirante {
    * @brief Define o nome da banca
    * @param banca Novo nome da banca
    *
-   * @pre banca não pode ser vazia
+   * @pre banca nÃ£o pode ser vazia
    * @post Banca atualizada
    * @throws std::invalid_argument se banca for vazia
    */
@@ -119,40 +119,40 @@ class Feirante {
    * @brief Define o nome da feira
    * @param feira Novo nome da feira
    *
-   * @pre feira não pode ser vazia
+   * @pre feira nÃ£o pode ser vazia
    * @post Feira atualizada
    * @throws std::invalid_argument se feira for vazia
    */
   void SetFeira(const std::string& feira);
 
   // ---------------------------------------------------------
-  // Autenticação
+  // AutenticaÃ§Ã£o
   // ---------------------------------------------------------
 
   /**
-   * @brief Valida se a senha fornecida está correta
+   * @brief Valida se a senha fornecida estÃ¡ correta
    * @param senha Senha em texto puro para validar
-   * @return true se a senha estiver correta, false caso contrário
+   * @return true se a senha estiver correta, false caso contrÃ¡rio
    *
    * @pre Nenhuma
-   * @post Nenhuma alteração no objeto
+   * @post Nenhuma alteraÃ§Ã£o no objeto
    */
   bool ValidarSenha(const std::string& senha) const;
 
   /**
    * @brief Altera a senha do feirante
-   * @param senhaAntiga Senha atual (para validação)
+   * @param senhaAntiga Senha atual (para validaÃ§Ã£o)
    * @param senhaNova Nova senha
    *
    * @pre senhaAntiga deve estar correta
-   * @pre senhaNova deve ter no mínimo 4 caracteres
+   * @pre senhaNova deve ter no mÃ­nimo 4 caracteres
    * @post Senha alterada e hasheada
    * @throws std::invalid_argument se senhaAntiga estiver incorreta ou senhaNova for muito curta
    */
   void AlterarSenha(const std::string& senhaAntiga, const std::string& senhaNova);
 
   // ---------------------------------------------------------
-  // Serialização
+  // SerializaÃ§Ã£o
   // ---------------------------------------------------------
 
   /**

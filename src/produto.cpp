@@ -24,10 +24,7 @@ Produto::Produto(const std::string& nome,
 // Destrutor
 // ---------------------------------------------------------
 
-Produto::Produto(const std::string& nome,
-                 double preco,
-                 const std::string& categoria)
-    : nome(nome), preco(preco), categoria(categoria) {}
+Produto::~Produto() {}
 
 
 // ---------------------------------------------------------
