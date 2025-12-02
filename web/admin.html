@@ -62,6 +62,16 @@
                     <i class="bi bi-trash"></i> Remover Produto
                 </button>
             </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="relatorios-tab" data-bs-toggle="tab" data-bs-target="#relatorios" type="button">
+                    <i class="bi bi-graph-up"></i> Relatórios
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="categorias-tab" data-bs-toggle="tab" data-bs-target="#categorias" type="button">
+                    <i class="bi bi-tags"></i> Categorias
+                </button>
+            </li>
         </ul>
 
         <!-- Tab Content -->
@@ -200,6 +210,106 @@
                             </button>
                         </form>
                         <div id="resultadoRemover" class="mt-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Relatórios -->
+            <div class="tab-pane fade" id="relatorios" role="tabpanel">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0"><i class="bi bi-graph-up-arrow"></i> Relatórios e Estatísticas</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-warning mb-3" onclick="gerarRelatorio()">
+                            <i class="bi bi-arrow-clockwise"></i> Atualizar Estatísticas
+                        </button>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <i class="bi bi-trophy"></i> Top 5 Produtos Mais Bem Avaliados
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="topAvaliacoes">Carregando...</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <i class="bi bi-currency-dollar"></i> Produtos Mais Baratos
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="maisBaratos">Carregando...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-info">
+                                    <div class="card-header bg-info text-white">
+                                        <i class="bi bi-shop"></i> Feiras Mais Populares
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="feirasPopulares">Carregando...</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="card border-secondary">
+                                    <div class="card-header bg-secondary text-white">
+                                        <i class="bi bi-graph-up"></i> Estatísticas Gerais
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="estatisticasGerais">Carregando...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categorias -->
+            <div class="tab-pane fade" id="categorias" role="tabpanel">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-tags-fill"></i> Gerenciar Categorias</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Categorias Atuais:</h6>
+                        <div id="listaCategorias" class="mb-4">
+                            <span class="badge bg-success m-1">Hortifruti</span>
+                            <span class="badge bg-warning m-1">Grãos</span>
+                            <span class="badge bg-danger m-1">Carnes</span>
+                            <span class="badge bg-info m-1">Laticínios</span>
+                            <span class="badge bg-secondary m-1">Padaria</span>
+                            <span class="badge bg-success m-1">Frutas</span>
+                        </div>
+
+                        <form id="formAdicionarCategoria" onsubmit="adicionarCategoria(event)">
+                            <div class="mb-3">
+                                <label for="novaCategoria" class="form-label">
+                                    <i class="bi bi-plus-circle"></i> Adicionar Nova Categoria
+                                </label>
+                                <input type="text" class="form-control" id="novaCategoria"
+                                       placeholder="Nome da categoria" required>
+                            </div>
+                            <button type="submit" class="btn btn-info">
+                                <i class="bi bi-plus"></i> Adicionar Categoria
+                            </button>
+                        </form>
+                        <div id="resultadoCategoria" class="mt-3"></div>
+
+                        <div class="alert alert-info mt-4">
+                            <i class="bi bi-info-circle"></i>
+                            <strong>Nota:</strong> As categorias são gerenciadas dinamicamente.
+                            Novos produtos poderão usar as categorias adicionadas.
+                        </div>
                     </div>
                 </div>
             </div>
