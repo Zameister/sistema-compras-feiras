@@ -73,12 +73,18 @@
                 <p class="mb-0">Entre ou crie sua conta</p>
             </div>
             <div class="auth-body">
-                <!-- Tabs Principais: Usuário / Admin -->
+                <!-- Tabs Principais: Usuário / Feirante / Admin -->
                 <ul class="nav nav-pills nav-fill mb-4" id="mainTabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="user-main-tab" data-bs-toggle="pill"
                                 data-bs-target="#user-section" type="button">
                             <i class="bi bi-person"></i> Usuário
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="feirante-main-tab" data-bs-toggle="pill"
+                                data-bs-target="#feirante-section" type="button">
+                            <i class="bi bi-shop"></i> Feirante
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
@@ -172,6 +178,97 @@
                                                placeholder="Digite sua senha" required>
                                     </div>
                                     <div id="resultadoLoginUsuario" class="mb-3"></div>
+                                    <button type="submit" class="btn btn-auth w-100">
+                                        <i class="bi bi-box-arrow-in-right"></i> Entrar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SEÇÃO FEIRANTE -->
+                    <div class="tab-pane fade" id="feirante-section">
+                        <!-- Sub-tabs: Cadastro / Login -->
+                        <ul class="nav nav-pills justify-content-center mb-3 sub-tabs">
+                            <li class="nav-item">
+                                <button class="nav-link active" id="feirante-register-tab" data-bs-toggle="pill"
+                                        data-bs-target="#feirante-register" type="button">
+                                    Cadastro
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" id="feirante-login-tab" data-bs-toggle="pill"
+                                        data-bs-target="#feirante-login" type="button">
+                                    Login
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- Cadastro de Feirante -->
+                            <div class="tab-pane fade show active" id="feirante-register">
+                                <h5 class="text-center mb-3">Criar Conta de Feirante</h5>
+                                <form id="formCadastroFeirante" onsubmit="cadastrarFeirante(event)">
+                                    <div class="mb-3">
+                                        <label for="cadastroFeiranteNome" class="form-label">
+                                            <i class="bi bi-person-badge"></i> Nome do Feirante
+                                        </label>
+                                        <input type="text" class="form-control" id="cadastroFeiranteNome"
+                                               placeholder="Digite seu nome" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cadastroFeiranteBanca" class="form-label">
+                                            <i class="bi bi-shop"></i> Nome da Banca
+                                        </label>
+                                        <input type="text" class="form-control" id="cadastroFeiranteBanca"
+                                               placeholder="Nome da sua banca" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cadastroFeiranteFeira" class="form-label">
+                                            <i class="bi bi-geo-alt"></i> Feira
+                                        </label>
+                                        <select class="form-select" id="cadastroFeiranteFeira" required>
+                                            <option value="">Selecione sua feira...</option>
+                                            <option value="Feira da Ceilândia">Feira da Ceilândia</option>
+                                            <option value="Feira de Taguatinga">Feira de Taguatinga</option>
+                                            <option value="Feira do Plano Piloto">Feira do Plano Piloto</option>
+                                            <option value="Feira de Samambaia">Feira de Samambaia</option>
+                                            <option value="Feira de Águas Claras">Feira de Águas Claras</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="cadastroFeiranteSenha" class="form-label">
+                                            <i class="bi bi-key"></i> Senha
+                                        </label>
+                                        <input type="password" class="form-control" id="cadastroFeiranteSenha"
+                                               placeholder="Crie uma senha" minlength="4" required>
+                                    </div>
+                                    <div id="resultadoCadastroFeirante" class="mb-3"></div>
+                                    <button type="submit" class="btn btn-auth w-100">
+                                        <i class="bi bi-shop"></i> Criar Conta Feirante
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- Login de Feirante -->
+                            <div class="tab-pane fade" id="feirante-login">
+                                <h5 class="text-center mb-3">Entrar como Feirante</h5>
+                                <form id="formLoginFeirante" onsubmit="loginFeirante(event)">
+                                    <div class="mb-3">
+                                        <label for="loginFeiranteNome" class="form-label">
+                                            <i class="bi bi-person-badge"></i> Nome do Feirante
+                                        </label>
+                                        <input type="text" class="form-control" id="loginFeiranteNome"
+                                               placeholder="Digite seu nome" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="loginFeiranteSenha" class="form-label">
+                                            <i class="bi bi-key"></i> Senha
+                                        </label>
+                                        <input type="password" class="form-control" id="loginFeiranteSenha"
+                                               placeholder="Digite sua senha" required>
+                                    </div>
+                                    <div id="resultadoLoginFeirante" class="mb-3"></div>
                                     <button type="submit" class="btn btn-auth w-100">
                                         <i class="bi bi-box-arrow-in-right"></i> Entrar
                                     </button>
