@@ -1,93 +1,138 @@
 # Sistema de Compras em Feiras
 
-Sistema de compras baseado em preço e posição geográfica para feiras.
+Sistema web para buscar produtos em feiras, comparar preços e calcular distâncias.
 
 ## 👥 Integrantes
-- Luidgi Varela Carneiro - 231011669
-- Arthur Souza Chagas - 221037385
+- **Luidgi Varela Carneiro** - 231011669
+- **Arthur Souza Chagas** - 221037385
 
-## 📝 Descrição
-Sistema que permite usuários procurarem produtos em feiras próximas, comparando preços e distâncias. Feirantes podem cadastrar seus produtos e responder mensagens de clientes.
+## 📝 O Que É
 
-## 🚀 Como Compilar
+Um sistema completo onde:
+- **Usuários** buscam produtos, comparam preços e distâncias
+- **Feirantes** cadastram produtos e respondem mensagens
+- **Administradores** geram relatórios e gerenciam tudo
 
+**Acesse:** http://localhost:8080/login.html (depois de rodar o servidor)
+
+---
+
+## 🚀 Começar Rápido
+
+### 1. Compilar
 ```bash
-make
+# Windows
+g++ -std=c++17 -Wall -I./include src/database.cpp src/distancias.cpp src/feira.cpp src/feirante.cpp src/location.cpp src/produto.cpp src/sistema.cpp src/usuario.cpp src/webserver.cpp -o bin/webserver.exe -lws2_32
+
+# Mac/Linux
+g++ -std=c++17 -Wall -I./include src/database.cpp src/distancias.cpp src/feira.cpp src/feirante.cpp src/location.cpp src/produto.cpp src/sistema.cpp src/usuario.cpp src/webserver.cpp -o bin/webserver
 ```
 
-## ▶️ Como Executar
-
+### 2. Executar
 ```bash
-./bin/sistema_feiras
+./bin/webserver.exe   # Windows
+./bin/webserver       # Mac/Linux
 ```
 
-## 🧪 Como Executar os Testes
+### 3. Acessar
+Abra: http://localhost:8080/login.html
 
-```bash
-make test
-```
+**Problemas?** Veja [COMO_RODAR.md](COMO_RODAR.md)
 
-## 📊 Verificar Cobertura de Testes
+---
 
-```bash
-make coverage
-```
+## 📚 Documentação
 
-## 🔍 Análise Estática
+### [📖 COMO_RODAR.md](COMO_RODAR.md)
+Como compilar e executar o projeto em Windows/Mac/Linux.
+- Pré-requisitos (instalar G++)
+- Passo a passo completo
+- Solução de problemas
+- Scripts prontos (rodar.bat / rodar.sh)
 
-```bash
-make static-analysis
-```
+### [🛠️ DESENVOLVIMENTO.md](DESENVOLVIMENTO.md)
+Como o projeto foi desenvolvido.
+- Histórias de Usuário
+- TDD (Test-Driven Development)
+- Linguagem e Padrões de Código
+- Verificadores (cpplint, cppcheck)
+- Bibliotecas (Google Test, Bootstrap)
+- Controle de Versão (Git/GitHub)
+- Cobertura de Testes (gcov)
+- Documentação (Doxygen)
+- Arquitetura (Backend C++ + Frontend Web)
 
-## 📚 Gerar Documentação
+---
 
-```bash
-make docs
-```
+## ✨ Funcionalidades
 
-## 🛠️ Tecnologias Utilizadas
-- **Linguagem:** C++
-- **Framework de Testes:** Google Test (GTest)
-- **Análise Estática:** cppcheck
-- **Verificador de Estilo:** cpplint
-- **Cobertura:** gcov
-- **Documentação:** Doxygen
-- **Gerenciamento:** GitHub + Trello
+### Usuários
+- Buscar produtos por nome
+- Ordenar por preço, distância ou avaliação
+- Filtrar por feira
+- Enviar mensagens para feirantes
+- Avaliar produtos (1-5 estrelas)
 
-## 📋 Padrão de Codificação
-Google C++ Style Guide: https://google.github.io/styleguide/cppguide.html
+### Feirantes
+- Cadastrar produtos (nome, preço, categoria)
+- Ver todos os produtos da feira
+- Receber e responder mensagens
+- Badge de notificações (mensagens não lidas)
 
-## 📦 Estrutura do Projeto
+### Administradores
+- Gerenciar produtos e categorias
+- Relatórios:
+  - Top 5 produtos mais avaliados
+  - Produtos mais baratos
+  - Feiras mais populares
+  - Estatísticas gerais
+
+**Credenciais Admin:**
+- Usuário: `admin`
+- Senha: `admin123`
+
+---
+
+## 🏗️ Estrutura
 
 ```
 sistema-compras-feiras/
-├── src/           # Código fonte (.cpp)
-├── include/       # Headers (.h)
-├── tests/         # Testes unitários
-├── docs/          # Documentação
-├── obj/           # Objetos compilados
-├── bin/           # Executáveis
-├── data/          # Arquivos JSON
-└── Makefile       # Sistema de build
+├── src/              # Backend C++
+│   ├── webserver.cpp # Servidor HTTP
+│   ├── feirante.cpp  # Classe Feirante (TDD!)
+│   └── ...
+├── include/          # Headers
+├── tests/            # Testes unitários
+├── web/              # Frontend (HTML/CSS/JS)
+│   ├── login.html
+│   ├── index.html
+│   └── ...
+├── data/             # Dados JSON
+└── bin/              # Executáveis
 ```
 
-## 📖 Histórias de Usuário
+---
 
-### Usuário Comum
-- **EU001:** Como usuário, quero procurar produtos pelo nome
-- **EU002:** Como usuário, quero ordenar produtos por preço/distância/nota
-- **EU003:** Como usuário, quero filtrar por feira ou distância máxima
+## 🧪 Tecnologias
 
-### Feirante
-- **EU004:** Como feirante, quero cadastrar meus produtos
-- **EU005:** Como feirante, quero visualizar e responder mensagens
+- **Linguagem:** C++17
+- **Testes:** Google Test
+- **Frontend:** HTML5, CSS3, Bootstrap, JavaScript
+- **Servidor:** HTTP customizado em C++
+- **Dados:** JSON
+- **Análise:** cppcheck, cpplint
+- **Cobertura:** gcov
+- **Docs:** Doxygen
 
-### Administrador
-- **EU006:** Como administrador, quero cadastrar categorias
-- **EU007:** Como administrador, quero gerar relatórios
+---
 
-## 📅 Cronograma
-- **04/11/2025:** Entrega do protótipo final
+## 🔗 Links
+
+- **GitHub:** https://github.com/Zameister/sistema-compras-feiras
+- **Como Rodar:** [COMO_RODAR.md](COMO_RODAR.md)
+- **Desenvolvimento:** [DESENVOLVIMENTO.md](DESENVOLVIMENTO.md)
+
+---
 
 ## 📄 Licença
 MIT License
