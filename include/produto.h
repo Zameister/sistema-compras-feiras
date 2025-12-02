@@ -117,17 +117,46 @@ class Produto {
   /**
    * @brief Define a feira do produto
    * @param feira Novo nome da feira
-   * 
+   *
    * @pre feira não vazia
    * @post A feira do produto é atualizada
    */
   void SetFeira(const std::string& feira);
+
+  /**
+   * @brief Obtém a nota média do produto
+   * @return Nota média (0.0 a 5.0)
+   *
+   * @pre Nenhuma
+   * @post Retorna a nota média do produto
+   */
+  double GetNota() const;
+
+  /**
+   * @brief Obtém o número de avaliações do produto
+   * @return Número de avaliações
+   *
+   * @pre Nenhuma
+   * @post Retorna o número de avaliações
+   */
+  int GetNumAvaliacoes() const;
+
+  /**
+   * @brief Adiciona uma avaliação ao produto
+   * @param nota Nota da avaliação (1.0 a 5.0)
+   *
+   * @pre 1.0 <= nota <= 5.0
+   * @post A nota média é recalculada
+   */
+  void AdicionarAvaliacao(double nota);
 
  private:
   std::string nome_;        ///< Nome do produto
   double preco_;            ///< Preço do produto
   std::string categoria_;   ///< Categoria do produto
   std::string feira_;       ///< Nome da feira
+  double notaMedia_;        ///< Nota média do produto (0.0 a 5.0)
+  int numAvaliacoes_;       ///< Número de avaliações recebidas
 };
 
 #endif  // PRODUTO_H_

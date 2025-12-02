@@ -203,7 +203,7 @@ function limparFiltros() {
 }
 
 // Mostrar resultados
-function mostrarResultados(produtos, titulo) {
+function mostrarResultados(produtos, titulo, ordenacao = 'preco') {
     const container = document.getElementById('resultadoBusca');
 
     if (produtos.length === 0) {
@@ -217,14 +217,68 @@ function mostrarResultados(produtos, titulo) {
         return;
     }
 
-    // Ordenar por preço
-    produtos.sort((a, b) => a.preco - b.preco);
+    // Salvar produtos globalmente para reordenação
+    window.produtosAtivos = produtos;
+    window.tituloAtivo = titulo;
 
+    // Aplicar ordenação
+    ordenarProdutos(ordenacao);
+}
+
+// Função para ordenar produtos
+function ordenarProdutos(criterio) {
+    if (!window.produtosAtivos) return;
+
+    const produtos = [...window.produtosAtivos];
+    let textoOrdenacao = '';
+
+    switch(criterio) {
+        case 'preco':
+            produtos.sort((a, b) => a.preco - b.preco);
+            textoOrdenacao = 'menor preço';
+            break;
+        case 'distancia':
+            if (usuarioAtual) {
+                produtos.forEach(p => {
+                    const feira = feirasData.find(f => f.nome === p.feira);
+                    if (feira) {
+                        p.distanciaCalculada = parseFloat(calcularDistancia(feira));
+                    }
+                });
+                produtos.sort((a, b) => (a.distanciaCalculada || 999) - (b.distanciaCalculada || 999));
+                textoOrdenacao = 'menor distância';
+            } else {
+                textoOrdenacao = 'menor preço (faça login para ordenar por distância)';
+                produtos.sort((a, b) => a.preco - b.preco);
+            }
+            break;
+        case 'nota':
+            produtos.sort((a, b) => (b.nota || 0) - (a.nota || 0));
+            textoOrdenacao = 'maior nota';
+            break;
+    }
+
+    const container = document.getElementById('resultadoBusca');
     container.innerHTML = `
         <div class="col-12 mb-3">
-            <h4><i class="bi bi-search"></i> ${titulo}</h4>
-            <p class="text-muted">Encontrados ${produtos.length} produto(s) - ordenados por menor preço</p>
-            <p class="badge bg-success">Dados do Backend C++</p>
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+                <div>
+                    <h4><i class="bi bi-search"></i> ${window.tituloAtivo}</h4>
+                    <p class="text-muted">Encontrados ${produtos.length} produto(s) - ordenados por ${textoOrdenacao}</p>
+                    <p class="badge bg-success">Dados do Backend C++</p>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-sm btn-outline-primary ${criterio === 'preco' ? 'active' : ''}" onclick="ordenarProdutos('preco')">
+                        <i class="bi bi-currency-dollar"></i> Preço
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-primary ${criterio === 'distancia' ? 'active' : ''}" onclick="ordenarProdutos('distancia')">
+                        <i class="bi bi-geo-alt"></i> Distância
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-primary ${criterio === 'nota' ? 'active' : ''}" onclick="ordenarProdutos('nota')">
+                        <i class="bi bi-star-fill"></i> Nota
+                    </button>
+                </div>
+            </div>
         </div>
     `;
 
@@ -244,10 +298,32 @@ function criarCardProduto(produto) {
         'Grãos': 'warning',
         'Carnes': 'danger',
         'Laticínios': 'info',
-        'Padaria': 'secondary'
+        'Padaria': 'secondary',
+        'Frutas': 'success'
     };
 
     const cor = corCategoria[produto.categoria] || 'primary';
+
+    // Gerar estrelas baseado na nota
+    const nota = produto.nota || 0;
+    const numAvaliacoes = produto.numAvaliacoes || 0;
+    let estrelas = '';
+
+    for (let i = 1; i <= 5; i++) {
+        if (i <= Math.floor(nota)) {
+            estrelas += '<i class="bi bi-star-fill text-warning"></i>';
+        } else if (i === Math.ceil(nota) && nota % 1 !== 0) {
+            estrelas += '<i class="bi bi-star-half text-warning"></i>';
+        } else {
+            estrelas += '<i class="bi bi-star text-warning"></i>';
+        }
+    }
+
+    const notaHtml = numAvaliacoes > 0 ? `
+        <div class="mb-2">
+            <span class="small">${estrelas} <strong>${nota.toFixed(1)}</strong> (${numAvaliacoes} avaliações)</span>
+        </div>
+    ` : '<div class="mb-2"><small class="text-muted">Sem avaliações</small></div>';
 
     return `
         <div class="col fade-in">
@@ -257,6 +333,7 @@ function criarCardProduto(produto) {
                         <h5 class="card-title mb-0">${produto.nome}</h5>
                         <span class="badge bg-${cor} badge-categoria">${produto.categoria}</span>
                     </div>
+                    ${notaHtml}
                     <p class="produto-preco mb-2">R$ ${produto.preco.toFixed(2)}</p>
                     <p class="card-text text-muted">
                         <i class="bi bi-shop"></i> ${produto.feira}<br>

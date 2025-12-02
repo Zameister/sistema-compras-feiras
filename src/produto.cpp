@@ -12,13 +12,13 @@
 // ---------------------------------------------------------
 
 Produto::Produto()
-    : nome_(""), preco_(0.0), categoria_(""), feira_("") {}
+    : nome_(""), preco_(0.0), categoria_(""), feira_(""), notaMedia_(0.0), numAvaliacoes_(0) {}
 
 Produto::Produto(const std::string& nome,
                  double preco,
                  const std::string& categoria,
                  const std::string& feira)
-    : nome_(nome), preco_(preco), categoria_(categoria), feira_(feira) {}
+    : nome_(nome), preco_(preco), categoria_(categoria), feira_(feira), notaMedia_(0.0), numAvaliacoes_(0) {}
 
 // ---------------------------------------------------------
 // Destrutor
@@ -66,4 +66,26 @@ void Produto::SetCategoria(const std::string& categoria) {
 
 void Produto::SetFeira(const std::string& feira) {
     feira_ = feira;
+}
+
+
+// ---------------------------------------------------------
+// Métodos de Avaliação
+// ---------------------------------------------------------
+
+double Produto::GetNota() const {
+    return notaMedia_;
+}
+
+int Produto::GetNumAvaliacoes() const {
+    return numAvaliacoes_;
+}
+
+void Produto::AdicionarAvaliacao(double nota) {
+    if (nota < 1.0 || nota > 5.0) return;  // Validação
+
+    // Recalcular média
+    double somaTotal = (notaMedia_ * numAvaliacoes_) + nota;
+    numAvaliacoes_++;
+    notaMedia_ = somaTotal / numAvaliacoes_;
 }
