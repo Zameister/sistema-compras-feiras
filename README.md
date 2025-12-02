@@ -37,89 +37,166 @@ Sistema completo de compras em feiras com interface web interativa. Permite usu�
   - Feiras mais populares
   - Estatísticas gerais (totais, médias)
 
-## 🚀 Como Compilar e Executar
+## 🚀 Como Compilar e Executar o Servidor
 
-### Windows
+### ⚡ Início Rápido (3 Passos)
 
-#### Pré-requisitos
-- MinGW-w64 ou MSYS2 com g++
-- Make
-
-#### Compilação
+#### Windows
 ```bash
-# Compilar o servidor web
-make
+# 1. Compilar (da raiz do projeto)
+g++ -std=c++17 -Wall -I./include src/database.cpp src/distancias.cpp src/feira.cpp src/feirante.cpp src/location.cpp src/produto.cpp src/sistema.cpp src/usuario.cpp src/webserver.cpp -o bin/webserver.exe -lws2_32
 
-# Ou compilar apenas o webserver
-g++ -std=c++17 -Wall -I./include src/*.cpp -o bin/webserver.exe -lws2_32
-```
-
-#### Executar o Servidor Web
-```bash
-# Iniciar o servidor na porta 8080
+# 2. Executar (IMPORTANTE: da raiz do projeto, não de dentro de bin/)
 ./bin/webserver.exe
 
-# Em outro terminal, ou abra no navegador:
+# 3. Abrir no navegador
 start http://localhost:8080/login.html
 ```
 
-#### Executar Testes
+#### Mac/Linux
 ```bash
-make test
-```
+# 1. Compilar (da raiz do projeto)
+g++ -std=c++17 -Wall -I./include src/database.cpp src/distancias.cpp src/feira.cpp src/feirante.cpp src/location.cpp src/produto.cpp src/sistema.cpp src/usuario.cpp src/webserver.cpp -o bin/webserver
 
-#### Parar o Servidor
-```bash
-# Encontrar o processo
-netstat -ano | findstr ":8080"
-
-# Matar o processo (substitua PID pelo número encontrado)
-taskkill //F //PID <PID>
-```
-
----
-
-### Mac/Linux
-
-#### Pré-requisitos
-- g++ ou clang++
-- Make
-- Google Test (para testes)
-
-#### Compilação
-```bash
-# Compilar o projeto completo
-make
-
-# Ou compilar apenas o webserver
-g++ -std=c++17 -Wall -I./include src/*.cpp -o bin/webserver
-```
-
-#### Executar o Servidor Web
-```bash
-# Iniciar o servidor na porta 8080
+# 2. Executar (IMPORTANTE: da raiz do projeto, não de dentro de bin/)
 ./bin/webserver
 
-# Em outro terminal, ou abra no navegador:
+# 3. Abrir no navegador
 open http://localhost:8080/login.html  # Mac
 xdg-open http://localhost:8080/login.html  # Linux
 ```
 
-#### Executar Testes
+---
+
+### 📋 Instruções Detalhadas
+
+#### Pré-requisitos
+
+**Windows:**
+- MinGW-w64 ou MSYS2 com g++ instalado
+- Git Bash ou terminal compatível
+
+**Mac/Linux:**
+- g++ ou clang++
+- Make (opcional, mas recomendado)
+
+#### 1. Clonar o Repositório
 ```bash
-make test
+git clone https://github.com/Zameister/sistema-compras-feiras.git
+cd sistema-compras-feiras
 ```
 
-#### Parar o Servidor
+#### 2. Compilar o Servidor
+
+**Opção 1: Usando Make (recomendado)**
 ```bash
-# Encontrar o processo
-lsof -i :8080
+make
+```
 
-# Ou simplesmente use Ctrl+C no terminal do servidor
+**Opção 2: Manualmente no Windows**
+```bash
+g++ -std=c++17 -Wall -I./include src/database.cpp src/distancias.cpp src/feira.cpp src/feirante.cpp src/location.cpp src/produto.cpp src/sistema.cpp src/usuario.cpp src/webserver.cpp -o bin/webserver.exe -lws2_32
+```
 
-# Ou matar o processo
+**Opção 3: Manualmente no Mac/Linux**
+```bash
+g++ -std=c++17 -Wall -I./include src/database.cpp src/distancias.cpp src/feira.cpp src/feirante.cpp src/location.cpp src/produto.cpp src/sistema.cpp src/usuario.cpp src/webserver.cpp -o bin/webserver
+```
+
+#### 3. Executar o Servidor
+
+**⚠️ IMPORTANTE: Execute sempre da RAIZ do projeto (onde está o README.md)**
+
+**Windows:**
+```bash
+./bin/webserver.exe
+```
+
+**Mac/Linux:**
+```bash
+./bin/webserver
+```
+
+Você verá a mensagem: `Servidor rodando em http://localhost:8080`
+
+#### 4. Acessar o Sistema
+
+Abra o navegador e acesse uma destas URLs:
+
+- **Login/Cadastro:** http://localhost:8080/login.html
+- **Catálogo de Produtos:** http://localhost:8080/index.html (após login)
+- **Painel do Feirante:** http://localhost:8080/feirante.html (após login como feirante)
+- **Painel Admin:** http://localhost:8080/admin.html (login: admin / senha: admin123)
+
+#### 5. Parar o Servidor
+
+**Windows:**
+```bash
+# Ctrl+C no terminal do servidor
+
+# Ou, se rodou em background:
+netstat -ano | findstr ":8080"
+taskkill //F //PID <PID>
+```
+
+**Mac/Linux:**
+```bash
+# Ctrl+C no terminal do servidor
+
+# Ou:
 pkill webserver
 ```
+
+---
+
+### 🧪 Executar Testes
+
+```bash
+# Compilar e rodar todos os testes
+make test
+
+# Ou rodar teste simples manualmente
+g++ -std=c++17 -Wall -I./include tests/test_feirante_simple.cpp src/feirante.cpp -o bin/test_feirante.exe
+./bin/test_feirante.exe
+```
+
+---
+
+### 🔧 Solução de Problemas
+
+#### ❌ Erro: "404 - Página não encontrada"
+**Causa:** Você executou o webserver de dentro da pasta `bin/`
+
+**Solução:** Sempre execute da raiz do projeto:
+```bash
+# Certo ✅
+cd sistema-compras-feiras
+./bin/webserver.exe
+
+# Errado ❌
+cd bin
+./webserver.exe
+```
+
+#### ❌ Erro: "Porta 8080 já está em uso"
+**Causa:** Outro processo está usando a porta 8080
+
+**Solução no Windows:**
+```bash
+netstat -ano | findstr ":8080"
+taskkill //F //PID <número_do_processo>
+```
+
+**Solução no Mac/Linux:**
+```bash
+lsof -i :8080
+kill -9 <PID>
+```
+
+#### ❌ Erro: "Permission denied" ao compilar
+**Causa:** O servidor ainda está rodando e bloqueando o arquivo
+
+**Solução:** Pare o servidor primeiro (Ctrl+C ou mate o processo) e compile novamente
 
 ---
 
