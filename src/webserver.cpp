@@ -236,6 +236,18 @@ public:
             std::string js = ReadFile("web/login.js");
             SendResponse(client, HTTP_200, CONTENT_TYPE_JS, js);
         }
+        else if (path == "/feirante.html") {
+            std::string html = ReadFile("web/feirante.html");
+            if (!html.empty()) {
+                SendResponse(client, HTTP_200, CONTENT_TYPE_HTML, html);
+            } else {
+                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Feirante não encontrado</h1>");
+            }
+        }
+        else if (path == "/feirante.js") {
+            std::string js = ReadFile("web/feirante.js");
+            SendResponse(client, HTTP_200, CONTENT_TYPE_JS, js);
+        }
         else if (path.find("/api/") == 0) {
             HandleAPI(client, path, query);
         }
