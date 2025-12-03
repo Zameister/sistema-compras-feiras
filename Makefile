@@ -21,21 +21,30 @@ OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 TEST_SOURCES = $(wildcard $(TEST_DIR)/*.cpp)
 TEST_OBJECTS = $(TEST_SOURCES:$(TEST_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
+# Objetos comuns (sem main.cpp e webserver.cpp)
+COMMON_OBJECTS = $(filter-out $(OBJ_DIR)/main.o $(OBJ_DIR)/webserver.o, $(OBJECTS))
+
 # Executáveis
 TARGET = $(BIN_DIR)/sistema_feiras
+WEBSERVER_TARGET = $(BIN_DIR)/webserver
 TEST_TARGET = $(BIN_DIR)/run_tests
 
-# Regra padrão
-all: directories $(TARGET)
+# Regra padrão - compila ambos os executáveis
+all: directories $(TARGET) $(WEBSERVER_TARGET)
 
 # Criar diretórios necessários
 directories:
 	@mkdir -p $(OBJ_DIR) $(BIN_DIR) $(DOC_DIR)
 
-# Compilar programa principal
-$(TARGET): $(OBJECTS)
+# Compilar programa console principal
+$(TARGET): $(COMMON_OBJECTS) $(OBJ_DIR)/main.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 	@echo "✅ Compilação concluída: $(TARGET)"
+
+# Compilar servidor web
+$(WEBSERVER_TARGET): $(COMMON_OBJECTS) $(OBJ_DIR)/webserver.o
+	$(CXX) $(CXXFLAGS) $^ -o $@ -lws2_32
+	@echo "✅ Compilação concluída: $(WEBSERVER_TARGET)"
 
 # Compilar objetos do código fonte
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
@@ -47,7 +56,7 @@ test: directories $(TEST_TARGET)
 	@echo "✅ Testes executados"
 
 # Compilar testes
-$(TEST_TARGET): $(filter-out $(OBJ_DIR)/main.o, $(OBJECTS)) $(TEST_OBJECTS)
+$(TEST_TARGET): $(COMMON_OBJECTS) $(TEST_OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(TESTFLAGS)
 
 # Compilar objetos dos testes
@@ -99,14 +108,18 @@ clean-all: clean
 	rm -rf $(DOC_DIR)/html $(DOC_DIR)/latex
 	@echo "🧹 Tudo limpo"
 
-# Executar o programa
+# Executar o programa console
 run: $(TARGET)
 	./$(TARGET)
+
+# Executar o servidor web
+run-web: $(WEBSERVER_TARGET)
+	./$(WEBSERVER_TARGET)
 
 # Mostrar ajuda
 help:
 	@echo "Comandos disponíveis:"
-	@echo "  make              - Compila o projeto"
+	@echo "  make              - Compila o projeto (console + webserver)"
 	@echo "  make test         - Compila e executa os testes"
 	@echo "  make coverage     - Gera relatório de cobertura"
 	@echo "  make static-analysis - Executa análise estática (cppcheck)"
@@ -116,6 +129,7 @@ help:
 	@echo "  make valgrind     - Executa com Valgrind"
 	@echo "  make clean        - Remove arquivos de build"
 	@echo "  make clean-all    - Remove tudo incluindo docs"
-	@echo "  make run          - Executa o programa"
+	@echo "  make run          - Executa o programa console"
+	@echo "  make run-web      - Executa o servidor web"
 
-.PHONY: all directories test coverage static-analysis style-check docs debug valgrind clean clean-all run help
+.PHONY: all directories test coverage static-analysis style-check docs debug valgrind clean clean-all run run-web help
