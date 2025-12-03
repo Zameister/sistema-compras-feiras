@@ -32,7 +32,7 @@ Sistema::Sistema() :
     usuario("undefined", Location(0,0)),
     usuarioCadastrado(false)
 {
-    // Mapa de Regiões Administrativas do DF
+    // Mapa de Regioes Administrativas do DF
     mapaRegioes = {
         {"plano piloto", Location(-15.793889, -47.882778)},
         {"asa norte", Location(-15.750000, -47.880000)},
@@ -40,34 +40,34 @@ Sistema::Sistema() :
         {"gama", Location(-16.016667, -48.066667)},
         {"taguatinga", Location(-15.835000, -48.050000)},
         {"brazlandia", Location(-15.670000, -48.200000)},
-        {"brazlândia", Location(-15.670000, -48.200000)},
+        {"brazlandia", Location(-15.670000, -48.200000)},
         {"sobradinho", Location(-15.650000, -47.780000)},
         {"planaltina", Location(-15.610000, -47.640000)},
         {"paranoa", Location(-15.780000, -47.780000)},
-        {"paranoá", Location(-15.780000, -47.780000)},
+        {"paranoa", Location(-15.780000, -47.780000)},
         {"nucleo bandeirante", Location(-15.870000, -47.950000)},
-        {"núcleo bandeirante", Location(-15.870000, -47.950000)},
+        {"nucleo bandeirante", Location(-15.870000, -47.950000)},
         {"ceilandia", Location(-15.817000, -48.112000)},
-        {"ceilândia", Location(-15.817000, -48.112000)},
+        {"ceilandia", Location(-15.817000, -48.112000)},
         {"guara", Location(-15.842200, -47.980300)},
-        {"guará", Location(-15.842200, -47.980300)},
+        {"guara", Location(-15.842200, -47.980300)},
         {"cruzeiro", Location(-15.790000, -47.950000)},
         {"samambaia", Location(-15.860000, -48.080000)},
         {"santa maria", Location(-16.020000, -48.040000)},
         {"sao sebastiao", Location(-15.890000, -47.780000)},
-        {"são sebastião", Location(-15.890000, -47.780000)},
+        {"sao sebastiao", Location(-15.890000, -47.780000)},
         {"recanto das emas", Location(-15.905000, -48.050000)},
         {"lago sul", Location(-15.840000, -47.880000)},
         {"riacho fundo", Location(-15.880000, -47.970000)},
         {"lago norte", Location(-15.720000, -47.890000)},
         {"candangolandia", Location(-15.860000, -47.950000)},
-        {"candangolândia", Location(-15.860000, -47.950000)},
+        {"candangolandia", Location(-15.860000, -47.950000)},
         {"aguas claras", Location(-15.840000, -48.020000)},
-        {"águas claras", Location(-15.840000, -48.020000)},
+        {"aguas claras", Location(-15.840000, -48.020000)},
         {"riacho fundo ii", Location(-15.920000, -47.980000)},
         {"sudoeste", Location(-15.790000, -47.930000)},
         {"varjao", Location(-15.720000, -47.860000)},
-        {"varjão", Location(-15.720000, -47.860000)},
+        {"varjao", Location(-15.720000, -47.860000)},
         {"park way", Location(-15.870000, -47.960000)},
         {"estrutural", Location(-15.790000, -47.950000)},
         {"jardim botanico", Location(-15.880000, -47.820000)},
@@ -75,27 +75,27 @@ Sistema::Sistema() :
         {"vicente pires", Location(-15.820000, -48.000000)},
     };
 
-    // =================== FEIRAS PRÉ-CADASTRADAS ===================
+    // =================== FEIRAS PRE-CADASTRADAS ===================
 
-    feiras.emplace_back("Feira da Ceilândia", "Quadra 12, Ceilândia Sul",
+    feiras.emplace_back("Feira da Ceilandia", "Quadra 12, Ceilandia Sul",
                         Location(-15.817000, -48.112000));
 
     feiras.emplace_back("Feira da Asa Sul", "308 Sul",
                         Location(-15.810700, -47.912700));
 
-    feiras.emplace_back("Feira do Guará", "QE 25",
+    feiras.emplace_back("Feira do Guara", "QE 25",
                         Location(-15.842200, -47.980300));
 
-    feiras[0].AdicionarProduto(Produto("Tomate", 3.50, "Hortifruti", "Feira da Ceilândia"));
-    feiras[0].AdicionarProduto(Produto("Banana", 4.20, "Frutas", "Feira da Ceilândia"));
+    feiras[0].AdicionarProduto(Produto("Tomate", 3.50, "Hortifruti", "Feira da Ceilandia"));
+    feiras[0].AdicionarProduto(Produto("Banana", 4.20, "Frutas", "Feira da Ceilandia"));
 
-    feiras[1].AdicionarProduto(Produto("Maçã", 5.00, "Frutas", "Feira da Asa Sul"));
+    feiras[1].AdicionarProduto(Produto("Maca", 5.00, "Frutas", "Feira da Asa Sul"));
     feiras[1].AdicionarProduto(Produto("Cenoura", 2.50, "Hortifruti", "Feira da Asa Sul"));
 
-    feiras[2].AdicionarProduto(Produto("Alface", 2.00, "Verduras", "Feira do Guará"));
+    feiras[2].AdicionarProduto(Produto("Alface", 2.00, "Verduras", "Feira do Guara"));
 }
 
-// ======================= FUNÇÕES DO SISTEMA =============================
+// ======================= FUNCOES DO SISTEMA =============================
 
 void Sistema::ListarFeiras() const {
     cout << "\n=== FEIRAS CADASTRADAS ===\n";
@@ -115,7 +115,7 @@ void Sistema::MostrarProdutosDaFeira() const {
 
     if (cin.fail() || idx < 1 || idx > (int)feiras.size()) {
         LimparBuffer();
-        cout << "Índice inválido.\n";
+        cout << "Indice invalido.\n";
         return;
     }
 
@@ -130,12 +130,12 @@ void Sistema::MostrarProdutosDaFeira() const {
 }
 
 // ==============================================================================
-// EU003: Como usuário, quero calcular a distância até uma feira
+// EU003: Como usuario, quero calcular a distancia ate uma feira
 //        para planejar meu deslocamento
 // ==============================================================================
 void Sistema::CalcularDistancia() const {  // EU003
     if (!usuarioCadastrado) {
-        cout << "\n⚠ Cadastre um usuário primeiro!\n";
+        cout << "\n⚠ Cadastre um usuario primeiro!\n";
         return;
     }
 
@@ -147,7 +147,7 @@ void Sistema::CalcularDistancia() const {  // EU003
 
     if (cin.fail() || idx < 1 || idx > (int)feiras.size()) {
         LimparBuffer();
-        cout << "Índice inválido.\n";
+        cout << "Indice invalido.\n";
         return;
     }
     LimparBuffer();
@@ -156,29 +156,29 @@ void Sistema::CalcularDistancia() const {  // EU003
 
     double dist = usuario.DistanciaPara(f);
 
-    cout << "\nDistância entre " << usuario.GetNome()
+    cout << "\nDistancia entre " << usuario.GetNome()
          << " e " << f.GetNome() << ": "
          << dist << " km\n";
 }
 
 // ==============================================================================
-// EU005: Como usuário, quero me cadastrar informando minha região
-//        para receber informações personalizadas sobre feiras próximas
+// EU005: Como usuario, quero me cadastrar informando minha regiao
+//        para receber informacoes personalizadas sobre feiras proximas
 // ==============================================================================
 void Sistema::CadastrarUsuario() {  // EU005
     string nome, regiao;
-    cout << "\n=== CADASTRAR USUÁRIO ===\n";
+    cout << "\n=== CADASTRAR USUARIO ===\n";
 
     cout << "Nome: ";
     getline(cin, nome);
 
-    cout << "Região Administrativa: ";
+    cout << "Regiao Administrativa: ";
     getline(cin, regiao);
 
     string chave = NormalizarMinusculo(regiao);
 
     if (mapaRegioes.count(chave) == 0) {
-        cout << "\nRegião não encontrada.\n";
+        cout << "\nRegiao nao encontrada.\n";
         Pausar();
         return;
     }
@@ -186,7 +186,7 @@ void Sistema::CadastrarUsuario() {  // EU005
     usuario = Usuario(nome, mapaRegioes[chave]);
     usuarioCadastrado = true;
 
-    cout << "\nUsuário cadastrado com sucesso!\n";
+    cout << "\nUsuario cadastrado com sucesso!\n";
     Pausar();
 }
 
@@ -197,14 +197,14 @@ void Sistema::Menu() {
 
     while (opcao != 0) {
         cout << "\n=== SISTEMA DE COMPRAS EM FEIRAS ===\n";
-        cout << "1. Cadastrar usuário\n";
+        cout << "1. Cadastrar usuario\n";
         cout << "2. Listar feiras\n";
         cout << "3. Ver produtos de uma feira\n";
-        cout << "4. Calcular distância até uma feira\n";
+        cout << "4. Calcular distancia ate uma feira\n";
         cout << "5. Buscar produtos\n";
         cout << "6. Filtrar feiras\n";
         cout << "0. Sair\n";
-        cout << "Opção: ";
+        cout << "Opcao: ";
 
         cin >> opcao;
         LimparBuffer();
@@ -226,7 +226,7 @@ void Sistema::Menu() {
                 cout << "\nEncerrando...\n";
                 break;
             default:
-                cout << "Opção inválida.\n";
+                cout << "Opcao invalida.\n";
                 Pausar();
                 break;
         }
@@ -234,8 +234,8 @@ void Sistema::Menu() {
 }
 
 // ==============================================================================
-// EU001: Como usuário, quero procurar produtos pelo nome para encontrar
-//        os melhores preços nas feiras próximas
+// EU001: Como usuario, quero procurar produtos pelo nome para encontrar
+//        os melhores precos nas feiras proximas
 // ==============================================================================
 void Sistema::BuscarProdutos() {  // EU001
     std::string termo;
@@ -243,11 +243,11 @@ void Sistema::BuscarProdutos() {  // EU001
     std::cout << "Digite o nome do produto (ou parte dele): ";
     std::getline(std::cin, termo);
     
-    // Normalizar busca (minúsculas)
+    // Normalizar busca (minusculas)
     std::transform(termo.begin(), termo.end(), termo.begin(), ::tolower);
     
     if (termo.empty()) {
-        std::cout << "Termo de busca não pode ser vazio!\n";
+        std::cout << "Termo de busca nao pode ser vazio!\n";
         return;
     }
     
@@ -279,7 +279,7 @@ void Sistema::BuscarProdutos() {  // EU001
         
         for (const auto& resultado : resultados) {
             std::cout << "Produto: " << std::get<0>(resultado) << "\n";
-            std::cout << "Preço: R$ " << std::fixed << std::setprecision(2) 
+            std::cout << "Preco: R$ " << std::fixed << std::setprecision(2) 
                      << std::get<1>(resultado) << "\n";
             std::cout << "Categoria: " << std::get<2>(resultado) << "\n";
             std::cout << "Feira: " << std::get<3>(resultado) << "\n";
@@ -289,15 +289,15 @@ void Sistema::BuscarProdutos() {  // EU001
 }
 
 // ==============================================================================
-// EU002: Como usuário, quero filtrar feiras por categoria, produto ou preço
-//        para encontrar opções que atendam minhas necessidades
+// EU002: Como usuario, quero filtrar feiras por categoria, produto ou preco
+//        para encontrar opcoes que atendam minhas necessidades
 // ==============================================================================
 void Sistema::FiltrarFeiras() {  // EU002
     std::cout << "\n=== FILTRAR FEIRAS ===\n";
     std::cout << "1. Filtrar por categoria de produto\n";
-    std::cout << "2. Filtrar por produto específico\n";
-    std::cout << "3. Filtrar por preço máximo\n";
-    std::cout << "Escolha uma opção: ";
+    std::cout << "2. Filtrar por produto especifico\n";
+    std::cout << "3. Filtrar por preco maximo\n";
+    std::cout << "Escolha uma opcao: ";
     
     int opcao;
     std::cin >> opcao;
@@ -323,7 +323,7 @@ void Sistema::FiltrarFeiras() {  // EU002
                 
                 if (temCategoria) {
                     std::cout << "Feira: " << feira.GetNome() << "\n";
-                    std::cout << "Endereço: " << feira.GetEndereco() << "\n";
+                    std::cout << "Endereco: " << feira.GetEndereco() << "\n";
                     std::cout << "----------------------------\n";
                     encontrou = true;
                 }
@@ -361,7 +361,7 @@ void Sistema::FiltrarFeiras() {  // EU002
 
                 if (temProduto) {
                     std::cout << "Feira: " << feira.GetNome() << "\n";
-                    std::cout << "Endereço: " << feira.GetEndereco() << "\n";
+                    std::cout << "Endereco: " << feira.GetEndereco() << "\n";
                     std::cout << "----------------------------\n";
                     encontrou = true;
                 }
@@ -375,11 +375,11 @@ void Sistema::FiltrarFeiras() {  // EU002
         
         case 3: {
             double precoMax;
-            std::cout << "Digite o preço máximo: R$ ";
+            std::cout << "Digite o preco maximo: R$ ";
             std::cin >> precoMax;
             LimparBuffer();
             
-            std::cout << "\n=== FEIRAS COM PRODUTOS ATÉ R$ " << std::fixed 
+            std::cout << "\n=== FEIRAS COM PRODUTOS ATE R$ " << std::fixed 
                      << std::setprecision(2) << precoMax << " ===\n";
             bool encontrou = false;
             
@@ -394,25 +394,25 @@ void Sistema::FiltrarFeiras() {  // EU002
                 
                 if (temProdutoBarato) {
                     std::cout << "Feira: " << feira.GetNome() << "\n";
-                    std::cout << "Endereço: " << feira.GetEndereco() << "\n";
+                    std::cout << "Endereco: " << feira.GetEndereco() << "\n";
                     std::cout << "----------------------------\n";
                     encontrou = true;
                 }
             }
             
             if (!encontrou) {
-                std::cout << "Nenhuma feira encontrada nessa faixa de preço.\n";
+                std::cout << "Nenhuma feira encontrada nessa faixa de preco.\n";
             }
             break;
         }
         
         default:
-            std::cout << "Opção inválida!\n";
+            std::cout << "Opcao invalida!\n";
             break;
     }
 }
 
-// ========== Métodos para API REST ==========
+// ========== Metodos para API REST ==========
 
 const std::vector<Feira>& Sistema::GetFeiras() const {
     return feiras;

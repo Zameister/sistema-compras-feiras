@@ -1,12 +1,12 @@
 /**
  * @file location.cpp
- * @brief Implementação da classe Location (GPS)
+ * @brief Implementacao da classe Location (GPS)
  */
 
 #include "location.h"
 #include <cmath>
 
-// Constantes para o cálculo da distância (raio da Terra)
+// Constantes para o calculo da distancia (raio da Terra)
 static constexpr double kRaioTerraKm = 6371.0;
 static constexpr double kPi = 3.14159265358979323846;
 
@@ -47,7 +47,7 @@ void Location::SetLongitude(double novaLon) {
 
 
 // ---------------------------------------------------------
-// Cálculo da Distância (Fórmula de Haversine)
+// Calculo da Distancia (Formula de Haversine)
 // ---------------------------------------------------------
 
 double Location::DistanciaPara(const Location& outra) const {
@@ -57,11 +57,11 @@ double Location::DistanciaPara(const Location& outra) const {
     double lat2 = outra.latitude * (kPi / 180.0);
     double lon2 = outra.longitude * (kPi / 180.0);
 
-    // Diferenças
+    // Diferencas
     double dlat = lat2 - lat1;
     double dlon = lon2 - lon1;
 
-    // Fórmula de Haversine
+    // Formula de Haversine
     double a = std::sin(dlat / 2) * std::sin(dlat / 2) +
                std::cos(lat1) * std::cos(lat2) *
                std::sin(dlon / 2) * std::sin(dlon / 2);

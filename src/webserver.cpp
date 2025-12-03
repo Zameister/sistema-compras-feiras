@@ -17,7 +17,7 @@
 
 #pragma comment(lib, "ws2_32.lib")
 
-// Protótipos das funções do database.cpp
+// Prototipos das funcoes do database.cpp
 void InicializarBancoDeDados(Sistema* sistema);
 std::string SistemaParaJSON(Sistema* sistema);
 std::string EscapeJSON(const std::string& s);
@@ -29,7 +29,7 @@ bool AdicionarProdutoFeira(Sistema* sistema, const std::string& nomeFeira,
 bool RemoverProdutoFeira(Sistema* sistema, const std::string& nomeFeira,
                          const std::string& nomeProduto);
 
-// Códigos de resposta HTTP
+// Codigos de resposta HTTP
 const std::string HTTP_200 = "HTTP/1.1 200 OK\r\n";
 const std::string HTTP_404 = "HTTP/1.1 404 Not Found\r\n";
 const std::string HTTP_500 = "HTTP/1.1 500 Internal Server Error\r\n";
@@ -42,7 +42,7 @@ const std::string CONTENT_TYPE_JS = "Content-Type: application/javascript; chars
 const std::string CORS_HEADERS = "Access-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: GET, POST, OPTIONS\r\n";
 
 /**
- * @brief Lê arquivo e retorna conteúdo
+ * @brief Le arquivo e retorna conteudo
  */
 std::string ReadFile(const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
@@ -114,7 +114,7 @@ std::map<std::string, std::string> ParseQuery(const std::string& query) {
 }
 
 /**
- * @brief Converte string para minúscula
+ * @brief Converte string para minuscula
  */
 std::string ToLower(const std::string& str) {
     std::string result = str;
@@ -164,7 +164,7 @@ public:
         }
 
         if (listen(serverSocket, 10) == SOCKET_ERROR) {
-            std::cerr << "Erro ao escutar conexões\n";
+            std::cerr << "Erro ao escutar conexoes\n";
             return false;
         }
 
@@ -196,12 +196,21 @@ public:
         }
 
         // Roteamento
-        if (path == "/" || path == "/index.html") {
+        if (path == "/") {
+            // Redirecionar raiz para pagina de login
+            std::string html = ReadFile("web/login.html");
+            if (!html.empty()) {
+                SendResponse(client, HTTP_200, CONTENT_TYPE_HTML, html);
+            } else {
+                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Pagina nao encontrada</h1>");
+            }
+        }
+        else if (path == "/index.html") {
             std::string html = ReadFile("web/index.html");
             if (!html.empty()) {
                 SendResponse(client, HTTP_200, CONTENT_TYPE_HTML, html);
             } else {
-                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Página não encontrada</h1>");
+                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Pagina nao encontrada</h1>");
             }
         }
         else if (path == "/style.css") {
@@ -217,7 +226,7 @@ public:
             if (!html.empty()) {
                 SendResponse(client, HTTP_200, CONTENT_TYPE_HTML, html);
             } else {
-                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Admin não encontrado</h1>");
+                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Admin nao encontrado</h1>");
             }
         }
         else if (path == "/admin.js") {
@@ -229,7 +238,7 @@ public:
             if (!html.empty()) {
                 SendResponse(client, HTTP_200, CONTENT_TYPE_HTML, html);
             } else {
-                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Login não encontrado</h1>");
+                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Login nao encontrado</h1>");
             }
         }
         else if (path == "/login.js") {
@@ -241,7 +250,7 @@ public:
             if (!html.empty()) {
                 SendResponse(client, HTTP_200, CONTENT_TYPE_HTML, html);
             } else {
-                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Feirante não encontrado</h1>");
+                SendResponse(client, HTTP_404, CONTENT_TYPE_HTML, "<h1>404 - Feirante nao encontrado</h1>");
             }
         }
         else if (path == "/feirante.js") {
@@ -347,7 +356,7 @@ public:
                         continue;
                     }
 
-                    // Filtrar por preço
+                    // Filtrar por preco
                     if (produto.GetPreco() > precoMax) {
                         continue;
                     }
@@ -375,21 +384,21 @@ public:
             std::string usuario = params["usuario"];
             std::string senha = params["senha"];
 
-            // Autenticação simples (em produção, use hash e banco de dados)
+            // Autenticacao simples (em producao, use hash e banco de dados)
             if (usuario == "admin" && senha == "admin123") {
                 std::string json = "{\"success\": true, \"message\": \"Login realizado com sucesso\"}";
                 SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
             } else {
-                std::string json = "{\"success\": false, \"error\": \"Usuário ou senha inválidos\"}";
+                std::string json = "{\"success\": false, \"error\": \"Usuario ou senha invalidos\"}";
                 SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
             }
         }
-        // GET /api/admin/usuarios - Lista usuários cadastrados
+        // GET /api/admin/usuarios - Lista usuarios cadastrados
         else if (path == "/api/admin/usuarios") {
             std::string json = ListarUsuariosJSON();
             SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
         }
-        // POST /api/admin/usuario - Cadastra usuário
+        // POST /api/admin/usuario - Cadastra usuario
         else if (path == "/api/admin/usuario") {
             auto params = ParseQuery(query);
             std::string nome = params["nome"];
@@ -397,10 +406,10 @@ public:
 
             if (!nome.empty() && !ra.empty()) {
                 AdicionarUsuarioCadastrado(nome, ra);
-                std::string json = "{\"success\": true, \"message\": \"Usuário cadastrado com sucesso\"}";
+                std::string json = "{\"success\": true, \"message\": \"Usuario cadastrado com sucesso\"}";
                 SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
             } else {
-                std::string json = "{\"success\": false, \"error\": \"Nome e RA são obrigatórios\"}";
+                std::string json = "{\"success\": false, \"error\": \"Nome e RA sao obrigatorios\"}";
                 SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
             }
         }
@@ -418,11 +427,11 @@ public:
                     std::string json = "{\"success\": true, \"message\": \"Produto adicionado com sucesso\"}";
                     SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
                 } else {
-                    std::string json = "{\"success\": false, \"error\": \"Feira não encontrada\"}";
+                    std::string json = "{\"success\": false, \"error\": \"Feira nao encontrada\"}";
                     SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
                 }
             } else {
-                std::string json = "{\"success\": false, \"error\": \"Todos os campos são obrigatórios\"}";
+                std::string json = "{\"success\": false, \"error\": \"Todos os campos sao obrigatorios\"}";
                 SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
             }
         }
@@ -438,16 +447,16 @@ public:
                     std::string json = "{\"success\": true, \"message\": \"Produto removido com sucesso\"}";
                     SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
                 } else {
-                    std::string json = "{\"success\": false, \"error\": \"Produto ou feira não encontrado\"}";
+                    std::string json = "{\"success\": false, \"error\": \"Produto ou feira nao encontrado\"}";
                     SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
                 }
             } else {
-                std::string json = "{\"success\": false, \"error\": \"Nome da feira e produto são obrigatórios\"}";
+                std::string json = "{\"success\": false, \"error\": \"Nome da feira e produto sao obrigatorios\"}";
                 SendResponse(client, HTTP_200, CONTENT_TYPE_JSON, json);
             }
         }
         else {
-            SendResponse(client, HTTP_404, CONTENT_TYPE_JSON, "{\"error\": \"Endpoint não encontrado\"}");
+            SendResponse(client, HTTP_404, CONTENT_TYPE_JSON, "{\"error\": \"Endpoint nao encontrado\"}");
         }
     }
 

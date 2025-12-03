@@ -1,12 +1,12 @@
 /**
  * @file distancias.cpp
- * @brief Implementação das funções utilitárias de cálculos de distância
+ * @brief Implementacao das funcoes utilitarias de calculos de distancia
  */
 
 #include "distancias.h"
 
 // ---------------------------------------------------------
-// Função principal
+// Funcao principal
 // ---------------------------------------------------------
 
 std::vector<std::pair<Feira, double>>

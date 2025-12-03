@@ -1,9 +1,9 @@
 /**
  * @file feirante.cpp
- * @brief Implementação da classe Feirante
+ * @brief Implementacao da classe Feirante
  * @author Luidgi Varela Carneiro, Arthur Souza Chagas
  *
- * Histórias de Usuário: EU004, EU005
+ * Historias de Usuario: EU004, EU005
  * Desenvolvido seguindo TDD (Test-Driven Development)
  */
 
@@ -12,13 +12,13 @@
 #include <iomanip>
 
 // ---------------------------------------------------------
-// Hash SHA256 Simplificado (para propósitos educacionais)
-// Em produção, use biblioteca como OpenSSL
+// Hash SHA256 Simplificado (para propositos educacionais)
+// Em producao, use biblioteca como OpenSSL
 // ---------------------------------------------------------
 
 std::string Feirante::GerarHash(const std::string& texto) const {
-  // Hash simples baseado em soma de caracteres + rotação
-  // NOTA: Em produção real, usar SHA256 de biblioteca criptográfica
+  // Hash simples baseado em soma de caracteres + rotacao
+  // NOTA: Em producao real, usar SHA256 de biblioteca criptografica
   unsigned long hash = 5381;
   for (char c : texto) {
     hash = ((hash << 5) + hash) + static_cast<unsigned char>(c);
@@ -45,21 +45,21 @@ Feirante::Feirante(const std::string& nome,
                    const std::string& feira,
                    const std::string& senha)
     : nome_(nome), banca_(banca), feira_(feira) {
-  // Validações
+  // Validacoes
   if (nome.empty()) {
-    throw std::invalid_argument("Nome do feirante não pode ser vazio");
+    throw std::invalid_argument("Nome do feirante nao pode ser vazio");
   }
   if (banca.empty()) {
-    throw std::invalid_argument("Nome da banca não pode ser vazio");
+    throw std::invalid_argument("Nome da banca nao pode ser vazio");
   }
   if (feira.empty()) {
-    throw std::invalid_argument("Nome da feira não pode ser vazio");
+    throw std::invalid_argument("Nome da feira nao pode ser vazio");
   }
   if (senha.empty()) {
-    throw std::invalid_argument("Senha não pode ser vazia");
+    throw std::invalid_argument("Senha nao pode ser vazia");
   }
   if (senha.length() < 4) {
-    throw std::invalid_argument("Senha deve ter no mínimo 4 caracteres");
+    throw std::invalid_argument("Senha deve ter no minimo 4 caracteres");
   }
 
   // Hashear senha
@@ -98,27 +98,27 @@ std::string Feirante::GetSenhaHash() const {
 
 void Feirante::SetNome(const std::string& nome) {
   if (nome.empty()) {
-    throw std::invalid_argument("Nome do feirante não pode ser vazio");
+    throw std::invalid_argument("Nome do feirante nao pode ser vazio");
   }
   nome_ = nome;
 }
 
 void Feirante::SetBanca(const std::string& banca) {
   if (banca.empty()) {
-    throw std::invalid_argument("Nome da banca não pode ser vazio");
+    throw std::invalid_argument("Nome da banca nao pode ser vazio");
   }
   banca_ = banca;
 }
 
 void Feirante::SetFeira(const std::string& feira) {
   if (feira.empty()) {
-    throw std::invalid_argument("Nome da feira não pode ser vazio");
+    throw std::invalid_argument("Nome da feira nao pode ser vazio");
   }
   feira_ = feira;
 }
 
 // ---------------------------------------------------------
-// Autenticação
+// Autenticacao
 // ---------------------------------------------------------
 
 bool Feirante::ValidarSenha(const std::string& senha) const {
@@ -135,10 +135,10 @@ void Feirante::AlterarSenha(const std::string& senhaAntiga,
 
   // Validar senha nova
   if (senhaNova.empty()) {
-    throw std::invalid_argument("Nova senha não pode ser vazia");
+    throw std::invalid_argument("Nova senha nao pode ser vazia");
   }
   if (senhaNova.length() < 4) {
-    throw std::invalid_argument("Nova senha deve ter no mínimo 4 caracteres");
+    throw std::invalid_argument("Nova senha deve ter no minimo 4 caracteres");
   }
 
   // Atualizar hash
@@ -146,7 +146,7 @@ void Feirante::AlterarSenha(const std::string& senhaAntiga,
 }
 
 // ---------------------------------------------------------
-// Serialização
+// Serializacao
 // ---------------------------------------------------------
 
 std::string Feirante::ParaJSON() const {

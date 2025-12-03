@@ -1,6 +1,6 @@
 /**
  * @file usuario.cpp
- * @brief Implementação da classe Usuario
+ * @brief Implementacao da classe Usuario
  */
 
 #include "usuario.h"

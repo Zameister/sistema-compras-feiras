@@ -1,6 +1,6 @@
 /**
  * @file usuario.h
- * @brief Declaração da classe Usuario
+ * @brief Declaracao da classe Usuario
  * @author Luidgi Varela Carneiro
  * @date 2025
  */
@@ -14,34 +14,34 @@
 
 /**
  * @class Usuario
- * @brief Representa um usuário do sistema com nome e localização GPS
+ * @brief Representa um usuario do sistema com nome e localizacao GPS
  *
- * Esta classe armazena informações do usuário incluindo nome e
- * localização geográfica para cálculo de distâncias até feiras.
+ * Esta classe armazena informacoes do usuario incluindo nome e
+ * localizacao geografica para calculo de distancias ate feiras.
  */
 class Usuario {
 private:
-    std::string nome;  ///< Nome do usuário
-    Location localizacao;  ///< Localização GPS do usuário
+    std::string nome;  ///< Nome do usuario
+    Location localizacao;  ///< Localizacao GPS do usuario
 
 public:
     /**
-     * @brief Construtor padrão
+     * @brief Construtor padrao
      *
      * @pre Nenhuma
-     * @post Cria usuário com valores padrão
+     * @post Cria usuario com valores padrao
      * @post nome vazio, localizacao em (0,0)
      */
     Usuario();
 
     /**
-     * @brief Construtor com parâmetros (EU005)
+     * @brief Construtor com parametros (EU005)
      *
-     * @param nome Nome do usuário
-     * @param local Localização GPS do usuário
+     * @param nome Nome do usuario
+     * @param local Localizacao GPS do usuario
      *
-     * @pre nome não vazio
-     * @pre local com coordenadas válidas
+     * @pre nome nao vazio
+     * @pre local com coordenadas validas
      * @post Usuario criado com valores fornecidos
      * @post this->nome == nome
      * @post this->localizacao == local
@@ -49,9 +49,9 @@ public:
     Usuario(const std::string& nome, const Location& local);
 
     /**
-     * @brief Obtém o nome do usuário
+     * @brief Obtem o nome do usuario
      *
-     * @return Nome do usuário
+     * @return Nome do usuario
      *
      * @pre Nenhuma
      * @post Retorna nome sem modificar o estado
@@ -59,44 +59,44 @@ public:
     std::string GetNome() const;
 
     /**
-     * @brief Obtém a localização GPS do usuário
+     * @brief Obtem a localizacao GPS do usuario
      *
-     * @return Referência constante para a localização
+     * @return Referencia constante para a localizacao
      *
      * @pre Nenhuma
-     * @post Retorna localização sem modificar o estado
+     * @post Retorna localizacao sem modificar o estado
      */
     const Location& GetLocalizacao() const;
 
     /**
-     * @brief Define novo nome para o usuário
+     * @brief Define novo nome para o usuario
      *
-     * @param novoNome Novo nome do usuário
+     * @param novoNome Novo nome do usuario
      *
-     * @pre novoNome não vazio
+     * @pre novoNome nao vazio
      * @post this->nome == novoNome
      */
     void SetNome(const std::string& novoNome);
 
     /**
-     * @brief Define nova localização GPS para o usuário (EU005)
+     * @brief Define nova localizacao GPS para o usuario (EU005)
      *
-     * @param novaLocalizacao Nova localização GPS
+     * @param novaLocalizacao Nova localizacao GPS
      *
-     * @pre novaLocalizacao com coordenadas válidas
+     * @pre novaLocalizacao com coordenadas validas
      * @post this->localizacao == novaLocalizacao
      */
     void SetLocalizacao(const Location& novaLocalizacao);
 
     /**
-     * @brief Calcula distância do usuário até uma feira (EU003)
+     * @brief Calcula distancia do usuario ate uma feira (EU003)
      *
      * @param feira Feira de destino
-     * @return Distância em quilômetros usando fórmula de Haversine
+     * @return Distancia em quilometros usando formula de Haversine
      *
-     * @pre feira válida com localização definida
-     * @post Retorna distância >= 0.0
-     * @post Estado do usuário não modificado
+     * @pre feira valida com localizacao definida
+     * @post Retorna distancia >= 0.0
+     * @post Estado do usuario nao modificado
      */
     double DistanciaPara(const Feira& feira) const;
 };
