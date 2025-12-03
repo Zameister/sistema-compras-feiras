@@ -202,3 +202,88 @@ g++ -std=c++17 -Wall -I./include src/database.cpp src/distancias.cpp src/feira.c
 ```
 
 Depois acesse: http://localhost:8080/login.html
+
+---
+
+## Solucao de Problemas
+
+### Erro: "Permission denied" ao compilar
+
+**Problema:**
+```
+cannot open output file bin/webserver.exe: Permission denied
+```
+
+**Causa:** O servidor esta rodando e o compilador nao consegue sobrescrever o arquivo.
+
+**Solucao:**
+
+1. **Parar o servidor primeiro:**
+   - Pressione `Ctrl+C` no terminal onde o servidor esta rodando
+   - Ou feche a janela do terminal
+
+2. **Se ainda nao funcionar, matar o processo manualmente:**
+
+   **Windows:**
+   ```bash
+   # Ver processos na porta 8080
+   netstat -ano | findstr :8080
+
+   # Matar o processo (substitua PID pelo numero que apareceu)
+   taskkill //PID 12345 //F
+   ```
+
+   **Mac/Linux:**
+   ```bash
+   # Ver processos na porta 8080
+   lsof -i :8080
+
+   # Matar o processo (substitua PID pelo numero)
+   kill -9 12345
+   ```
+
+3. **Compilar novamente:**
+   ```bash
+   g++ -std=c++17 -Wall -I./include src/database.cpp src/distancias.cpp src/feira.cpp src/feirante.cpp src/location.cpp src/produto.cpp src/sistema.cpp src/usuario.cpp src/webserver.cpp -o bin/webserver.exe -lws2_32
+   ```
+
+### Erro: "Erro ao fazer bind na porta 8080"
+
+**Causa:** Ja existe um servidor rodando na porta 8080.
+
+**Solucao:** Use os comandos acima para matar o processo na porta 8080.
+
+### Erro: "No such file or directory" ao executar
+
+**Causa:** Voce esta tentando executar de dentro da pasta `bin/`.
+
+**Solucao:** Execute sempre da raiz do projeto:
+```bash
+# CORRETO (da raiz do projeto)
+./bin/webserver.exe
+
+# ERRADO (de dentro de bin/)
+cd bin
+./webserver.exe  # Nao funciona - nao encontra web/
+```
+
+### Erro: Pagina em branco ou 404
+
+**Causa:** Voce esta acessando o endereco errado.
+
+**Solucao:** Acesse http://localhost:8080/login.html (com `/login.html` no final)
+
+### Warning sobre "#pragma comment"
+
+**Mensagem:**
+```
+warning: ignoring '#pragma comment ' [-Wunknown-pragmas]
+```
+
+**Solucao:** Pode ignorar - e apenas um aviso, nao e um erro. O programa funciona normalmente.
+
+### Caracteres estranhos no terminal
+
+**Causa:** Terminal com encoding diferente.
+
+**Solucao:** Nao afeta o funcionamento. O site funciona normalmente no navegador.
