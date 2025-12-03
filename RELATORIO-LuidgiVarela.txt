@@ -4,34 +4,34 @@ Sistema de Compras em Feiras - TP2
 
 Data       | Horas | Tipo Tarefa                      | Descricao da Tarefa Realizada
 -----------|-------|----------------------------------|--------------------------------------------------
-15/10/2024 | 2h    | estudar aulas e laboratorios     | Revisei conceitos de TDD e estruturas de dados em C++
-17/10/2024 | 3h    | especificar os modulos           | Especifiquei classes Produto, Location e Distancias
-19/10/2024 | 2h    | especificar as funcoes           | Defini interface de busca e ordenacao de produtos
-21/10/2024 | 3h    | projetar                         | Projetei sistema de calculo de distancias e localizacao
-23/10/2024 | 2h    | fazer diagramas                  | Criei diagramas de sequencia para fluxo de compra
-24/10/2024 | 4h    | redigir casos de teste           | Escrevi testes para classes Produto e Sistema
-25/10/2024 | 3h    | codificar modulo                 | Implementei classe Produto com validacoes
-26/10/2024 | 2h    | realizar os testes               | Executei testes unitarios do Produto
-28/10/2024 | 3h    | codificar modulo                 | Implementei calculo de distancias entre coordenadas
-29/10/2024 | 2h    | revisar codigo do modulo         | Revisei algoritmo de distancia euclidiana
-31/10/2024 | 4h    | codificar modulo                 | Criei sistema de feiras com produtos e localizacao
-02/11/2024 | 3h    | codificar modulo                 | Implementei classe Usuario com carrinho de compras
-04/11/2024 | 2h    | redigir casos de teste           | Escrevi testes para Sistema e integracao
-05/11/2024 | 3h    | codificar modulo                 | Implementei busca de produtos por nome/categoria
-07/11/2024 | 4h    | codificar modulo                 | Desenvolvi database mock com dados de exemplo
-09/11/2024 | 3h    | codificar modulo                 | Criei paginas HTML do catalogo e carrinho
-11/11/2024 | 2h    | revisar codigo do modulo         | Code review das classes de negocio
-12/11/2024 | 3h    | codificar modulo                 | Implementei filtros de categoria no frontend
-14/11/2024 | 2h    | realizar os testes               | Testei fluxo completo de compra no site
-16/11/2024 | 3h    | codificar modulo                 | Adicionei validacoes de formulario no JS
-18/11/2024 | 2h    | Rodar verificador estatico       | Rodei cppcheck nas classes de dominio
-19/11/2024 | 3h    | revisar especificacoes           | Revisei assertivas (@pre/@post) em todos headers
-21/11/2024 | 4h    | codificar modulo                 | Implementei testes simples sem dependencia do GTest
-23/11/2024 | 3h    | instrumentar verificando cobertura| Analisei cobertura de codigo e adicionei testes
-25/11/2024 | 2h    | documentar com Doxygen           | Documentei classes com comentarios Doxygen
-26/11/2024 | 3h    | gerenciar a construcao do software| Ajustei Makefile para compilacao multiplataforma
-28/11/2024 | 2h    | revisar projetos                 | Revisei arquitetura geral do sistema
-30/11/2024 | 3h    | documentar com Doxygen           | Escrevi DESENVOLVIMENTO.md com guia TDD
-02/12/2024 | 2h    | realizar os testes               | Testes de integracao e validacao final
+15/10/2025 | 2h    | estudar aulas e laboratorios     | Revisei conceitos de TDD e estruturas de dados em C++
+17/10/2025 | 3h    | especificar os modulos           | Especifiquei classes Produto, Location e Distancias
+19/10/2025 | 2h    | especificar as funcoes           | Defini interface de busca e ordenacao de produtos
+21/10/2025 | 3h    | projetar                         | Projetei sistema de calculo de distancias e localizacao
+23/10/2025 | 2h    | fazer diagramas                  | Criei diagramas de sequencia para fluxo de compra
+24/10/2025 | 4h    | redigir casos de teste           | Escrevi testes para classes Produto e Sistema
+25/10/2025 | 3h    | codificar modulo                 | Implementei classe Produto com validacoes
+26/10/2025 | 2h    | realizar os testes               | Executei testes unitarios do Produto
+28/10/2025 | 3h    | codificar modulo                 | Implementei calculo de distancias entre coordenadas
+29/10/2025 | 2h    | revisar codigo do modulo         | Revisei algoritmo de distancia euclidiana
+31/10/2025 | 4h    | codificar modulo                 | Criei sistema de feiras com produtos e localizacao
+02/11/2025 | 3h    | codificar modulo                 | Implementei classe Usuario com carrinho de compras
+04/11/2025 | 2h    | redigir casos de teste           | Escrevi testes para Sistema e integracao
+05/11/2025 | 3h    | codificar modulo                 | Implementei busca de produtos por nome/categoria
+07/11/2025 | 4h    | codificar modulo                 | Desenvolvi database mock com dados de exemplo
+09/11/2025 | 3h    | codificar modulo                 | Criei paginas HTML do catalogo e carrinho
+11/11/2025 | 2h    | revisar codigo do modulo         | Code review das classes de negocio
+12/11/2025 | 3h    | codificar modulo                 | Implementei filtros de categoria no frontend
+14/11/2025 | 2h    | realizar os testes               | Testei fluxo completo de compra no site
+16/11/2025 | 3h    | codificar modulo                 | Adicionei validacoes de formulario no JS
+18/11/2025 | 2h    | Rodar verificador estatico       | Rodei cppcheck nas classes de dominio
+19/11/2025 | 3h    | revisar especificacoes           | Revisei assertivas (@pre/@post) em todos headers
+21/11/2025 | 4h    | codificar modulo                 | Implementei testes simples sem dependencia do GTest
+23/11/2025 | 3h    | instrumentar verificando cobertura| Analisei cobertura de codigo e adicionei testes
+25/11/2025 | 2h    | documentar com Doxygen           | Documentei classes com comentarios Doxygen
+26/11/2025 | 3h    | gerenciar a construcao do software| Ajustei Makefile para compilacao multiplataforma
+28/11/2025 | 2h    | revisar projetos                 | Revisei arquitetura geral do sistema
+30/11/2025 | 3h    | documentar com Doxygen           | Escrevi DESENVOLVIMENTO.md com guia TDD
+02/12/2025 | 2h    | realizar os testes               | Testes de integracao e validacao final
 
 TOTAL: 75 horas
