@@ -1,6 +1,6 @@
 /**
  * @file produto.cpp
- * @brief Implementação da classe Produto
+ * @brief Implementacao da classe Produto
  * @author Luidgi Varela Carneiro, Arthur Souza Chagas
  * @date 2025
  */
@@ -70,7 +70,7 @@ void Produto::SetFeira(const std::string& feira) {
 
 
 // ---------------------------------------------------------
-// Métodos de Avaliação
+// Metodos de Avaliacao
 // ---------------------------------------------------------
 
 double Produto::GetNota() const {
@@ -82,9 +82,9 @@ int Produto::GetNumAvaliacoes() const {
 }
 
 void Produto::AdicionarAvaliacao(double nota) {
-    if (nota < 1.0 || nota > 5.0) return;  // Validação
+    if (nota < 1.0 || nota > 5.0) return;  // Validacao
 
-    // Recalcular média
+    // Recalcular media
     double somaTotal = (notaMedia_ * numAvaliacoes_) + nota;
     numAvaliacoes_++;
     notaMedia_ = somaTotal / numAvaliacoes_;

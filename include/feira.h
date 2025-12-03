@@ -1,6 +1,6 @@
 /**
  * @file feira.h
- * @brief Definição da classe Feira com localização GPS
+ * @brief Definicao da classe Feira com localizacao GPS
  * @author Luidgi Varela Carneiro
  * @date 2025
  */
@@ -15,38 +15,38 @@
 
 /**
  * @class Feira
- * @brief Representa uma feira com localização GPS e produtos
+ * @brief Representa uma feira com localizacao GPS e produtos
  *
- * Esta classe gerencia informações de feiras incluindo nome, endereço,
- * localização GPS e lista de produtos disponíveis.
+ * Esta classe gerencia informacoes de feiras incluindo nome, endereco,
+ * localizacao GPS e lista de produtos disponiveis.
  */
 class Feira {
 private:
     std::string nome;  ///< Nome da feira
-    std::string endereco;  ///< Endereço da feira
-    Location local;  ///< Localização GPS (latitude/longitude)
-    std::vector<Produto> produtos;  ///< Lista de produtos disponíveis
+    std::string endereco;  ///< Endereco da feira
+    Location local;  ///< Localizacao GPS (latitude/longitude)
+    std::vector<Produto> produtos;  ///< Lista de produtos disponiveis
 
 public:
     /**
-     * @brief Construtor padrão
+     * @brief Construtor padrao
      *
      * @pre Nenhuma
-     * @post Cria feira com valores vazios/padrão
+     * @post Cria feira com valores vazios/padrao
      * @post produtos.empty() == true
      */
     Feira();
 
     /**
-     * @brief Construtor com parâmetros
+     * @brief Construtor com parametros
      *
      * @param nome Nome da feira
-     * @param endereco Endereço da feira
-     * @param local Localização GPS da feira
+     * @param endereco Endereco da feira
+     * @param local Localizacao GPS da feira
      *
-     * @pre nome não vazio
-     * @pre endereco não vazio
-     * @pre local com coordenadas válidas
+     * @pre nome nao vazio
+     * @pre endereco nao vazio
+     * @pre local com coordenadas validas
      * @post Feira criada com os valores fornecidos
      * @post produtos.empty() == true
      */
@@ -55,7 +55,7 @@ public:
           const Location& local);
 
     /**
-     * @brief Obtém o nome da feira
+     * @brief Obtem o nome da feira
      *
      * @return Nome da feira
      *
@@ -65,29 +65,29 @@ public:
     std::string GetNome() const;
 
     /**
-     * @brief Obtém o endereço da feira
+     * @brief Obtem o endereco da feira
      *
-     * @return Endereço da feira
+     * @return Endereco da feira
      *
      * @pre Nenhuma
-     * @post Retorna endereço sem modificar o estado
+     * @post Retorna endereco sem modificar o estado
      */
     std::string GetEndereco() const;
 
     /**
-     * @brief Obtém a localização GPS da feira
+     * @brief Obtem a localizacao GPS da feira
      *
-     * @return Referência constante para a localização
+     * @return Referencia constante para a localizacao
      *
      * @pre Nenhuma
-     * @post Retorna localização sem modificar o estado
+     * @post Retorna localizacao sem modificar o estado
      */
     const Location& GetLocal() const;
 
     /**
-     * @brief Obtém lista de produtos da feira
+     * @brief Obtem lista de produtos da feira
      *
-     * @return Referência constante para vetor de produtos
+     * @return Referencia constante para vetor de produtos
      *
      * @pre Nenhuma
      * @post Retorna produtos sem modificar o estado
@@ -99,33 +99,33 @@ public:
      *
      * @param nome Novo nome da feira
      *
-     * @pre nome não vazio
+     * @pre nome nao vazio
      * @post this->nome == nome
      */
     void SetNome(const std::string& nome);
 
     /**
-     * @brief Define novo endereço para a feira
+     * @brief Define novo endereco para a feira
      *
-     * @param endereco Novo endereço da feira
+     * @param endereco Novo endereco da feira
      *
-     * @pre endereco não vazio
+     * @pre endereco nao vazio
      * @post this->endereco == endereco
      */
     void SetEndereco(const std::string& endereco);
 
     /**
-     * @brief Define nova localização GPS para a feira
+     * @brief Define nova localizacao GPS para a feira
      *
-     * @param novaLocalizacao Nova localização GPS
+     * @param novaLocalizacao Nova localizacao GPS
      *
-     * @pre novaLocalizacao com coordenadas válidas
+     * @pre novaLocalizacao com coordenadas validas
      * @post this->local == novaLocalizacao
      */
     void SetLocal(const Location& novaLocalizacao);
 
     /**
-     * @brief Adiciona um produto à feira (EU004)
+     * @brief Adiciona um produto a feira (EU004)
      *
      * @param produto Produto a ser adicionado
      *
@@ -139,11 +139,11 @@ public:
      * @brief Remove um produto da feira pelo nome (EU001)
      *
      * @param nomeProduto Nome do produto a remover
-     * @return true se produto foi removido, false caso contrário
+     * @return true se produto foi removido, false caso contrario
      *
      * @pre Nenhuma
-     * @post Se encontrado: produtos.size() diminuído em 1
-     * @post Se não encontrado: produtos não modificado
+     * @post Se encontrado: produtos.size() diminuido em 1
+     * @post Se nao encontrado: produtos nao modificado
      */
     bool RemoverProduto(const std::string& nomeProduto);
 
@@ -151,24 +151,24 @@ public:
      * @brief Busca um produto na feira pelo nome (EU001)
      *
      * @param nomeProduto Nome do produto a buscar
-     * @return Ponteiro para o produto se encontrado, nullptr caso contrário
+     * @return Ponteiro para o produto se encontrado, nullptr caso contrario
      *
      * @pre Nenhuma
-     * @post Retorna ponteiro válido se produto existe
-     * @post Retorna nullptr se produto não existe
-     * @post produtos não modificado
+     * @post Retorna ponteiro valido se produto existe
+     * @post Retorna nullptr se produto nao existe
+     * @post produtos nao modificado
      */
     Produto* BuscarProduto(const std::string& nomeProduto);
 
     /**
-     * @brief Calcula distância da feira até uma localização (EU003)
+     * @brief Calcula distancia da feira ate uma localizacao (EU003)
      *
-     * @param destino Localização de destino
-     * @return Distância em quilômetros usando fórmula de Haversine
+     * @param destino Localizacao de destino
+     * @return Distancia em quilometros usando formula de Haversine
      *
-     * @pre destino com coordenadas válidas
-     * @post Retorna distância >= 0.0
-     * @post Estado da feira não modificado
+     * @pre destino com coordenadas validas
+     * @post Retorna distancia >= 0.0
+     * @post Estado da feira nao modificado
      */
     double DistanciaPara(const Location& destino) const;
 };

@@ -1,6 +1,6 @@
 /**
  * @file location.h
- * @brief Definição da classe Location (GPS)
+ * @brief Definicao da classe Location (GPS)
  * @author Luidgi Varela Carneiro
  * @date 2025
  */
@@ -12,10 +12,10 @@
 
 /**
  * @class Location
- * @brief Representa uma posição geográfica usando latitude e longitude
+ * @brief Representa uma posicao geografica usando latitude e longitude
  *
- * Esta classe armazena coordenadas GPS e permite cálculo de distâncias
- * entre localizações usando a fórmula de Haversine.
+ * Esta classe armazena coordenadas GPS e permite calculo de distancias
+ * entre localizacoes usando a formula de Haversine.
  */
 class Location {
 private:
@@ -24,16 +24,16 @@ private:
 
 public:
     /**
-     * @brief Construtor padrão
+     * @brief Construtor padrao
      *
      * @pre Nenhuma
-     * @post Cria localização em (0, 0) - ponto nulo
+     * @post Cria localizacao em (0, 0) - ponto nulo
      * @post latitude == 0.0 e longitude == 0.0
      */
     Location();
 
     /**
-     * @brief Construtor com parâmetros (EU003)
+     * @brief Construtor com parametros (EU003)
      *
      * @param latitude Latitude em graus
      * @param longitude Longitude em graus
@@ -46,7 +46,7 @@ public:
     Location(double latitude, double longitude);
 
     /**
-     * @brief Obtém a latitude
+     * @brief Obtem a latitude
      *
      * @return Latitude em graus
      *
@@ -56,7 +56,7 @@ public:
     double GetLatitude() const;
 
     /**
-     * @brief Obtém a longitude
+     * @brief Obtem a longitude
      *
      * @return Longitude em graus
      *
@@ -86,17 +86,17 @@ public:
     void SetLongitude(double novaLon);
 
     /**
-     * @brief Calcula distância até outra localização (EU003)
+     * @brief Calcula distancia ate outra localizacao (EU003)
      *
-     * Utiliza a fórmula de Haversine para calcular a distância
-     * ortodrômica (great-circle distance) entre dois pontos na Terra.
+     * Utiliza a formula de Haversine para calcular a distancia
+     * ortodromica (great-circle distance) entre dois pontos na Terra.
      *
-     * @param outra Localização de destino
-     * @return Distância em quilômetros
+     * @param outra Localizacao de destino
+     * @return Distancia em quilometros
      *
-     * @pre outra com coordenadas válidas
-     * @post Retorna distância >= 0.0
-     * @post Estado desta localização não modificado
+     * @pre outra com coordenadas validas
+     * @post Retorna distancia >= 0.0
+     * @post Estado desta localizacao nao modificado
      */
     double DistanciaPara(const Location& outra) const;
 };

@@ -1,6 +1,6 @@
 /**
  * @file distancias.h
- * @brief Funções utilitárias para cálculo de distâncias entre usuário e feiras
+ * @brief Funcoes utilitarias para calculo de distancias entre usuario e feiras
  * @author Luidgi Varela Carneiro
  * @date 2025
  */
@@ -14,21 +14,21 @@
 #include "feira.h"
 
 /**
- * @brief Calcula distância do usuário até cada feira (EU003)
+ * @brief Calcula distancia do usuario ate cada feira (EU003)
  *
- * Esta função percorre todas as feiras e calcula a distância do usuário
- * até cada uma delas usando a fórmula de Haversine.
+ * Esta funcao percorre todas as feiras e calcula a distancia do usuario
+ * ate cada uma delas usando a formula de Haversine.
  *
- * @param usuario Referência ao usuário com localização definida
+ * @param usuario Referencia ao usuario com localizacao definida
  * @param feiras Vetor contendo todas as feiras cadastradas
- * @return Vector de pares (Feira, distância em km)
+ * @return Vector de pares (Feira, distancia em km)
  *
- * @pre usuario com localização válida definida
- * @pre feiras não vazio (size > 0)
- * @pre Todas as feiras com localizações válidas
+ * @pre usuario com localizacao valida definida
+ * @pre feiras nao vazio (size > 0)
+ * @pre Todas as feiras com localizacoes validas
  * @post Retorna vetor com mesmo tamanho de feiras
- * @post Todas as distâncias >= 0.0
- * @post Parâmetros de entrada não são modificados
+ * @post Todas as distancias >= 0.0
+ * @post Parametros de entrada nao sao modificados
  */
 std::vector<std::pair<Feira, double>>
 CalcularDistancias(const Usuario& usuario, const std::vector<Feira>& feiras);

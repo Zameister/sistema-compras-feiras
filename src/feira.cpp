@@ -1,6 +1,6 @@
 /**
  * @file feira.cpp
- * @brief Implementação da classe Feira com localização GPS
+ * @brief Implementacao da classe Feira com localizacao GPS
  */
 
 #include "feira.h"
@@ -57,7 +57,7 @@ void Feira::SetLocal(const Location& novaLocalizacao) {
 
 
 // ---------------------------------------------------------
-// Manipulação de Produtos
+// Manipulacao de Produtos
 // ---------------------------------------------------------
 
 void Feira::AdicionarProduto(const Produto& produto) {
@@ -88,7 +88,7 @@ Produto* Feira::BuscarProduto(const std::string& nomeProduto) {
 
 
 // ---------------------------------------------------------
-// Distância até uma localização
+// Distancia ate uma localizacao
 // ---------------------------------------------------------
 
 double Feira::DistanciaPara(const Location& destino) const {
