@@ -1,0 +1,37 @@
+RELATORIO DE TRABALHO - Arthur Souza Chagas
+Sistema de Compras em Feiras - TP2
+==========================================
+
+Data       | Horas | Tipo Tarefa                      | Descricao da Tarefa Realizada
+-----------|-------|----------------------------------|--------------------------------------------------
+15/10/2024 | 2h    | estudar aulas e laboratorios     | Estudei TDD e revisei os conceitos de C++ moderno
+16/10/2024 | 3h    | especificar os modulos           | Defini as classes principais (Produto, Feira, Usuario, Feirante)
+18/10/2024 | 2h    | especificar as funcoes           | Especifiquei metodos de autenticacao e validacao
+20/10/2024 | 4h    | projetar                         | Projetei a arquitetura do sistema e fluxo de dados
+22/10/2024 | 2h    | fazer diagramas                  | Criei diagramas de classes e relacionamentos
+23/10/2024 | 3h    | redigir casos de teste           | Escrevi testes para classe Feirante (TDD - RED)
+24/10/2024 | 4h    | codificar modulo                 | Implementei classe Feirante com hash de senha
+25/10/2024 | 2h    | realizar os testes               | Executei testes do Feirante (TDD - GREEN)
+27/10/2024 | 3h    | codificar modulo                 | Implementei sistema de mensagens entre usuarios
+28/10/2024 | 2h    | revisar codigo do modulo         | Revisei codigo das mensagens e corrigi bugs
+30/10/2024 | 4h    | codificar modulo                 | Criei painel do feirante com gestao de produtos
+01/11/2024 | 3h    | codificar modulo                 | Implementei painel admin com relatorios
+03/11/2024 | 2h    | codificar modulo                 | Adicionei sistema de avaliacoes de produtos
+04/11/2024 | 3h    | codificar modulo                 | Implementei ordenacao avancada por preco/distancia
+06/11/2024 | 4h    | codificar modulo                 | Desenvolvi servidor HTTP em C++ com Winsock2
+08/11/2024 | 3h    | codificar modulo                 | Criei interface HTML/CSS para login e cadastro
+10/11/2024 | 2h    | Rodar verificador estatico       | Rodei cppcheck e corrigi warnings no codigo
+11/11/2024 | 2h    | revisar codigo do modulo         | Revisei todo o codigo do webserver
+13/11/2024 | 3h    | codificar modulo                 | Implementei rotas do servidor e manipulacao de requests
+15/11/2024 | 2h    | realizar os testes               | Testei todas as funcionalidades do site
+17/11/2024 | 3h    | codificar modulo                 | Corrigi bugs de encoding e compatibilidade
+18/11/2024 | 2h    | instrumentar verificando cobertura| Gerei relatorio de cobertura com gcov
+20/11/2024 | 4h    | codificar modulo                 | Removi acentos de todos arquivos pra compatibilidade
+22/11/2024 | 3h    | gerenciar a construcao do software| Corrigi Makefile (separei testes Google Test)
+24/11/2024 | 2h    | documentar com Doxygen           | Gerei documentacao HTML completa do projeto
+25/11/2024 | 3h    | gerenciar a construcao do software| Implementei targets de coverage e static-analysis
+27/11/2024 | 2h    | revisar codigo do modulo         | Code review final antes da entrega
+29/11/2024 | 3h    | documentar com Doxygen           | Atualizei README e documentacao de como rodar
+01/12/2024 | 2h    | realizar os testes               | Testes finais em diferentes maquinas
+
+TOTAL: 74 horas
