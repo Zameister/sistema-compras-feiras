@@ -11,11 +11,22 @@
 #include <fstream>
 #include <map>
 #include <algorithm>
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include "../include/sistema.h"
 
-#pragma comment(lib, "ws2_32.lib")
+#ifdef _WIN32
+    #include <winsock2.h>
+    #include <ws2tcpip.h>
+#else
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <unistd.h>
+    #include <arpa/inet.h>
+    #define SOCKET int
+    #define INVALID_SOCKET -1
+    #define SOCKET_ERROR -1
+    #define closesocket close
+#endif
+
+#include "../include/sistema.h"
 
 // Prototipos das funcoes do database.cpp
 void InicializarBancoDeDados(Sistema* sistema);
@@ -133,8 +144,10 @@ private:
 
 public:
     WebServer(int p) : port(p), sistema(new Sistema()) {
-        WSADATA wsaData;
-        WSAStartup(MAKEWORD(2, 2), &wsaData);
+        #ifdef _WIN32
+            WSADATA wsaData;
+            WSAStartup(MAKEWORD(2, 2), &wsaData);
+        #endif
 
         // Inicializar banco de dados
         InicializarBancoDeDados(sistema);
@@ -142,7 +155,9 @@ public:
 
     ~WebServer() {
         closesocket(serverSocket);
-        WSACleanup();
+        #ifdef _WIN32
+            WSACleanup();
+        #endif
         delete sistema;
     }
 

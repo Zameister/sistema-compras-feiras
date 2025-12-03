@@ -2,147 +2,209 @@
 
 Sistema web para buscar produtos em feiras, comparar preços e calcular distâncias.
 
-## 👥 Integrantes
+## Quem Somos
 - **Luidgi Varela Carneiro** - 231011669
 - **Arthur Souza Chagas** - 221037385
 
-## 📝 O Que É
+## O Que É
 
-Um sistema completo onde:
-- **Usuários** buscam produtos, comparam preços e distâncias
+Sistema onde:
+- **Usuários** buscam produtos, comparam preços e veem distâncias das feiras
 - **Feirantes** cadastram produtos e respondem mensagens
-- **Administradores** geram relatórios e gerenciam tudo
-
-**Acesse:** http://localhost:8080/login.html (depois de rodar o servidor)
+- **Admin** gerencia categorias e vê relatórios
 
 ---
 
-## 🚀 Começar Rápido
+## Como Rodar
 
 ### 1. Compilar
 ```bash
-# Com Make (recomendado)
-make
+# Windows (MSYS2/MinGW)
+mingw32-make
 
-# Ou compilar manualmente no Windows:
-mkdir obj bin
-g++ -std=c++17 -Wall -Wextra -Iinclude -c src/*.cpp
-g++ -std=c++17 obj/produto.o obj/feirante.o obj/feira.o obj/sistema.o obj/usuario.o obj/location.o obj/distancias.o obj/database.o obj/main.o -o bin/sistema_feiras.exe
-g++ -std=c++17 obj/produto.o obj/feirante.o obj/feira.o obj/sistema.o obj/usuario.o obj/location.o obj/distancias.o obj/database.o obj/webserver.o -o bin/webserver.exe -lws2_32
+# Linux/Mac
+make
 ```
 
-### 2. Executar
+### 2. Executar Servidor Web
 ```bash
-# Servidor Web
-make run-web          # Com Make
-./bin/webserver.exe   # Windows
-./bin/webserver       # Mac/Linux
+# Windows
+./bin/webserver.exe
 
-# Ou programa console
-make run              # Com Make
-./bin/sistema_feiras.exe   # Windows
-./bin/sistema_feiras       # Mac/Linux
+# Linux/Mac
+./bin/webserver
 ```
 
 ### 3. Acessar
-Abra: http://localhost:8080/login.html
+Abrir no navegador: **http://localhost:8080/login.html**
 
-**Problemas?** Veja [COMO_RODAR.md](COMO_RODAR.md)
-
----
-
-## 📚 Documentação
-
-### [📖 COMO_RODAR.md](COMO_RODAR.md)
-Como compilar e executar o projeto em Windows/Mac/Linux.
-- Pré-requisitos (instalar G++)
-- Passo a passo completo
-- Solução de problemas
-- Scripts prontos (rodar.bat / rodar.sh)
-
-### [🛠️ DESENVOLVIMENTO.md](DESENVOLVIMENTO.md)
-Como o projeto foi desenvolvido.
-- Histórias de Usuário
-- TDD (Test-Driven Development)
-- Linguagem e Padrões de Código
-- Verificadores (cpplint, cppcheck)
-- Bibliotecas (Google Test, Bootstrap)
-- Controle de Versão (Git/GitHub)
-- Cobertura de Testes (gcov)
-- Documentação (Doxygen)
-- Arquitetura (Backend C++ + Frontend Web)
+**Usuário admin padrão:**
+- Login: `admin`
+- Senha: `admin123`
 
 ---
 
-## ✨ Funcionalidades
+## Comandos Disponíveis
+
+### Compilação
+```bash
+mingw32-make              # Compila o projeto
+mingw32-make clean        # Limpa arquivos compilados
+```
+
+### Testes e Qualidade
+```bash
+mingw32-make test         # Roda 30 testes
+mingw32-make coverage     # Cobertura com gcov (89%)
+mingw32-make static-analysis    # Análise com cppcheck
+mingw32-make style-check        # Verifica estilo com cpplint
+```
+
+### Documentação
+```bash
+mingw32-make docs         # Gera documentação Doxygen
+# Abre: docs/html/index.html
+```
+
+### Executar
+```bash
+mingw32-make run-web      # Inicia servidor HTTP
+```
+
+---
+
+## Estrutura do Projeto
+
+```
+sistema-compras-feiras/
+├── include/              # Headers (.h)
+│   ├── feira.h
+│   ├── feirante.h
+│   ├── produto.h
+│   ├── sistema.h
+│   └── usuario.h
+├── src/                  # Código C++ (.cpp)
+│   ├── main.cpp
+│   ├── sistema.cpp
+│   ├── webserver.cpp
+│   └── ...
+├── tests/                # Testes unitários
+│   ├── test_simple.cpp
+│   └── ...
+├── web/                  # Frontend HTML/JS
+│   ├── index.html
+│   ├── feirante.html
+│   ├── admin.html
+│   ├── app.js
+│   └── styles.css
+├── data/                 # Dados persistentes
+│   └── dados.txt
+├── docs/                 # Documentação Doxygen
+├── obj/                  # Objetos compilados (.o)
+├── bin/                  # Executáveis
+├── Makefile              # Build system
+├── Doxyfile              # Config do Doxygen
+└── *.md                  # Documentação
+```
+
+---
+
+## Funcionalidades
 
 ### Usuários
 - Buscar produtos por nome
 - Ordenar por preço, distância ou avaliação
 - Filtrar por feira
+- Calcular distância até as feiras
 - Enviar mensagens para feirantes
-- Avaliar produtos (1-5 estrelas)
+- Avaliar produtos
 
 ### Feirantes
-- Cadastrar produtos (nome, preço, categoria)
-- Ver todos os produtos da feira
-- Receber e responder mensagens
-- Badge de notificações (mensagens não lidas)
+- Cadastrar produtos
+- Ver produtos da feira
+- Receber mensagens
+- Responder dúvidas
 
-### Administradores
-- Gerenciar produtos e categorias
-- Relatórios:
+### Admin
+- Gerenciar usuários e feirantes
+- Criar categorias
+- Ver relatórios:
   - Top 5 produtos mais avaliados
   - Produtos mais baratos
   - Feiras mais populares
   - Estatísticas gerais
 
-**Credenciais Admin:**
-- Usuário: `admin`
-- Senha: `admin123`
+---
+
+## Tecnologias
+
+### Backend
+- **C++17** com g++
+- Servidor HTTP custom
+- API REST JSON
+
+### Frontend
+- **HTML/CSS/JavaScript**
+- Bootstrap 5
+- Fetch API
+
+### Ferramentas
+- **Make** - Build system
+- **gcov** - Cobertura de testes (89%)
+- **cppcheck** - Análise estática
+- **cpplint** - Verificação de estilo
+- **Doxygen** - Documentação
 
 ---
 
-## 🏗️ Estrutura
+## Documentação Completa
 
+### [📖 COMO_RODAR.md](COMO_RODAR.md)
+Instruções detalhadas de instalação e execução
+
+### [🛠️ DESENVOLVIMENTO.md](DESENVOLVIMENTO.md)
+Como fizemos: TDD, testes, arquitetura, verificadores, assertivas, etc.
+
+### [📋 BACKLOG.md](BACKLOG.md)
+Histórias de usuário (EU001-EU025) com rastreabilidade
+
+### [📘 docs/html/index.html](docs/html/index.html)
+Documentação Doxygen (gerar com `make docs`)
+
+---
+
+## Requisitos Atendidos
+
+- ✅ **Multiplataforma** - Windows, Linux, Mac
+- ✅ **TDD** - 30 testes, 89% cobertura
+- ✅ **Verificadores** - gcov, cppcheck, cpplint
+- ✅ **Assertivas** - 161 @pre/@post em todas as funções
+- ✅ **Doxygen** - 63 páginas HTML geradas
+- ✅ **7 Histórias de Usuário** implementadas
+- ✅ **Backend C++** + Frontend JS integrados
+
+---
+
+## Problemas Comuns
+
+### Erro: "g++ não encontrado"
+**Windows:** Instale MSYS2 e rode `pacman -S mingw-w64-x86_64-gcc`
+
+**Linux:** `sudo apt install g++ make`
+
+**Mac:** `xcode-select --install`
+
+### Erro: "Permission denied" no bin/
+```bash
+rm -rf bin
+mkdir bin
 ```
-sistema-compras-feiras/
-├── src/              # Backend C++
-│   ├── webserver.cpp # Servidor HTTP
-│   ├── feirante.cpp  # Classe Feirante (TDD!)
-│   └── ...
-├── include/          # Headers
-├── tests/            # Testes unitários
-├── web/              # Frontend (HTML/CSS/JS)
-│   ├── login.html
-│   ├── index.html
-│   └── ...
-├── data/             # Dados JSON
-└── bin/              # Executáveis
-```
+
+### Erro: "ws2_32" no Windows
+Use o Makefile fornecido - ele já linka Winsock automaticamente.
 
 ---
 
-## 🧪 Tecnologias
+## Licença
 
-- **Linguagem:** C++17
-- **Testes:** Google Test
-- **Frontend:** HTML5, CSS3, Bootstrap, JavaScript
-- **Servidor:** HTTP customizado em C++
-- **Dados:** JSON
-- **Análise:** cppcheck, cpplint
-- **Cobertura:** gcov
-- **Docs:** Doxygen
-
----
-
-## 🔗 Links
-
-- **GitHub:** https://github.com/Zameister/sistema-compras-feiras
-- **Como Rodar:** [COMO_RODAR.md](COMO_RODAR.md)
-- **Desenvolvimento:** [DESENVOLVIMENTO.md](DESENVOLVIMENTO.md)
-
----
-
-## 📄 Licença
-MIT License
+Projeto acadêmico - UnB - Técnicas de Programação 2

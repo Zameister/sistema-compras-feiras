@@ -68,18 +68,30 @@ class Feirante {
   /**
    * @brief Obtem o nome do feirante
    * @return Nome do feirante
+   *
+   * @pre Nenhuma (metodo const)
+   * @post Retorna nome_ sem modifica-lo
+   * @post Estado do objeto permanece inalterado
    */
   std::string GetNome() const;
 
   /**
    * @brief Obtem o nome da banca
    * @return Nome da banca
+   *
+   * @pre Nenhuma (metodo const)
+   * @post Retorna banca_ sem modifica-la
+   * @post Estado do objeto permanece inalterado
    */
   std::string GetBanca() const;
 
   /**
    * @brief Obtem o nome da feira
    * @return Nome da feira
+   *
+   * @pre Nenhuma (metodo const)
+   * @post Retorna feira_ sem modifica-la
+   * @post Estado do objeto permanece inalterado
    */
   std::string GetFeira() const;
 
@@ -87,6 +99,9 @@ class Feirante {
    * @brief Obtem o hash da senha (para persistencia)
    * @return Hash SHA256 da senha
    *
+   * @pre Nenhuma (metodo const)
+   * @post Retorna senhaHash_ sem modifica-lo
+   * @post Estado do objeto permanece inalterado
    * @warning Nunca exponha a senha em texto puro
    */
   std::string GetSenhaHash() const;

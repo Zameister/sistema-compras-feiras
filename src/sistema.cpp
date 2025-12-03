@@ -1,3 +1,14 @@
+/**
+ * @file sistema.cpp
+ * @brief Implementacao da classe Sistema
+ * @author Luidgi Varela Carneiro, Arthur Souza Chagas
+ *
+ * Implementa o sistema principal de busca e comparacao de produtos em feiras.
+ * Gerencia usuarios, feiras, produtos e calculo de distancias.
+ *
+ * Historias de Usuario: EU001, EU002, EU003, EU006, EU007
+ */
+
 #include "sistema.h"
 #include <iostream>
 #include <algorithm>
@@ -9,11 +20,21 @@ using namespace std;
 
 // ========================== AUXILIARES ===============================
 
+/**
+ * @brief Limpa o buffer de entrada
+ *
+ * Remove caracteres pendentes do buffer para evitar problemas com cin.
+ */
 void LimparBuffer() {
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
+/**
+ * @brief Pausa a execucao aguardando ENTER
+ *
+ * Exibe mensagem e aguarda usuario pressionar ENTER para continuar.
+ */
 void Pausar() {
     cout << "\nPressione ENTER para continuar...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
