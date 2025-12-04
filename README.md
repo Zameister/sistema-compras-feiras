@@ -17,6 +17,11 @@ Sistema onde:
 
 ## Como Rodar
 
+IMPORTANTE:
+No Windows, o projeto só funciona corretamente usando
+"GIT BASH".
+Não funciona no CMD nem no PowerShell.
+
 ### 1. Compilar
 ```bash
 # Windows (MSYS2/MinGW)
@@ -73,42 +78,6 @@ mingw32-make run-web      # Inicia servidor HTTP
 
 ---
 
-## Estrutura do Projeto
-
-```
-sistema-compras-feiras/
-├── include/              # Headers (.h)
-│   ├── feira.h
-│   ├── feirante.h
-│   ├── produto.h
-│   ├── sistema.h
-│   └── usuario.h
-├── src/                  # Código C++ (.cpp)
-│   ├── main.cpp
-│   ├── sistema.cpp
-│   ├── webserver.cpp
-│   └── ...
-├── tests/                # Testes unitários
-│   ├── test_simple.cpp
-│   └── ...
-├── web/                  # Frontend HTML/JS
-│   ├── index.html
-│   ├── feirante.html
-│   ├── admin.html
-│   ├── app.js
-│   └── styles.css
-├── data/                 # Dados persistentes
-│   └── dados.txt
-├── docs/                 # Documentação Doxygen
-├── obj/                  # Objetos compilados (.o)
-├── bin/                  # Executáveis
-├── Makefile              # Build system
-├── Doxyfile              # Config do Doxygen
-└── *.md                  # Documentação
-```
-
----
-
 ## Funcionalidades
 
 ### Usuários
@@ -154,54 +123,6 @@ sistema-compras-feiras/
 - **cppcheck** - Análise estática
 - **cpplint** - Verificação de estilo
 - **Doxygen** - Documentação
-
----
-
-## Documentação Completa
-
-### [📖 COMO_RODAR.md](COMO_RODAR.md)
-Instruções detalhadas de instalação e execução
-
-### [🛠️ DESENVOLVIMENTO.md](DESENVOLVIMENTO.md)
-Como fizemos: TDD, testes, arquitetura, verificadores, assertivas, etc.
-
-### [📋 BACKLOG.md](BACKLOG.md)
-Histórias de usuário (EU001-EU025) com rastreabilidade
-
-### [📘 docs/html/index.html](docs/html/index.html)
-Documentação Doxygen (gerar com `make docs`)
-
----
-
-## Requisitos Atendidos
-
-- ✅ **Multiplataforma** - Windows, Linux, Mac
-- ✅ **TDD** - 30 testes, 89% cobertura
-- ✅ **Verificadores** - gcov, cppcheck, cpplint
-- ✅ **Assertivas** - 161 @pre/@post em todas as funções
-- ✅ **Doxygen** - 63 páginas HTML geradas
-- ✅ **7 Histórias de Usuário** implementadas
-- ✅ **Backend C++** + Frontend JS integrados
-
----
-
-## Problemas Comuns
-
-### Erro: "g++ não encontrado"
-**Windows:** Instale MSYS2 e rode `pacman -S mingw-w64-x86_64-gcc`
-
-**Linux:** `sudo apt install g++ make`
-
-**Mac:** `xcode-select --install`
-
-### Erro: "Permission denied" no bin/
-```bash
-rm -rf bin
-mkdir bin
-```
-
-### Erro: "ws2_32" no Windows
-Use o Makefile fornecido - ele já linka Winsock automaticamente.
 
 ---
 
