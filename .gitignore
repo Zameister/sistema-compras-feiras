@@ -41,3 +41,6 @@ lib/
 # Arquivos temporários
 *.tmp
 *.temp
+
+# Ferramentas locais (ex.: doxygen baixado)
+tools/
